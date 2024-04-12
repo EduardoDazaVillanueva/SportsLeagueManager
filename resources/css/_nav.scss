@@ -1,0 +1,94 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    background-color: $colorPrincipal;
+    
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: $blanco;
+    
+    padding: 1rem 3rem;
+    
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.nav__menu {
+    display: none;
+    z-index: 100;
+
+    color: $colorPrincipal;
+}
+
+.nav_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: first;
+    gap: 3rem;
+}
+
+.nav_list li,
+.list_option {
+    color: $blanco;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    background: none;
+    border: none;
+    box-shadow: none;
+    
+    transition: all 250ms;
+
+    cursor: pointer;
+}
+
+.nav_list li:hover,
+.list_option:hover {
+    color: $colorSecundario;
+    scale: 1.1;
+}
+
+.inicio-sesion{
+    min-width: 300px;
+    text-align: center;
+}
+
+.logo {
+    max-width: 300px;
+}
+
+.activo{
+    color: $colorPrincipal;
+}
+
+.desplegable ul {
+    display: none;
+    position: absolute;
+    min-width: 140px;
+
+    padding: 1rem;
+
+    background-color: $colorPrincipal;
+}
+
+.desplegable{
+    transition: all 250ms;
+}
+
+.desplegable:hover{
+    color: $colorSecundario;
+}
+
+.desplegable:hover>ul {
+    display: block;
+}
+
+.desplegable ul li {
+    position: relative;
+}

@@ -1,0 +1,79 @@
+.main-infoLiga {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-titulo_infoLiga {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 1rem;
+}
+
+.img_infoLiga {
+    width: 30%;
+    z-index: 100;
+
+    border-radius: 50%;
+}
+
+.titulo_infoLiga {
+    width: 50%;
+    padding: 1rem 3rem;
+    margin-left: -3.3rem;
+
+    font-size: 2rem;
+    letter-spacing: 1px;
+    color: $colorSecundario;
+
+    border-radius: .5rem;
+
+    box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
+    -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
+
+    background-color: $colorPrincipal;
+}
+
+.container-infoLiga {
+    text-align: center;
+    font-size: 1.5rem;
+
+    width: 70vw;
+    padding: 1rem;
+
+    border-radius: .5rem;
+
+    box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
+    -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
+
+    background-color: $colorClaro;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.div-info-liga{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    gap: 3rem;
+
+    margin: .7rem;   
+    
+    color: $colorPrincipal;
+}
+
+.liena{
+    width: 90%;
+    border: 1px solid $colorPrincipal;
+}

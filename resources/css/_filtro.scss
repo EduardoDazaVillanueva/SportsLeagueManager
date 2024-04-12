@@ -1,0 +1,38 @@
+.section2_titulo {
+    font-size: 3rem;
+    letter-spacing: 1px;
+
+    margin-bottom: 1rem;
+
+    color: $colorPrincipal;
+}
+
+.filtro_titulo {
+    font-size: 1.8rem;
+
+    color: $colorPrincipal;
+}
+
+.container-check {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+
+.filtro_label {
+    font-size: 1.4rem;
+
+    cursor: pointer;
+}
+
+.filtro_check{
+    cursor: pointer;
+}
+
+#titulo-ver-mas{
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: $colorPrincipal;
+
+    cursor: pointer;
+}

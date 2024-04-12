@@ -1,0 +1,38 @@
+.main-preguntas{
+    background-color: $colorClaro;
+    
+    height: 87vh;
+}
+
+.section-preguntas{
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 2rem;
+
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+}
+                
+.container-pregunta{
+    width: 100%;
+
+    padding: 0 1rem;
+    border-radius: 5px;
+
+    background-color: $colorPrincipal;
+}
+
+.container-pregunta summary{
+    font-size: 3rem;
+    font-weight: bold;
+    color: $colorSecundario;
+}
+
+.container-pregunta p{
+    font-size: 2rem;
+    padding-left: 5rem;
+    color: $blanco;
+}

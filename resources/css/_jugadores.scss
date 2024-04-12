@@ -1,0 +1,90 @@
+.main-jugadores{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.jugadores_titulo {
+    font-size: 3rem;
+    text-transform: uppercase;
+
+    color: $colorPrincipal;
+    text-align: center;
+
+    margin: 2rem;
+}
+
+.jugadores_tabla {
+    text-align: center;
+
+    border-radius: .5rem;
+
+    box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
+    -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
+
+    background-color: $colorClaro;
+
+    border-collapse: collapse;
+}
+
+th,
+td{
+    width: 300px;
+}
+
+.tabla_cabecera {
+    position: relative;
+    display: inline-block;
+
+    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
+
+    padding-top: 1rem;
+
+    background-color: $colorPrincipal;
+    color: $colorSecundario;
+
+    border-radius: .5rem .5rem 0 0;
+}
+
+.tabla_titulo {
+    padding-bottom: 1rem;
+
+    font-size: 1.6rem;
+    text-transform: uppercase;
+}
+
+tbody {
+    display: inline-block;
+    height: 60vh;
+    overflow: auto;
+
+    scrollbar-color: $colorOscuro $colorClaro;
+
+    padding-top: 1rem;
+    background-color: #eee;
+
+    font-weight: bold;
+
+    border-radius: .5rem;
+}
+
+
+.tabla_datos {
+    font-size: 1.4rem;
+
+    color: $colorOscuro;
+}
+
+.tabla_dato {
+    padding-bottom: 1rem;
+}
+
+.tabla_img {
+    min-width: 70px;
+    max-width: 70px;
+
+    display: inline-block;
+}
