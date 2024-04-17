@@ -2,20 +2,23 @@
     <main class="main-grid">
 
         <h1 class="main_titulo">{{$nombreDeporte->nombre}}</h1>
-        
+
         <section class="main_section1">
-            
+
             @foreach ($ligas as $liga)
-            <article class="section1_liga">
-                <img class="liga_img" src="" alt="logo de la liga">
-                
-                <div class="liga_info">
-                    <h2 class="liga_nombre"> {{$liga["nombre"]}} </h2>
-                    <p class="liga_localidad"> {{$liga["fecha_inicio"]}} / {{$liga["fecha_final"]}} </p>
-                    <p class="liga_localidad">Localidad: <strong> {{$liga["localidad"]}} </strong></p>
-                    <p class="liga_sede">Sede: <strong> {{$liga["sede"]}} </strong></p>
-                </div>
-            </article>
+            <a href="/liga/{{$liga->id}}">
+                <article class="section1_liga">
+
+                    <img class="liga_img" src="" alt="logo de la liga">
+
+                    <div class="liga_info">
+                        <h2 class="liga_nombre"> {{$liga["nombre"]}} </h2>
+                        <p class="liga_localidad"> {{$liga["fecha_inicio"]}} / {{$liga["fecha_final"]}} </p>
+                        <p class="liga_localidad">Localidad: <strong> {{$liga["localidad"]}} </strong></p>
+                        <p class="liga_sede">Sede: <strong> {{$liga["sede"]}} </strong></p>
+                    </div>
+                </article>
+            </a>
             @endforeach
 
 

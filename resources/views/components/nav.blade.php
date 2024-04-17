@@ -8,7 +8,7 @@
                 <ul id="deportes" class="nav_list">
 
                     @foreach ($deportes as $deporte)
-                    <li><a href="/liga/{{$deporte["id"]}}">{{$deporte["nombre"]}}</a></li>
+                    <li><a href="/liga/deporte/{{$deporte["id"]}}">{{$deporte["nombre"]}}</a></li>
                     @endforeach
                     
                 </ul>

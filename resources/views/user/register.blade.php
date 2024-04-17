@@ -84,7 +84,7 @@
             </div> -->
 
             <button class="button-submit" type="submit">Crear cuenta</button>
-            <p class="p">¿Ya tienes cuenta? <a href="../View/LoginUsuario.php"><span class="span">Inicia sesión</span></a>
+            <p class="p">¿Ya tienes cuenta? <a href="/login"><span class="span">Inicia sesión</span></a>
         </form>
     </main>
 </x-layout>

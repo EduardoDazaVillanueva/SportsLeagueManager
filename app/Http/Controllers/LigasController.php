@@ -51,9 +51,12 @@ class LigasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Ligas $ligas)
+    public function show(Ligas $liga)
     {
-        //
+        return view('liga.liga',
+            ['liga' => $liga]
+        );
+
     }
 
     /**

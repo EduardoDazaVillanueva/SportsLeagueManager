@@ -540,6 +540,7 @@ i {
   align-items: center;
   justify-content: first;
   gap: 3rem;
+  z-index: 100;
 }
 
 .nav_list li,

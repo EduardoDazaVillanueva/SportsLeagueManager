@@ -24,7 +24,7 @@ class LoginController extends Controller
         $user = User::create($user);
         auth()->login($user);
 
-        return redirect(route('dashboard'));
+        return redirect(route('welcome'));
     }
     public function register(){
         return view('user.register',['deportes' => Deportes::all()] );
