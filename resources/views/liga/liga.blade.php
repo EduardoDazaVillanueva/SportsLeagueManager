@@ -1,28 +1,5 @@
-<x-layout>
+<x-layout :liga="$liga">
     <main class="main-infoLiga">
-
-        <?php
-        // var_dump($liga);
-        // echo '<img src="' . $liga["logo"] . '" alt="">';
-
-        // echo '<h1 class="main_titulo">' . $liga["nombre"] . '</h1>';
-        // 
-        ?>
-
-        <!-- <div class="container-crear"> -->
-        <?php
-        //         echo '<div class="div-info-liga">';
-        //         echo '<h2>Sede:'. $liga["sede"] .'</h2>';
-        //         echo '<h2>'. $liga["fecha_inicio"] .' - '.$liga["fecha_final"] .'</h2>';
-        //         echo '</div>';
-
-        //         echo '<div class="div-info-liga">';
-        //         echo '<h2>'. $liga["sede"] .' jugadores inscritos</h2>';
-        //         echo '<h2>Las jornadas se juegan el/los día/s:'. $liga["dia_jornada"] .'</h2>';
-        //         echo '</div>';
-        //     
-        ?>
-        <!-- </div> -->
 
         <div class="container-titulo_infoLiga">
             <img src="../images/icono-sinFondo.png" alt="" class="img_infoLiga">

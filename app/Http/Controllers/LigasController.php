@@ -97,4 +97,20 @@ class LigasController extends Controller
             ]
         );
     }
+
+    public function ligaClasificacion(Ligas $liga)
+    {
+        return view('liga.ligaClasificacion',
+            ['liga' => $liga]
+        );
+
+    }
+
+    public function ligaJugadores(Ligas $liga)
+    {
+        return view('liga.ligaJugadores',
+            ['liga' => $liga]
+        );
+
+    }
 }
