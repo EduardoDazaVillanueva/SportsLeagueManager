@@ -62,7 +62,7 @@ form, input, select, textarea, button, label {
 
 .container-crear {
   display: grid;
-  grid-template-areas: "nombre fecha_inicio fecha_final fecha_fin_inscripcion" "logo localidad sede dia_jornada" "pnts_ganar pnts_perder pnts_empate pnts_juego" "txt_responsabilidad txt_responsabilidad txt_responsabilidad txt_responsabilidad" " . btn btn .";
+  grid-template-areas: "nombre fecha_inicio fecha_final fecha_fin_inscripcion" "logo localidad sede dia_jornada" "pnts_ganar pnts_perder pnts_empate pnts_juego" "txt_responsabilidad txt_responsabilidad txt_responsabilidad txt_responsabilidad" ". btn btn .";
   gap: 2rem;
   padding: 2rem 1.8rem;
   border-radius: 15px;
@@ -143,6 +143,7 @@ form, input, select, textarea, button, label {
 
 #dia_jornada-div {
   grid-area: dia_jornada;
+  width: 100%;
 }
 
 #pnts_ganar-div {
@@ -480,6 +481,10 @@ i {
 .file:active {
   opacity: 0.85;
   box-shadow: none;
+}
+
+.input-hidden {
+  display: none;
 }
 
 .selected {

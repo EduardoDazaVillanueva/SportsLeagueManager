@@ -23,7 +23,7 @@
 
 
 
-            <a href="/create">
+            <a href="/liga/crear">
                 <input type="hidden" name="id_deporte" value=" . $IDdeporte . ">
                 <article class="section1_liga-crear">
                     <i class="fa-solid fa-plus"></i>

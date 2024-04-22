@@ -2,7 +2,6 @@
     <main class="main-login">
         <h1 class="login_titulo">Crear cuenta</h1>
         <form action="{{route('validar-register')}}" method="POST" enctype="multipart/form-data" class="form">
-
             @csrf
             <div class="flex-column">
                 <label class="titulo-input">Nombre completo</label>
@@ -17,9 +16,8 @@
             </div>
             @enderror
 
-
             <div class="flex-column">
-                <label class="titulo-input">Añador foto de perfil</label>
+                <label class="titulo-input">Añadir foto de perfil</label>
             </div>
             <div class="file">
                 <i class="fa-solid fa-file"></i>
@@ -29,10 +27,9 @@
             </div>
             @error('logo')
             <div class="error">
-                <p>Archivo no valido</p>
+                <p>Archivo no válido</p>
             </div>
             @enderror
-
 
             <div class="flex-column">
                 <label class="titulo-input">Teléfono</label>
@@ -47,7 +44,6 @@
             </div>
             @enderror
 
-
             <div class="flex-column">
                 <label class="titulo-input">Correo electrónico </label>
             </div>
@@ -57,10 +53,9 @@
             </div>
             @error('email')
             <div class="error">
-                <p>correo no válido</p>
+                <p>Correo no válido</p>
             </div>
             @enderror
-
 
             <div class="flex-column">
                 <label class="titulo-input">Contraseña </label>
@@ -71,18 +66,18 @@
             </div>
             @error('password')
             <div class="error">
-                <p>contraseña incorrecta</p>
+                <p>Contraseña incorrecta</p>
             </div>
             @enderror
 
-            <!-- <div class="flex-column">
-                <label class="titulo-input">Validar contraseña</label>
+            <div class="flex-column">
+                <label class="titulo-input">Verificar contraseña</label>
             </div>
             <div class="inputForm">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" name="password" class="input" placeholder="Introduce la contraseña">
-            </div> -->
-
+                <input type="password" name="password_confirmation" class="input" placeholder="Confirma tu contraseña">
+            </div>
+            
             <button class="button-submit" type="submit">Crear cuenta</button>
             <p class="p">¿Ya tienes cuenta? <a href="/login"><span class="span">Inicia sesión</span></a>
         </form>

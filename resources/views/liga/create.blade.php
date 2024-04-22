@@ -3,7 +3,7 @@
 
         <h1 class="main_titulo">Crear liga</h1>
 
-        <form class="crear-form" action="" method="POST" enctype="multipart/form-data">
+        <form class="crear-form" action="{{route('crearLiga')}}" method="POST" enctype="multipart/form-data">
 
             @csrf
 
@@ -60,7 +60,7 @@
                         <option value="5" class="crear-option">Viernes</option>
                         <option value="6" class="crear-option">Sábado</option>
                         <option value="7" class="crear-option">Domingo</option>
-                        <option value="8" class="crear-option">Fin de semana (Sábado y Domingo)</option>
+                        <option value="8" class="crear-option">Sábado y Domingo</option>
                         <option value="9" class="crear-option">Toda la semana</option>
                     </select>
                 </div>
@@ -89,6 +89,9 @@
                     <label for="txt_responsabilidad" class="crear-label">Responsabilidades:</label>
                     <textarea name="txt_responsabilidad" id="txt_responsabilidad" class="crear-txt"></textarea>
                 </div>
+
+                <input type="hidden" name="organizadores_id" value="1">
+                <input type="hidden" name="deporte_id" value="1">
 
                 <button type="submit" class="crear-boton">Enviar</button>
             </div>

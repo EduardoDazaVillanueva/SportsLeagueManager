@@ -21,7 +21,7 @@ class LigasController extends Controller
      */
     public function create()
     {
-        return view('liga.create');
+        return view('liga.create', ['deportes' => Deportes::all()]);
     }
 
     /**
@@ -29,34 +29,42 @@ class LigasController extends Controller
      */
     public function store(Request $request)
     {
-        $liga = $request->validate([
-            'nombre' => ['required', 'string'],
+      
+        // Validar la entrada del usuario
+        $validatedData = $request->validate([
+            'nombre' => ['required', 'string', 'max:255'],
             'fecha_inicio' => ['required', 'date'],
             'fecha_final' => ['required', 'date'],
             'fecha_fin_inscripcion' => ['required', 'date'],
-            'localidad' => ['required', 'string'],
-            'sede' => ['required', 'string'],
-            'dia_jornada' => ['required', 'integer'],
-            'pnts_ganar' => ['required', 'integer'],
-            'pnts_perder' => ['required', 'integer'],
-            'pnts_empate' => ['required', 'integer'],
-            'pnts_juego' => ['required', 'integer'],
-            'txt_responsabilidad' => ['required', 'string'],
+            'localidad' => ['required', 'string', 'max:255'],
+            'sede' => ['required', 'string', 'max:255'],
+            'dia_jornada' => ['required', 'integer', 'between:1,9'],
+            'pnts_ganar' => ['required', 'integer', 'min:0'],
+            'pnts_perder' => ['required', 'integer', 'min:0'],
+            'pnts_empate' => ['required', 'integer', 'min:0'],
+            'pnts_juego' => ['required', 'integer', 'min:0'],
+            'txt_responsabilidad' => ['required', 'string', 'max:1000'],
+            'organizadores_id',
+            'deporte_id'
         ]);
-        Ligas::create($liga);
-        return redirect()->route('liga/1')
-            ->withSuccess('La liga ha sido creada con exito.');
+
+        // Crear la nueva liga con los datos validados
+        Ligas::create($validatedData);
+
+        // Redireccionar con un mensaje de éxito
+        return redirect()->route('welcome')->with('success', 'La liga ha sido creada con éxito.');
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(Ligas $liga)
     {
-        return view('liga.liga',
+        return view(
+            'liga.liga',
             ['liga' => $liga]
         );
-
     }
 
     /**
@@ -100,17 +108,17 @@ class LigasController extends Controller
 
     public function ligaClasificacion(Ligas $liga)
     {
-        return view('liga.ligaClasificacion',
+        return view(
+            'liga.ligaClasificacion',
             ['liga' => $liga]
         );
-
     }
 
     public function ligaJugadores(Ligas $liga)
     {
-        return view('liga.ligaJugadores',
+        return view(
+            'liga.ligaJugadores',
             ['liga' => $liga]
         );
-
     }
 }

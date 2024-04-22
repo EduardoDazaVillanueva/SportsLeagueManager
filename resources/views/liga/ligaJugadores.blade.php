@@ -1,4 +1,4 @@
-<x-layout :liga="$liga">
+<x-layoutLiga :liga="$liga">
 <main class="main-jugadores">
         <h1 class="jugadores_titulo">Equipos</h1>
 
@@ -95,4 +95,4 @@
             </table>
         </section>
     </main>
-</x-layout>
+</x-layoutLiga>

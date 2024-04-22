@@ -1,4 +1,4 @@
-<x-layout :liga="$liga">
+<x-layoutLiga :liga="$liga">
     <main class="main-infoLiga">
 
         <div class="container-titulo_infoLiga">
@@ -49,4 +49,4 @@
             <div class="liena"></div>
         </div>
     </main>
-</x-layout>
+</x-layoutLiga>

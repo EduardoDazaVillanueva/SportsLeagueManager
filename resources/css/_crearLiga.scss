@@ -14,7 +14,7 @@
         'logo localidad sede dia_jornada'
         'pnts_ganar pnts_perder pnts_empate pnts_juego'
         'txt_responsabilidad txt_responsabilidad txt_responsabilidad txt_responsabilidad'
-        ' . btn btn .';
+        '. btn btn .';
     gap: 2rem;
 
     padding: 2rem 1.8rem;
@@ -108,6 +108,7 @@
 
 #dia_jornada-div {
     grid-area: dia_jornada;
+    width: 100%;
 }
 
 #pnts_ganar-div {
