@@ -1,14 +1,12 @@
 <x-layout :deportes="$deportes">
     <main class="main">
-
         <h1 class="main_titulo">Crear liga</h1>
 
         <form class="crear-form" action="{{route('crearLiga')}}" method="POST" enctype="multipart/form-data">
-
+        
+        <div class="container-crear">
+            
             @csrf
-
-            <div class="container-crear">
-
 
                 <div id="nombre-div">
                     <label for="nombre" class="crear-label">Nombre:</label>
@@ -17,9 +15,9 @@
 
                 <div id="logo-div">
                     <label for="logo" class="crear-label">Logo:</label>
-                    <div class="file" onclick="activarInput()">
+                    <div class="file">
                         <i class="fa-solid fa-file"></i>
-                        <input type="file" name="logo" class="input-hidden" onchange="checkFile(this)">
+                        <input type="file" name="logo" class="input-hidden">
                         Añadir foto
                         <i class="fa-solid fa-check hidden"></i>
                     </div>
@@ -90,8 +88,8 @@
                     <textarea name="txt_responsabilidad" id="txt_responsabilidad" class="crear-txt"></textarea>
                 </div>
 
-                <input type="hidden" name="organizadores_id" value="1">
-                <input type="hidden" name="deporte_id" value="1">
+                <input type="hidden" name="organizadores_id" value="{{$userID}}">
+                <input type="hidden" name="deporte_id" value="{{$deporteID}}">
 
                 <button type="submit" class="crear-boton">Enviar</button>
             </div>

@@ -17,7 +17,7 @@
         </ul>
         
         @auth
-        <form action="/logout" method="post"> @csrf<button type="submit" class="list_option inicio-sesion">Cerrar sesión</button></a>
+        <form action="/logout" method="post"> @csrf<button type="submit" class="list_option inicio-sesion">Cerrar sesión</button></form>
         @else
         <a href="/login" class="list_option inicio-sesion">Iniciar sesión</a>
         @endauth

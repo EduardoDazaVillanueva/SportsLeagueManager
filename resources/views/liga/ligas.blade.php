@@ -23,12 +23,13 @@
 
 
 
-            <a href="/liga/crear">
-                <input type="hidden" name="id_deporte" value=" . $IDdeporte . ">
-                <article class="section1_liga-crear">
-                    <i class="fa-solid fa-plus"></i>
-                </article>
-            </a>
+            <form method="get"   action="/liga/crear/{{$deporteID}}">
+                <button type="submit">
+                    <article class="section1_liga-crear">
+                        <i class="fa-solid fa-plus"></i>
+                    </article>
+                </button>
+            </form>
 
 
         </section>

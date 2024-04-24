@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ligas;
+use App\Models\Organizadores;
 use App\Http\Controllers\Controller;
 use App\Models\Deportes;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class LigasController extends Controller
 {
@@ -19,17 +24,16 @@ class LigasController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(string $deporteID)
     {
-        return view('liga.create', ['deportes' => Deportes::all()]);
+        return view('liga.create', ['deportes' => Deportes::all(), 'deporteID' => $deporteID, 'userID' => Auth::id()]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-      
+    { 
         // Validar la entrada del usuario
         $validatedData = $request->validate([
             'nombre' => ['required', 'string', 'max:255'],
@@ -44,10 +48,33 @@ class LigasController extends Controller
             'pnts_empate' => ['required', 'integer', 'min:0'],
             'pnts_juego' => ['required', 'integer', 'min:0'],
             'txt_responsabilidad' => ['required', 'string', 'max:1000'],
-            'organizadores_id',
-            'deporte_id'
+            'deporte_id' => ['required',Rule::exists('deportes', 'id')],
+            'logo' => ['nullable', 'image']
         ]);
+        
 
+        $userId = Auth::id(); // Obtenemos el ID del usuario actual
+
+        // Verificar si el organizador ya existe
+        $organizador = Organizadores::where('user_id', $userId)->first();
+    
+        if (!$organizador) {
+            // Si no existe, crear un nuevo organizador
+            $organizador = Organizadores::create(['user_id' => $userId]);
+        }
+    
+        // Añadir el ID del organizador al conjunto de datos validados
+        $validatedData['organizadores_id'] = $organizador->id;
+    
+        try {
+            if ($request->hasFile('logo')) {
+                $path = Storage::disk('public')->putFile('imagenes', $request->file('logo'));
+                $validatedData['logo'] = basename($path);
+            }
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);
+        }
+        
         // Crear la nueva liga con los datos validados
         Ligas::create($validatedData);
 
@@ -101,7 +128,8 @@ class LigasController extends Controller
             [
                 'nombreDeporte' => $deporteNombre,
                 'ligas' => $ligas,
-                'deportes' => Deportes::all()
+                'deportes' => Deportes::all(),
+                'deporteID' => $deporte
             ]
         );
     }
@@ -118,6 +146,14 @@ class LigasController extends Controller
     {
         return view(
             'liga.ligaJugadores',
+            ['liga' => $liga]
+        );
+    }
+
+    public function ligaPartidos(Ligas $liga)
+    {
+        return view(
+            'liga.ligaPartidos',
             ['liga' => $liga]
         );
     }

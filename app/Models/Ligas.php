@@ -23,5 +23,7 @@ class Ligas extends Model
         'pnts_juego', 
         'txt_responsabilidad',
         'organizadores_id',
+        'deporte_id',
+        'logo'
     ];
 }
