@@ -33,7 +33,7 @@ class LigasController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    { 
+    {
         // Validar la entrada del usuario
         $validatedData = $request->validate([
             'nombre' => ['required', 'string', 'max:255'],
@@ -48,24 +48,25 @@ class LigasController extends Controller
             'pnts_empate' => ['required', 'integer', 'min:0'],
             'pnts_juego' => ['required', 'integer', 'min:0'],
             'txt_responsabilidad' => ['required', 'string', 'max:1000'],
-            'deporte_id' => ['required',Rule::exists('deportes', 'id')],
+            'deporte_id' => ['required', Rule::exists('deportes', 'id')],
             'logo' => ['nullable', 'extensions:jpg,png,gif']
         ]);
-        
+
+        $deporteID = $validatedData["deporte_id"];
 
         $userId = Auth::id(); // Obtenemos el ID del usuario actual
 
         // Verificar si el organizador ya existe
         $organizador = Organizadores::where('user_id', $userId)->first();
-    
+
         if (!$organizador) {
             // Si no existe, crear un nuevo organizador
             $organizador = Organizadores::create(['user_id' => $userId]);
         }
-    
+
         // Añadir el ID del organizador al conjunto de datos validados
         $validatedData['organizadores_id'] = $organizador->id;
-    
+
         try {
             if ($request->hasFile('logo')) {
                 $path = Storage::disk('public')->putFile('imagenes', $request->file('logo'));
@@ -74,12 +75,12 @@ class LigasController extends Controller
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);
         }
-        
+
         // Crear la nueva liga con los datos validados
         Ligas::create($validatedData);
 
         // Redireccionar con un mensaje de éxito
-        return redirect()->route('welcome')->with('success', 'La liga ha sido creada con éxito.');
+        return redirect("liga/deporte/$deporteID")->with('success', 'La liga ha sido creada con éxito.');
     }
 
 
@@ -88,10 +89,24 @@ class LigasController extends Controller
      */
     public function show(Ligas $liga)
     {
+        // Obtener el ID del organizador a partir de la liga
+        $organizadores_id = $liga->organizadores_id;
+
+        // Buscar el organizador en la tabla Organizadores usando el ID obtenido
+        $organizador = Organizadores::where('id', $organizadores_id)->first();
+
+        // Si el organizador existe, obtener el ID del usuario relacionado
+        $organizadorUserID = $organizador->user_id;
+
+
+        // Devolver la vista con el dato obtenido y otros parámetros
         return view(
             'liga.liga',
-            ['liga' => $liga,
-            'user' => Auth::user()]
+            [
+                'liga' => $liga,
+                'user' => Auth::user(),
+                'organizadorUserID' => $organizadorUserID,
+            ]
         );
     }
 
@@ -140,8 +155,10 @@ class LigasController extends Controller
     {
         return view(
             'liga.ligaClasificacion',
-            ['liga' => $liga,
-            'user' => Auth::user()]
+            [
+                'liga' => $liga,
+                'user' => Auth::user()
+            ]
         );
     }
 
@@ -149,8 +166,10 @@ class LigasController extends Controller
     {
         return view(
             'liga.ligaJugadores',
-            ['liga' => $liga,
-            'user' => Auth::user()]
+            [
+                'liga' => $liga,
+                'user' => Auth::user()
+            ]
         );
     }
 
@@ -158,8 +177,10 @@ class LigasController extends Controller
     {
         return view(
             'liga.ligaPartidos',
-            ['liga' => $liga,
-            'user' => Auth::user()]
+            [
+                'liga' => $liga,
+                'user' => Auth::user()
+            ]
         );
     }
 }

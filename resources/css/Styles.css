@@ -853,6 +853,7 @@ tbody {
 .img_infoLiga {
   min-width: 90%;
   z-index: 100;
+  border-radius: 50%;
 }
 
 .titulo_infoLiga {
@@ -903,6 +904,12 @@ tbody {
 .liena {
   width: 90%;
   border: 1px solid #040738;
+}
+
+.btn-unirse {
+  max-width: 300px;
+  margin-top: 2.5rem;
+  font-size: 1.5rem;
 }
 
 .img_infoLiga {

@@ -59,7 +59,7 @@
             </div>
 
             <div class="section_right">
-                <img class="section_img-right" src=  "{{asset('img/liga.webp')}}" alt="">
+                <img class="section_img-right" src="{{asset('img/liga.webp')}}" alt="">
             </div>
 
         </section>

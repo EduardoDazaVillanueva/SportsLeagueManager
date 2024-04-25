@@ -52,5 +52,12 @@
             </div>
             <div class="liena"></div>
         </div>
+
+       
+
+        @if ($organizadorUserID  != $user->id)
+        <button class="crear-boton btn-unirse">INSCRIBIRSE</button>
+        @endif
+
     </main>
 </x-layoutLiga>
