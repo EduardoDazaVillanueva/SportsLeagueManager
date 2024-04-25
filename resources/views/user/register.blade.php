@@ -1,4 +1,4 @@
-<x-layout :deportes="$deportes">
+<x-layout :deportes="$deportes" :user="$user">
     <main class="main-login">
         <h1 class="login_titulo">Crear cuenta</h1>
         <form action="{{route('validar-register')}}" method="POST" enctype="multipart/form-data" class="form">
@@ -19,9 +19,9 @@
             <div class="flex-column">
                 <label class="titulo-input">Añadir foto de perfil</label>
             </div>
-            <div class="file">
+            <div class="file" onclick="activarInput()">
                 <i class="fa-solid fa-file"></i>
-                <input type="file" name="logo" class="input-hidden">
+                <input type="file" name="logo" class="input-hidden" onchange="checkFile(this)">
                 Añadir foto
                 <i class="fa-solid fa-check hidden"></i>
             </div>

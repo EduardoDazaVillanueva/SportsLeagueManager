@@ -1,4 +1,4 @@
-<x-layout :deportes="$deportes">
+<x-layout :deportes="$deportes" :user="$user">
     <main class="main-login">
         <h1 class="login_titulo">Iniciar sesión</h1>
         <form class="form" method="post" action="/login">

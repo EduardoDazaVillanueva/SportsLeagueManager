@@ -37,17 +37,3 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('login', 'getLogin')->middleware('guest')->name('login');
     Route::get('registro', 'register')->name('registro')->middleware('guest');
 });
-
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
-
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/'); // O cualquier ruta que desees
-})->middleware(['auth', 'signed'])->name('verification.verify');
-
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', 'El correo de verificación ha sido enviado.');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');

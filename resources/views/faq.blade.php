@@ -1,4 +1,4 @@
-<x-layout :deportes="$deportes">
+<x-layout :deportes="$deportes" :user="$user">
     <main class="main-preguntas">
         <div class="section_left">
             <h1 class="main_titulo">Preguntas frecuentes</h1>

@@ -1,4 +1,4 @@
-@props(['liga'])
+@props(['liga', 'user'])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,7 @@
 </head>
 <body>
     
-<x-navLiga :liga="$liga"></x-navLiga>
+<x-navLiga :liga="$liga" :user="$user"></x-navLiga>
     
 
     {{$slot}}

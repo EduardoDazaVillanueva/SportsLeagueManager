@@ -1,4 +1,4 @@
-<x-layout :deportes="$deportes">
+<x-layout :deportes="$deportes" :user="$user">
     <main class="main-inicio">
         <section class="section gris">
             <div class="section_left">

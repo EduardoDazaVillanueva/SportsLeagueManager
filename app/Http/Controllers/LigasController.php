@@ -26,7 +26,7 @@ class LigasController extends Controller
      */
     public function create(string $deporteID)
     {
-        return view('liga.create', ['deportes' => Deportes::all(), 'deporteID' => $deporteID, 'userID' => Auth::id()]);
+        return view('liga.create', ['deportes' => Deportes::all(), 'deporteID' => $deporteID, 'user' => Auth::user()]);
     }
 
     /**
@@ -49,7 +49,7 @@ class LigasController extends Controller
             'pnts_juego' => ['required', 'integer', 'min:0'],
             'txt_responsabilidad' => ['required', 'string', 'max:1000'],
             'deporte_id' => ['required',Rule::exists('deportes', 'id')],
-            'logo' => ['nullable', 'image']
+            'logo' => ['nullable', 'extensions:jpg,png,gif']
         ]);
         
 
@@ -90,7 +90,8 @@ class LigasController extends Controller
     {
         return view(
             'liga.liga',
-            ['liga' => $liga]
+            ['liga' => $liga,
+            'user' => Auth::user()]
         );
     }
 
@@ -129,7 +130,8 @@ class LigasController extends Controller
                 'nombreDeporte' => $deporteNombre,
                 'ligas' => $ligas,
                 'deportes' => Deportes::all(),
-                'deporteID' => $deporte
+                'deporteID' => $deporte,
+                'user' => Auth::user(),
             ]
         );
     }
@@ -138,7 +140,8 @@ class LigasController extends Controller
     {
         return view(
             'liga.ligaClasificacion',
-            ['liga' => $liga]
+            ['liga' => $liga,
+            'user' => Auth::user()]
         );
     }
 
@@ -146,7 +149,8 @@ class LigasController extends Controller
     {
         return view(
             'liga.ligaJugadores',
-            ['liga' => $liga]
+            ['liga' => $liga,
+            'user' => Auth::user()]
         );
     }
 
@@ -154,7 +158,8 @@ class LigasController extends Controller
     {
         return view(
             'liga.ligaPartidos',
-            ['liga' => $liga]
+            ['liga' => $liga,
+            'user' => Auth::user()]
         );
     }
 }

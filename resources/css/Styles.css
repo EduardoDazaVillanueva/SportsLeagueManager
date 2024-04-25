@@ -232,15 +232,14 @@ form, input, select, textarea, button, label {
 
 .main_section1 {
   grid-area: ligas;
-  width: 70vw;
   display: flex;
   align-items: stretch;
-  justify-content: center;
+  justify-content: space-around;
   flex-wrap: wrap;
-  -moz-column-gap: 6rem;
-       column-gap: 6rem;
+  -moz-column-gap: 3rem;
+       column-gap: 3rem;
   row-gap: 4rem;
-  padding: 3rem;
+  padding: 2rem;
   margin-bottom: 5rem;
   border-radius: 15px;
   background-color: #fff;
@@ -250,21 +249,22 @@ form, input, select, textarea, button, label {
 }
 
 .section1_liga {
-  flex-basis: calc(50% - 6rem);
-  width: -moz-fit-content;
-  width: fit-content;
+  flex-basis: calc(50% - 3rem);
   height: -moz-fit-content;
   height: fit-content;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 2rem;
-  padding: 2rem;
-  border-radius: 5px;
   box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   overflow: hidden;
+}
+
+.section1_liga article {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
+  border-radius: 5px;
 }
 
 .section1_liga-crear {
@@ -286,7 +286,6 @@ form, input, select, textarea, button, label {
 
 .liga_img {
   max-width: 30%;
-  filter: drop-shadow(10px 3px 3px hsla(0, 0%, 0%, 0.5));
 }
 
 .liga_info {
@@ -367,7 +366,7 @@ form, input, select, textarea, button, label {
   border: none;
   width: 85%;
   height: 100%;
-  font-size: 1rem;
+  font-size: 1.3rem;
 }
 
 .input:focus {
@@ -521,6 +520,7 @@ i {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 3rem;
   background-color: #040738;
   font-size: 1.8rem;
   text-transform: uppercase;
@@ -567,8 +567,11 @@ i {
 }
 
 .inicio-sesion {
-  min-width: 300px;
   text-align: center;
+}
+
+.inicio-sesion-login {
+  min-width: 300px;
 }
 
 .logo {
@@ -583,11 +586,17 @@ i {
   display: none;
   position: absolute;
   min-width: 140px;
-  padding: 1rem;
+  padding: 1.5rem;
   background-color: #040738;
+  border-radius: 5px;
+}
+
+.mover {
+  right: 10px;
 }
 
 .desplegable {
+  list-style: none;
   transition: all 250ms;
 }
 
@@ -601,6 +610,25 @@ i {
 
 .desplegable ul li {
   position: relative;
+}
+
+.container_foto-nav {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: end;
+  align-items: center;
+  gap: 2rem;
+  min-width: 300px;
+  max-width: 300px;
+}
+
+.foto-nav {
+  border-radius: 50%;
+  max-width: 30%;
+}
+
+.nombre-user {
+  cursor: pointer;
 }
 
 .gris {
@@ -806,24 +834,34 @@ tbody {
 .container-titulo_infoLiga {
   position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   margin: 1rem;
 }
 
-.img_infoLiga {
-  width: 30%;
-  z-index: 100;
+.container-img_infoLiga {
+  background-color: #040738;
   border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img_infoLiga {
+  min-width: 90%;
+  z-index: 100;
 }
 
 .titulo_infoLiga {
-  width: 50%;
   padding: 1rem 3rem;
   margin-left: -3.3rem;
   font-size: 2rem;
   letter-spacing: 1px;
   color: #C6CF25;
+  text-align: end;
   border-radius: 0.5rem;
   box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
   -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
@@ -855,6 +893,11 @@ tbody {
   gap: 3rem;
   margin: 0.7rem;
   color: #040738;
+}
+
+.div-info-liga-respnsabilidad {
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .liena {

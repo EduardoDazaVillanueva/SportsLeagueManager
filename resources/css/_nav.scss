@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 3rem;
     
     background-color: $colorPrincipal;
     
@@ -57,8 +58,11 @@
 }
 
 .inicio-sesion{
-    min-width: 300px;
     text-align: center;
+}
+
+.inicio-sesion-login{
+    min-width: 300px;
 }
 
 .logo {
@@ -74,12 +78,18 @@
     position: absolute;
     min-width: 140px;
 
-    padding: 1rem;
+    padding: 1.5rem;
 
     background-color: $colorPrincipal;
+    border-radius: 5px;
+}
+
+.mover{
+    right: 10px;
 }
 
 .desplegable{
+    list-style: none;
     transition: all 250ms;
 }
 
@@ -93,4 +103,24 @@
 
 .desplegable ul li {
     position: relative;
+}
+
+.container_foto-nav{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: end;
+    align-items: center;
+    gap: 2rem;
+
+    min-width: 300px;
+    max-width: 300px;
+}
+
+.foto-nav{
+    border-radius: 50%;
+    max-width: 30%;
+}
+
+.nombre-user{
+    cursor: pointer;
 }

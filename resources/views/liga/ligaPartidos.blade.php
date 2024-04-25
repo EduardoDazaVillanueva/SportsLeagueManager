@@ -1,4 +1,4 @@
-<x-layoutLiga :liga="$liga">
+<x-layoutLiga :liga="$liga" :user="$user">
     <main class="main-jugadores">
         <h1 class="jugadores_titulo">Partidos</h1>
 

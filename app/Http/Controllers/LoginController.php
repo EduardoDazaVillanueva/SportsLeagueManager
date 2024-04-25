@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Models\Deportes;
+use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class LoginController extends Controller
 {
@@ -49,11 +51,16 @@ class LoginController extends Controller
             ],
         ]);
 
-        if (!array_key_exists('logo', $user)) {
-            $user['logo'] = 'null';
-        }
-
         unset($user['password_confirmation']);
+
+        try {
+            if ($request->hasFile('logo')) {
+                $path = Storage::disk('public')->putFile('imagenes', $request->file('logo'));
+                $user['logo'] = basename($path);
+            }
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);
+        }
 
         $user = User::create($user);
 
@@ -63,12 +70,14 @@ class LoginController extends Controller
     }
     public function register()
     {
-        return view('user.register', ['deportes' => Deportes::all()]);
+        return view('user.register', ['deportes' => Deportes::all(),
+        'user' => Auth::user()]);
     }
 
     public function getLogin()
     {
-        return view('user.login', ['deportes' => Deportes::all()]);
+        return view('user.login', ['deportes' => Deportes::all(),
+        'user' => Auth::user()]);
     }
 
     public function login(Request $request)

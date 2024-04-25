@@ -1,4 +1,4 @@
-<x-layout :deportes="$deportes">
+<x-layout :deportes="$deportes" :user="$user">
     <main class="main-grid">
 
         <h1 class="main_titulo">{{$nombreDeporte->nombre}}</h1>
@@ -6,10 +6,10 @@
         <section class="main_section1">
 
             @foreach ($ligas as $liga)
-            <a href="/liga/{{$liga->id}}">
-                <article class="section1_liga">
+            <a href="/liga/{{$liga->id}}" class="section1_liga">
+                <article>
 
-                    <img class="liga_img" src="" alt="logo de la liga">
+                    <img class="liga_img" src="{{ asset('storage/imagenes/' . $liga['logo']) }}" alt="logo de la liga">
 
                     <div class="liga_info">
                         <h2 class="liga_nombre"> {{$liga["nombre"]}} </h2>
@@ -23,7 +23,7 @@
 
 
 
-            <form method="get"   action="/liga/crear/{{$deporteID}}">
+            <form method="get" action="/liga/crear/{{$deporteID}}">
                 <button type="submit">
                     <article class="section1_liga-crear">
                         <i class="fa-solid fa-plus"></i>
