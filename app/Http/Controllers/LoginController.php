@@ -63,11 +63,8 @@ class LoginController extends Controller
         }
 
         $user = User::create($user);
-
-        $user->sendEmailVerificationNotification();
-
-        return redirect()->route('verification.notice');
     }
+
     public function register()
     {
         return view('user.register', ['deportes' => Deportes::all(),

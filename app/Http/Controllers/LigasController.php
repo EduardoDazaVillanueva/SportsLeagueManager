@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Ligas;
 use App\Models\Organizadores;
+use App\Models\ParticipaEnLiga;
 use App\Http\Controllers\Controller;
 use App\Models\Deportes;
+use App\Models\Jugadores;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +51,7 @@ class LigasController extends Controller
             'pnts_juego' => ['required', 'integer', 'min:0'],
             'txt_responsabilidad' => ['required', 'string', 'max:1000'],
             'deporte_id' => ['required', Rule::exists('deportes', 'id')],
-            'logo' => ['nullable', 'extensions:jpg,png,gif']
+            'logo' => ['nullable', 'extensions:jpg,png,gif,jpeg']
         ]);
 
         $deporteID = $validatedData["deporte_id"];
@@ -89,26 +91,41 @@ class LigasController extends Controller
      */
     public function show(Ligas $liga)
     {
-        // Obtener el ID del organizador a partir de la liga
+        // Obtener el organizadores_id a partir de la liga
         $organizadores_id = $liga->organizadores_id;
 
-        // Buscar el organizador en la tabla Organizadores usando el ID obtenido
+        // Buscar el organizador y obtener el user_id
         $organizador = Organizadores::where('id', $organizadores_id)->first();
+        $organizadorUserID = $organizador ? $organizador->user_id : null;
 
-        // Si el organizador existe, obtener el ID del usuario relacionado
-        $organizadorUserID = $organizador->user_id;
+        // Obtener el ID del usuario autenticado
+        $userId = Auth::id();
 
+        // Verificar si el usuario es un jugador
+        $jugador = Jugadores::where('user_id', $userId)->first();
 
-        // Devolver la vista con el dato obtenido y otros parámetros
+        // Por defecto, esJugador es falso
+        $esJugador = false;
+
+        if ($jugador) {
+            // Verificar si el jugador está en la liga
+            $esJugador = ParticipaEnLiga::where('liga_id', $liga->id)
+                ->where('jugadores_id', $jugador->id)
+                ->exists();
+        }
+
+        // Devolver la vista con todos los datos
         return view(
             'liga.liga',
             [
                 'liga' => $liga,
                 'user' => Auth::user(),
                 'organizadorUserID' => $organizadorUserID,
+                'esJugador' => $esJugador,
             ]
         );
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -153,22 +170,44 @@ class LigasController extends Controller
 
     public function ligaClasificacion(Ligas $liga)
     {
+        // Obtener todos los jugadores que participan en la liga
+        $jugadores = ParticipaEnLiga::where('liga_id', $liga->id)
+            ->join('jugadores', 'participa_en_ligas.jugadores_id', '=', 'jugadores.id')
+            ->join('users', 'jugadores.user_id', '=', 'users.id')
+            ->select(
+                'participa_en_ligas.*',
+                'users.name as user_name'
+            )
+            ->orderBy('participa_en_ligas.puntos', 'desc')
+            ->get();
+
         return view(
             'liga.ligaClasificacion',
             [
                 'liga' => $liga,
-                'user' => Auth::user()
+                'user' => Auth::user(),
+                'jugadores' => $jugadores,
             ]
         );
     }
 
     public function ligaJugadores(Ligas $liga)
     {
+        $jugadores = ParticipaEnLiga::where('liga_id', $liga->id)
+            ->join('jugadores', 'participa_en_ligas.jugadores_id', '=', 'jugadores.id')
+            ->join('users', 'jugadores.user_id', '=', 'users.id')
+            ->select(
+                'participa_en_ligas.*',
+                'users.name as user_name'
+            )
+            ->get();
+
         return view(
             'liga.ligaJugadores',
             [
                 'liga' => $liga,
-                'user' => Auth::user()
+                'user' => Auth::user(),
+                'jugadores' => $jugadores
             ]
         );
     }
@@ -182,5 +221,32 @@ class LigasController extends Controller
                 'user' => Auth::user()
             ]
         );
+    }
+
+    public function inscribirse(string $ligaId, string $userId)
+    {
+        try {
+            // Verificar si el jugador ya existe
+            $jugador = Jugadores::where('user_id', $userId)->first();
+
+            if (!$jugador) {
+                // Si no existe, crear un nuevo jugador
+                $jugador = Jugadores::create([
+                    'user_id' => $userId
+                ]);
+            }
+
+            // Añadir al jugador en la tabla participa_en_liga
+            ParticipaEnLiga::create([
+                'liga_id' => $ligaId,
+                'jugadores_id' => $jugador->id,
+            ]);
+
+
+
+            return redirect()->back()->with('success', 'Jugador inscrito en la liga con éxito.');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Ocurrió un error al inscribir al jugador: ' . $e->getMessage()]);
+        }
     }
 }

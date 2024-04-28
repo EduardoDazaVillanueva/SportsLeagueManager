@@ -51,13 +51,19 @@
                 </div>
             </div>
             <div class="liena"></div>
+            @if ($organizadorUserID != $user->id && $esJugador == 0)
+            <div class="div-info-liga">
+                <form action="{{ route('liga.inscribirse', ['liga' => $liga->id, 'userId' => $user->id]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="crear-boton btn-unirse">INSCRIBIRSE</button>
+                </form>
+            </div>
+            @endif
         </div>
 
-       
 
-        @if ($organizadorUserID  != $user->id)
-        <button class="crear-boton btn-unirse">INSCRIBIRSE</button>
-        @endif
+
+
 
     </main>
 </x-layoutLiga>

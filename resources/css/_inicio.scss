@@ -6,11 +6,11 @@
     background-color: $blanco;
 }
 
-.ver-mas-inicio{
+.ver-mas-inicio {
     display: none;
 }
 
-.titulo-ver-mas{
+.titulo-ver-mas {
     font-size: 1.4rem;
     font-weight: 600;
     color: $colorPrincipal;
@@ -87,7 +87,7 @@ strong {
     gap: 1rem;
 
 
-    background-image: url("../../public/img/mapaFondo.svg");
+    background-image: url("../../public/img/mapa.png");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

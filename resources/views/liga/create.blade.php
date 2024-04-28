@@ -18,7 +18,7 @@
                     <div class="file" onclick="activarInput()">
                         <i class="fa-solid fa-file"></i>
                         <input type="file" name="logo" class="input-hidden" onchange="checkFile(this)">
-                        Añadir foto
+                        <span class="text_foto">Añadir foto</span>
                         <i class="fa-solid fa-check hidden"></i>
                     </div>
                 </div>

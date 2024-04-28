@@ -12,12 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jugadores', function (Blueprint $table) {
-            $table->id();
-            $table->integer('num_partidos')->unsigned();
-            $table->integer('num_partidos_ganados')->unsigned();
-            $table->integer('num_partidos_perdidos')->unsigned();
-            $table->integer('num_partidos_empatados')->unsigned();
-            $table->integer('puntos')->unsigned();
+            $table->id();           
             $table->foreignId('user_id')->constrained();
             
             $table->timestamps();
