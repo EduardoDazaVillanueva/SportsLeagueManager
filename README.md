@@ -8,10 +8,9 @@ Este proyecto es una aplicación web desarrollada con el framework Laravel que p
 
 - **Framework**: Laravel
 - **Frontend**: HTML, CSS, JavaScript
-- **Base de Datos**: MySQL (o tu elección de base de datos compatible con Laravel)
+- **Base de Datos**: MySQL
 - **Autenticación**: Laravel Auth
-- **Uniones de Tablas y Consultas**: Eloquent y Query Builder
-
+  
 ## Características
 
 - **Registro e Inicio de Sesión**: Los usuarios pueden registrarse e iniciar sesión para acceder a la funcionalidad completa de la aplicación.
