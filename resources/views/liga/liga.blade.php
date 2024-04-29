@@ -2,9 +2,7 @@
     <main class="main-infoLiga">
 
         <div class="container-titulo_infoLiga">
-            <div class="container-img_infoLiga">
-                <img src="{{asset('storage/imagenes/' . $liga->logo)}}" alt="" class="img_infoLiga">
-            </div>
+            <img src="{{asset('storage/imagenes/' . $liga->logo)}}" alt="" class="img_infoLiga">
             <h1 class="titulo_infoLiga">{{$liga->nombre}}</h1>
         </div>
 
@@ -17,7 +15,7 @@
             <div class="liena"></div>
 
             <div class="div-info-liga">
-                <p><strong>50 </strong>jugadores inscritos</p>
+                <p><strong>{{count($jugadores)}} </strong>jugadores inscritos</p>
                 <p>Las jornadas se juegan el/los día/s: <strong>{{$liga->dia_jornada}}</strong></p>
             </div>
             <div class="liena"></div>

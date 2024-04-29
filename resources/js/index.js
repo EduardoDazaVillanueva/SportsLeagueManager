@@ -17,3 +17,15 @@ export function checkFile(element) {
         file.classList.remove('selected');
     }
 }
+
+export function toggleInscripcion() {
+    var checkbox = document.getElementById("pago");
+    var input = document.getElementById("txt_inscripcion");
+    var div_check = document.getElementById("container_checks");
+    if (checkbox.checked) {
+        input.style.display = "inline-block"; // Muestra el input
+        div_check.style.display = "none";
+    } else {
+        input.style.display = "none"; // Oculta el input
+    }
+}

@@ -63,6 +63,8 @@ class LoginController extends Controller
         }
 
         $user = User::create($user);
+
+        return redirect("/login")->with('success', 'El usuario ha sido creada con éxito.');
     }
 
     public function register()

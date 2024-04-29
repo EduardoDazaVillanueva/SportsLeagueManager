@@ -40,37 +40,45 @@
             <h3 for="localidad" class="filtro_titulo">Localidades:</h3>
             <div class="container-filtro">
 
+                @php
+                $cantidad = 1;
+                @endphp
+
+                @foreach ($localidades as $localidad)
+
+                @if ($cantidad <= 3) <div class="container-check">
+                    <input type="checkbox" name="{{$localidad}}" id="{{$localidad}}" class="filtro_check">
+                    <label for="{{$localidad}}" class="filtro_label">{{$localidad}}</label>
+            </div>
+            @endif
+
+            @php
+            $cantidad++;
+            @endphp
+
+            @endforeach
+
+            @if ($cantidad > 3)
+
+            @php
+            $cantidad = 1;
+            @endphp
+            <details id="ver-mas">
+                <summary id="titulo-ver-mas">Ver más</summary>
+                @foreach ($localidades as $localidad)
+                @if ($cantidad > 3)
                 <div class="container-check">
-                    <input type="checkbox" name="cadiz" id="cadiz" class="filtro_check">
-                    <label for="cadiz" class="filtro_label">Cádiz</label>
+                    <input type="checkbox" name="{{$localidad}}" id="{{$localidad}}" class="filtro_check">
+                    <label for="{{$localidad}}" class="filtro_label">{{$localidad}}</label>
                 </div>
+                @endif
 
-                <div class="container-check">
-                    <input type="checkbox" name="sevilla" id="sevilla" class="filtro_check">
-                    <label for="sevilla" class="filtro_label">Sevilla</label>
-                </div>
-
-                <div class="container-check">
-                    <input type="checkbox" name="jaen" id="jaen" class="filtro_check">
-                    <label for="jaen" class="filtro_label">Jaén</label>
-                </div>
-
-                <details id="ver-mas">
-
-                    <div class="container-check">
-                        <input type="checkbox" name="sevilla" id="sevilla" class="filtro_check">
-                        <label for="sevilla" class="filtro_label">Sevilla</label>
-                    </div>
-
-                    <div class="container-check">
-                        <input type="checkbox" name="jaen" id="jaen" class="filtro_check">
-                        <label for="jaen" class="filtro_label">Jaén</label>
-                    </div>
-
-                    <summary id="titulo-ver-mas">Ver más</summary>
-
-                </details>
-
+                @php
+                $cantidad++;
+                @endphp
+                @endforeach
+            </details>
+            @endif
             </div>
 
         </section>

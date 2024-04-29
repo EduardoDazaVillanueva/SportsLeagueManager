@@ -3,10 +3,10 @@
         <h1 class="main_titulo">Crear liga</h1>
 
         <form class="crear-form" action="{{route('crearLiga')}}" method="POST" enctype="multipart/form-data">
-        
-        <div class="container-crear">
-            
-            @csrf
+
+            <div class="container-crear">
+
+                @csrf
 
                 <div id="nombre-div">
                     <label for="nombre" class="crear-label">Nombre:</label>
@@ -65,22 +65,40 @@
 
                 <div id="pnts_ganar-div">
                     <label for="pnts_ganar" class="crear-label">Puntos por ganar:</label>
-                    <input type="number" name="pnts_ganar" id="pnts_ganar" class="crear-input">
+                    <input type="number" name="pnts_ganar" id="pnts_ganar" class="crear-input" min="0">
                 </div>
 
                 <div id="pnts_perder-div">
                     <label for="pnts_perder" class="crear-label">Puntos por perder:</label>
-                    <input type="number" name="pnts_perder" id="pnts_perder" class="crear-input">
+                    <input type="number" name="pnts_perder" id="pnts_perder" class="crear-input" min="0">
                 </div>
 
                 <div id="pnts_empate-div">
                     <label for="pnts_empate" class="crear-label">Puntos por empatar:</label>
-                    <input type="number" name="pnts_empate" id="pnts_empate" class="crear-input">
+                    <input type="number" name="pnts_empate" id="pnts_empate" class="crear-input" min="0">
                 </div>
 
                 <div id="pnts_juego-div">
                     <label for="pnts_juego" class="crear-label">Puntos por juego:</label>
-                    <input type="number" name="pnts_juego" id="pnts_juego" class="crear-input">
+                    <input type="number" name="pnts_juego" id="pnts_juego" class="crear-input" min="0">
+                </div>
+
+                <div id="inscripcion-div">
+                    <label for="inscripcion" class="crear-label">Precio inscripción:</label>
+
+                    <div id="container_checks">
+                        <div class="div_check">
+                            <input type="checkbox" name="gratis" id="gratis" value="gratis">
+                            <label for="gratis">Gratis</label>
+                        </div>
+                        <div class="div_check">
+                            <input type="checkbox" name="pago" id="pago" value="pago" onclick="toggleInscripcion()">
+                            <label for="pago">Pago</label>
+                        </div>
+                    </div>
+
+                    <input type="number" name="txt_inscripcion" id="txt_inscripcion" class="crear-input txt_inscripcion" placeholder="Indica el precio" min="1">
+
                 </div>
 
                 <div id="txt_responsabilidad-div">

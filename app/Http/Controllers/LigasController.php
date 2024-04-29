@@ -114,6 +114,15 @@ class LigasController extends Controller
                 ->exists();
         }
 
+        $jugadores = ParticipaEnLiga::where('liga_id', $liga->id)
+            ->join('jugadores', 'participa_en_ligas.jugadores_id', '=', 'jugadores.id')
+            ->join('users', 'jugadores.user_id', '=', 'users.id')
+            ->select(
+                'participa_en_ligas.*',
+                'users.name as user_name'
+            )
+            ->get();
+
         // Devolver la vista con todos los datos
         return view(
             'liga.liga',
@@ -122,6 +131,7 @@ class LigasController extends Controller
                 'user' => Auth::user(),
                 'organizadorUserID' => $organizadorUserID,
                 'esJugador' => $esJugador,
+                'jugadores' => $jugadores,
             ]
         );
     }
@@ -156,6 +166,8 @@ class LigasController extends Controller
     {
         $ligas = Ligas::where('deporte_id', $deporte)->get();
         $deporteNombre = Deportes::where('id', $deporte)->first();
+        $localidades = $ligas->pluck('localidad')->unique();
+
         return view(
             'liga.ligas',
             [
@@ -164,6 +176,7 @@ class LigasController extends Controller
                 'deportes' => Deportes::all(),
                 'deporteID' => $deporte,
                 'user' => Auth::user(),
+                'localidades' => $localidades,
             ]
         );
     }
@@ -230,7 +243,7 @@ class LigasController extends Controller
             $jugador = Jugadores::where('user_id', $userId)->first();
 
             if (!$jugador) {
-                // Si no existe, crear un nuevo jugador
+                // Si no existe, crea un nuevo jugador
                 $jugador = Jugadores::create([
                     'user_id' => $userId
                 ]);

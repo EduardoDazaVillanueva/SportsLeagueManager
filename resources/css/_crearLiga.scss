@@ -13,7 +13,7 @@
     grid-template-areas: 'nombre fecha_inicio fecha_final fecha_fin_inscripcion'
         'logo localidad sede dia_jornada'
         'pnts_ganar pnts_perder pnts_empate pnts_juego'
-        'txt_responsabilidad txt_responsabilidad txt_responsabilidad txt_responsabilidad'
+        'inscripcion txt_responsabilidad txt_responsabilidad txt_responsabilidad'
         '. btn btn .';
     gap: 2rem;
 
@@ -21,7 +21,7 @@
 
     border-radius: 15px;
 
-    background-color: $blanco;
+    background-color: #fff;
 
     font-size: 1.4rem;
     color: $colorPrincipal;
@@ -131,6 +131,21 @@
     grid-area: txt_responsabilidad;
 }
 
+#inscripcion-div{
+    grid-area: inscripcion;
+}
+
 .text_foto{
     text-align: center;
+}
+
+.div_check{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.txt_inscripcion{
+    display: none;
 }

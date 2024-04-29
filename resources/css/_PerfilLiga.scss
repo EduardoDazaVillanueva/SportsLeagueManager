@@ -1,9 +1,22 @@
-.img_infoLiga{
+.container-titulo_perfil{
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+    margin: 1rem;
+}
+
+.img_perfil{
     width: 15%;
+    z-index: 80;
+
+    border-radius: 50%;
 }
 
 .titulo_miPerfil {
-    width: 50%;
     padding: 1rem 5rem;
     margin-left: -3.3rem;
 

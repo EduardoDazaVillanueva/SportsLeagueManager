@@ -11,9 +11,8 @@ use Illuminate\Http\Request;
 Route::controller(ViewController::class)->group(function () {
     Route::get('/', 'getWelcome')->name('welcome');
     Route::get('faq', 'getFAQ')->name('faq');
+    Route::get('perfil', 'getPerfil')->name('perfil');
 });
-
-
 
 
 Route::controller(LigasController::class)->group(function () {
