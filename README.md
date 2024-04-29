@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="/public/img/SportsLeagueManager.png" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><img src="/public/img/SportsLeagueManager.png" width="400" alt="Laravel Logo"></p>
 
 # Gestión de Ligas Deportivas con Laravel
 
