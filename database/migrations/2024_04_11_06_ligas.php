@@ -20,12 +20,13 @@ return new class extends Migration
             $table->date('fecha_fin_inscripcion');
             $table->string('localidad');
             $table->string('sede');
-            $table->integer('dia_jornada')->unsigned();
+            $table->json('dia_jornada');
             $table->integer('pnts_ganar')->unsigned();
             $table->integer('pnts_perder')->unsigned();
             $table->integer('pnts_empate')->unsigned();
             $table->integer('pnts_juego')->unsigned();
             $table->string('txt_responsabilidad');
+            $table->integer('precio')->unsigned();
 
             $table->foreignId('deporte_id')->constrained();
             $table->foreignId('organizadores_id')->constrained();

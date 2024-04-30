@@ -24,6 +24,11 @@ class Ligas extends Model
         'txt_responsabilidad',
         'organizadores_id',
         'deporte_id',
-        'logo'
+        'logo',
+        'precio'
+    ];
+
+    protected $casts = [
+        'dia_jornada' => 'array',
     ];
 }

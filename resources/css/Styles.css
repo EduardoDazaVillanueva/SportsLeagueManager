@@ -62,7 +62,7 @@ form, input, select, textarea, button, label {
 
 .container-crear {
   display: grid;
-  grid-template-areas: "nombre fecha_inicio fecha_final fecha_fin_inscripcion" "logo localidad sede dia_jornada" "pnts_ganar pnts_perder pnts_empate pnts_juego" "inscripcion txt_responsabilidad txt_responsabilidad txt_responsabilidad" ". btn btn .";
+  grid-template-areas: "nombre fecha_inicio fecha_final fecha_fin_inscripcion" "logo localidad sede dia_jornada" "pnts_ganar pnts_perder pnts_empate pnts_juego" "inscripcion premio txt_responsabilidad txt_responsabilidad" ". btn btn .";
   gap: 2rem;
   padding: 2rem 1.8rem;
   border-radius: 15px;
@@ -170,6 +170,10 @@ form, input, select, textarea, button, label {
   grid-area: inscripcion;
 }
 
+#premios-div {
+  grid-area: premio;
+}
+
 .text_foto {
   text-align: center;
 }
@@ -183,6 +187,42 @@ form, input, select, textarea, button, label {
 
 .txt_inscripcion {
   display: none;
+}
+
+.container-premios {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.premio-titulos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.premio-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dia-check {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.dia-check .crear-input {
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .section2_titulo {
@@ -940,6 +980,14 @@ tbody {
   max-width: 300px;
   font-size: 1.5rem;
   padding: 0.5rem 2rem;
+}
+
+.container-pnt {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
 }
 
 .container-titulo_perfil {

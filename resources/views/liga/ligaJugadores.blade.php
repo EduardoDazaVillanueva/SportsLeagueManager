@@ -19,7 +19,7 @@
                 <tbody>
                     @foreach ($jugadores as $jugador)
                     <tr class="tabla_datos">
-                        <td class="tabla_dato">{{$jugador["user_name"]}}</td>
+                        <td class="tabla_dato"><a href="/perfil/{{$jugador->user_id}}">{{$jugador["user_name"]}}</a></td>
                         <td class="tabla_dato">{{$jugador["num_partidos"]}}</td>
                         <td class="tabla_dato">{{$jugador["num_partidos_ganados"]}}</td>
                         <td class="tabla_dato">{{$jugador["num_partidos_empatados"]}}</td>

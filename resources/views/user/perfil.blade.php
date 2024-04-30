@@ -13,6 +13,7 @@
             <p>Teléfono: <strong>{{$user['telefono']}}</strong></p>
         </div>
 
+        @if ($ligas != null)
         <div class="div_mis-ligas">
             @foreach ($ligas as $liga)
             <a href="/liga/{{$liga->id}}" class="section1_liga">
@@ -30,6 +31,8 @@
             </a>
             @endforeach
         </div>
+
+        @endif
 
     </main>
 

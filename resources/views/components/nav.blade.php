@@ -19,12 +19,12 @@
     @auth
     <div class="container_foto-nav">
 
-        <img class="foto-nav" src="{{ asset('storage/imagenes/' . $user->logo) }}" alt="">
+        <img class="foto-nav" src="{{ asset('storage/imagenes/' . auth()->user()->logo) }}" alt="">
 
-        <li class="desplegable"><span class="nombre-user">{{$user->name}}</span>
+        <li class="desplegable"><span class="nombre-user">{{auth()->user()->name}}</span>
             <ul class="nav_list mover">
 
-                <li><a href="/perfil">Mi perfil</a></li>
+                <li><a href="/perfil/{{auth()->id()}}">Mi perfil</a></li>
                 <li>
                     <form action="/logout" method="post"> @csrf<button type="submit" class="list_option inicio-sesion">Cerrar sesión</button></form>
                 </li>

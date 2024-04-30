@@ -36,54 +36,78 @@ class LigasController extends Controller
      */
     public function store(Request $request)
     {
-        // Validar la entrada del usuario
+
+        if ($request->txt_inscripcion == "") {
+            $request['precio'] = 0;
+        }
+
+        dd($request);
+
+        // Validar la entrada del usuario con una regla de validación personalizada
         $validatedData = $request->validate([
             'nombre' => ['required', 'string', 'max:255'],
-            'fecha_inicio' => ['required', 'date'],
-            'fecha_final' => ['required', 'date'],
             'fecha_fin_inscripcion' => ['required', 'date'],
+            'fecha_final' => ['required', 'date'],
             'localidad' => ['required', 'string', 'max:255'],
             'sede' => ['required', 'string', 'max:255'],
-            'dia_jornada' => ['required', 'integer', 'between:1,9'],
+            'dia_jornada' => ['required', 'array'],
             'pnts_ganar' => ['required', 'integer', 'min:0'],
             'pnts_perder' => ['required', 'integer', 'min:0'],
-            'pnts_empate' => ['required', 'integer', 'min:0'],
-            'pnts_juego' => ['required', 'integer', 'min:0'],
+            'pnts_empate' => ['nullable', 'integer', 'min:0'],
+            'pnts_juego' => ['nullable', 'integer', 'min:0'],
             'txt_responsabilidad' => ['required', 'string', 'max:1000'],
             'deporte_id' => ['required', Rule::exists('deportes', 'id')],
-            'logo' => ['nullable', 'extensions:jpg,png,gif,jpeg']
+            'logo' => ['nullable', 'file', 'mimes:jpg,png,gif,jpeg'],
+            'precio' => ['required', 'integer'],
+            'posicion' => [],
+
+            // Validación personalizada para fechas
+            'fecha_fin_inscripcion' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) use ($request) {
+                    // Validar que fecha_fin_inscripcion sea menor que fecha_inicio
+                    if ($value >= $request->fecha_inicio) {
+                        $fail("La fecha de fin de inscripción debe ser anterior a la fecha de inicio de la liga.");
+                    }
+                }
+            ],
+            'fecha_inicio' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) use ($request) {
+                    // Validar que fecha_inicio sea menor que fecha_final
+                    if ($value >= $request->fecha_final) {
+                        $fail("La fecha de inicio de la liga debe ser anterior a la fecha de fin de la liga.");
+                    }
+                }
+            ],
         ]);
 
         $deporteID = $validatedData["deporte_id"];
+        $userId = Auth::id(); // Obtener el ID del usuario actual
 
-        $userId = Auth::id(); // Obtenemos el ID del usuario actual
-
-        // Verificar si el organizador ya existe
-        $organizador = Organizadores::where('user_id', $userId)->first();
-
-        if (!$organizador) {
-            // Si no existe, crear un nuevo organizador
-            $organizador = Organizadores::create(['user_id' => $userId]);
-        }
-
-        // Añadir el ID del organizador al conjunto de datos validados
+        // Verificar si el organizador ya existe y crear si no
+        $organizador = Organizadores::where('user_id', $userId)->first() ?? Organizadores::create(['user_id' => $userId]);
         $validatedData['organizadores_id'] = $organizador->id;
 
-        try {
-            if ($request->hasFile('logo')) {
+        // Manejo de carga de archivos
+        if ($request->hasFile('logo')) {
+            try {
                 $path = Storage::disk('public')->putFile('imagenes', $request->file('logo'));
                 $validatedData['logo'] = basename($path);
+            } catch (Exception $e) {
+                return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);
             }
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);
         }
 
-        // Crear la nueva liga con los datos validados
+        // Crear la nueva liga
         Ligas::create($validatedData);
 
-        // Redireccionar con un mensaje de éxito
+        // Redireccionar con mensaje de éxito
         return redirect("liga/deporte/$deporteID")->with('success', 'La liga ha sido creada con éxito.');
     }
+
 
 
     /**
@@ -95,8 +119,11 @@ class LigasController extends Controller
         $organizadores_id = $liga->organizadores_id;
 
         // Buscar el organizador y obtener el user_id
-        $organizador = Organizadores::where('id', $organizadores_id)->first();
-        $organizadorUserID = $organizador ? $organizador->user_id : null;
+        $organizador = Organizadores::where('organizadores.id', $organizadores_id)
+            ->join('users', 'organizadores.user_id', '=', 'users.id')
+            ->select('organizadores.id', 'users.*')
+            ->first();
+
 
         // Obtener el ID del usuario autenticado
         $userId = Auth::id();
@@ -129,7 +156,7 @@ class LigasController extends Controller
             [
                 'liga' => $liga,
                 'user' => Auth::user(),
-                'organizadorUserID' => $organizadorUserID,
+                'organizador' => $organizador,
                 'esJugador' => $esJugador,
                 'jugadores' => $jugadores,
             ]
@@ -189,7 +216,8 @@ class LigasController extends Controller
             ->join('users', 'jugadores.user_id', '=', 'users.id')
             ->select(
                 'participa_en_ligas.*',
-                'users.name as user_name'
+                'users.name as user_name',
+                'users.id as user_id'
             )
             ->orderBy('participa_en_ligas.puntos', 'desc')
             ->get();
@@ -211,7 +239,8 @@ class LigasController extends Controller
             ->join('users', 'jugadores.user_id', '=', 'users.id')
             ->select(
                 'participa_en_ligas.*',
-                'users.name as user_name'
+                'users.name as user_name',
+                'users.id as user_id'
             )
             ->get();
 

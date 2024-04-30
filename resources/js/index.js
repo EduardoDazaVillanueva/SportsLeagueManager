@@ -5,7 +5,6 @@ var file = document.querySelector('.file');
 export function activarInput() {
     input.click();
 }
-console.log("prueba desde fuera");
 
 export function checkFile(element) {
     if (element.files.length > 0) {
@@ -19,13 +18,15 @@ export function checkFile(element) {
 }
 
 export function toggleInscripcion() {
-    var checkbox = document.getElementById("pago");
-    var input = document.getElementById("txt_inscripcion");
-    var div_check = document.getElementById("container_checks");
-    if (checkbox.checked) {
-        input.style.display = "inline-block"; // Muestra el input
-        div_check.style.display = "none";
-    } else {
-        input.style.display = "none"; // Oculta el input
+    var pago = document.getElementById("pago");
+    var gratis = document.getElementById("gratis");
+    var input = document.getElementById("precio");
+    if (pago.checked) {
+        input.style.display = "block"; // Muestra el input
+        pago.style.display = "none";
+    }
+    if(gratis.checked) {
+        input.style.display = "none";
+        pago.style.display = "block"; 
     }
 }

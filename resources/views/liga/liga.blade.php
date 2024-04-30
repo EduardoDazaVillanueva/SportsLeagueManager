@@ -16,16 +16,30 @@
 
             <div class="div-info-liga">
                 <p><strong>{{count($jugadores)}} </strong>jugadores inscritos</p>
-                <p>Las jornadas se juegan el/los día/s: <strong>{{$liga->dia_jornada}}</strong></p>
+                <p>Las jornadas se juegan el/los día/s: <strong>
+                        @for ($i = 0; $i < count($liga->dia_jornada); $i++)
+                            @if ($i == (count($liga->dia_jornada) -2) )
+                            {{ $liga->dia_jornada[$i]}} y
+                            @elseif ($i == (count($liga->dia_jornada) -1))
+                            {{ $liga->dia_jornada[$i]}}.
+                            @else
+                            {{ $liga->dia_jornada[$i]}},
+                            @endif
+                            @endfor
+
+                    </strong></p>
             </div>
             <div class="liena"></div>
 
             <div class="div-info-liga">
                 <div>
-                    <p>Si ganas el partido:<strong> {{$liga->pnts_ganar}}</strong></p>
-                    <p>Si pierder el partido:<strong> {{$liga->pnts_perder}}</strong></p>
-                    <p>Si empatas el partido:<strong> {{$liga->pnts_empate}}</strong></p>
-                    <p>Juegos:<strong> {{$liga->pnts_juego}}</strong> por cada juego de diferencia</p>
+                    <p><strong>Puntuación:</strong></p>
+                    <div class="container-pnt">
+                        <p>Si ganas el partido:<strong> {{$liga->pnts_ganar}}</strong></p>
+                        <p>Si pierder el partido:<strong> {{$liga->pnts_perder}}</strong></p>
+                        <p>Si empatas el partido:<strong> {{$liga->pnts_empate}}</strong></p>
+                        <p>Juegos:<strong> {{$liga->pnts_juego}}</strong> por cada juego de diferencia</p>
+                    </div>
                 </div>
             </div>
             <div class="liena"></div>
@@ -38,18 +52,19 @@
 
             <div class="div-info-liga">
                 <div>
+                    <p><strong>Premios:</strong></p>
                     <p>El primero:<strong> 200€</strong></p>
                     <p>Del segundo al quinto:<strong> 50€</strong></p>
                 </div>
 
                 <div>
-                    <p>La inscripcion finaliza:<strong> {{$liga->fecha_fin_inscripcion}}</strong></p>
-                    <p>La inscripción es de:<strong> 10€</strong></p>
-                    <p>Para abonarla hable con el creador de la liga:<strong> Eduardo Daza</strong> en el número <strong>123456789</strong></p>
+                    <p>La inscripción finaliza:<strong> {{$liga->fecha_fin_inscripcion}}</strong></p>
+                    <p>La inscripción es de <strong> {{$liga->precio}} </strong></p>
+                    <p>Para abonarla hable con el creador de la liga<strong> {{$organizador->name}}</strong> en el número <strong>{{$organizador->telefono}}</strong></p>
                 </div>
             </div>
             <div class="liena"></div>
-            @if ($organizadorUserID != $user->id && $esJugador == 0)
+            @if ($organizador->id != $user->id && $esJugador == 0)
             <div class="div-info-liga">
                 <form action="{{ route('liga.inscribirse', ['liga' => $liga->id, 'userId' => $user->id]) }}" method="POST">
                     @csrf

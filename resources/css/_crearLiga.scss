@@ -13,7 +13,7 @@
     grid-template-areas: 'nombre fecha_inicio fecha_final fecha_fin_inscripcion'
         'logo localidad sede dia_jornada'
         'pnts_ganar pnts_perder pnts_empate pnts_juego'
-        'inscripcion txt_responsabilidad txt_responsabilidad txt_responsabilidad'
+        'inscripcion premio txt_responsabilidad txt_responsabilidad'
         '. btn btn .';
     gap: 2rem;
 
@@ -135,6 +135,10 @@
     grid-area: inscripcion;
 }
 
+#premios-div{
+    grid-area: premio;
+}
+
 .text_foto{
     text-align: center;
 }
@@ -148,4 +152,40 @@
 
 .txt_inscripcion{
     display: none;
+}
+
+.container-premios{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.premio-titulos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.premio-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dia-check{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    width: 100%;
+}
+
+.dia-check .crear-input{
+    width: fit-content;
 }
