@@ -330,6 +330,8 @@ class LigasController extends Controller
 
         $fechaString = $fecha ? $fecha->fecha : null;
 
+        $jugadores = "";
+
         foreach ($partidos as $partido) {
             // Unir PartidoParticipaJugadores con Jugadores y luego con Users para obtener el nombre del usuario
             $jugadores = PartidoParticipaJugadores::where('partido_participa_jugadores.partidos_id', $partido->id)
