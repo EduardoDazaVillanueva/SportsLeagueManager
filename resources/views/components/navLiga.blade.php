@@ -6,7 +6,6 @@
         <li><a href="/liga/{{$liga->id}}">Inicio</a></li>
         <li><a href="/liga/{{$liga->id}}/Clasificacion">Clasificación</a></li>
         <li><a href="/liga/{{$liga->id}}/Jugadores">Jugadores</a></li>
-        <li><a href="/liga/{{$liga->id}}/Jornadas">Jornadas</a></li>
         <li><a href="/liga/{{$liga->id}}/Partidos">Partidos</a></li>
     </ul>
 
@@ -17,7 +16,7 @@
         <li class="desplegable"><span class="nombre-user">{{auth()->user()->name}}</span>
             <ul class="nav_list mover">
 
-            <li><a href="/perfil/{{auth()->user()->name}}">Mi perfil</a></li>
+            <li><a href="/perfil/{{auth()->id()}}">Mi perfil</a></li>
                 <li>
                     <form action="/logout" method="post"> @csrf<button type="submit" class="list_option inicio-sesion">Cerrar sesión</button></form>
                 </li>

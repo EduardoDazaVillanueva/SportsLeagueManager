@@ -1,8 +1,8 @@
-var input = document.querySelector('.file input');
-var check = document.querySelector('.fa-check');
-var file = document.querySelector('.file');
+const input = document.querySelector('.file input');
+const check = document.querySelector('.fa-check');
+const file = document.querySelector('.file');
 
-export function activarInput() {
+export function acticonstInput() {
     input.click();
 }
 
@@ -18,15 +18,27 @@ export function checkFile(element) {
 }
 
 export function toggleInscripcion() {
-    var pago = document.getElementById("pago");
-    var gratis = document.getElementById("gratis");
-    var input = document.getElementById("precio");
+    const pago = document.getElementById("pago");
+    const gratis = document.getElementById("gratis");
+    const input = document.getElementById("precio");
     if (pago.checked) {
         input.style.display = "block"; // Muestra el input
         pago.style.display = "none";
     }
-    if(gratis.checked) {
+    if (gratis.checked) {
         input.style.display = "none";
-        pago.style.display = "block"; 
+        pago.style.display = "block";
     }
 }
+
+
+export function cerrar() {
+    // Obtén el elemento de alerta
+    const alerta = document.getElementById("alerta");
+
+    // Asegúrate de que el elemento existe antes de intentar cambiar su estilo
+    if (alerta) {
+        alerta.style.display = "none"; // Oculta el elemento
+    }
+}
+

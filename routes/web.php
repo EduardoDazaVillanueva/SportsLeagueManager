@@ -4,8 +4,6 @@ use App\Http\Controllers\LigasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ViewController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
 
 
 Route::controller(ViewController::class)->group(function () {
@@ -20,13 +18,14 @@ Route::controller(LigasController::class)->group(function () {
     
     Route::get('liga/{liga}/Clasificacion', 'ligaClasificacion')->middleware('auth');
     Route::get('liga/{liga}/Jugadores', 'ligaJugadores')->middleware('auth');
-    Route::get('liga/{liga}/Partidos', 'ligaPartidos')->middleware('auth');
+    Route::get('liga/{liga}/Partidos', 'ligaPartidos')->name('liga.partidos')->middleware('auth');
 
     Route::get('liga/{liga}', 'show')->middleware('auth')->whereNumber('liga');
     Route::get('liga/crear/{deporteID}', 'create');
     Route::post('liga', 'store')->name('crearLiga')->middleware('auth');
     Route::post('/liga/{liga}/inscribirse/{userId}','inscribirse')->name('liga.inscribirse')->middleware('auth');
-    
+    Route::post('/liga/{liga}/jugarJornada/{userId}','jugarJornada')->name('liga.jugarJornada')->middleware('auth');
+
 });
 
 

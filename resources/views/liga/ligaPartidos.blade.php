@@ -2,70 +2,57 @@
     <main class="main-jugadores">
         <h1 class="jugadores_titulo">Partidos</h1>
 
-
-
-        <section class="main_section1">
-
-            <div style="display: flex; justify-content:space-between; width:70%; align-items:center">
-                <select name="" id="" class="select-partido">
-                    <option value="">Jornada 1</option>
+        <header class="header_partido">
+            <form action="{{ route('liga.partidos', ['liga' => $liga->id]) }}" method="GET">
+                <select name="num_jornada" id="jornada_select" onchange="this.form.submit()" class="partido_select">
+                    @foreach ($jornadas as $jornada)
+                    <option value="{{ $jornada->num_jornada }}" {{ $numJornada == $jornada->num_jornada ? 'selected' : '' }}>
+                        Jornada {{ $jornada->num_jornada }}
+                    </option>
+                    @endforeach
                 </select>
+            </form>
+            <p class="header_partido-fecha">{{$fecha}}</p>
+        </header>
 
-                <p style="font-size: 2rem;">08/04/2024</p>
+        <section class="container-partidos">
+
+            @if (count($partidos) == 0)
+            <div class="sin-partidos">
+                <h1>Los partidos todavia no están creados</h1>
             </div>
 
-            <article class="section1_liga">
-                <div class="liga_info">
-                    <p style="margin-bottom:.5rem; display:inline;">08/04/2024</p>
-                    <p style="margin-left:9.5rem; display:inline;">17:00</p>
+            @else
+            @foreach ($partidos as $partido)
+            <article class="partidos-div_partido">
+                <div class="partido_info">
+                    <header class="partido_info-header">
+                        <p class="partido_fecha">{{$partido->fecha}}</p>
+                        <p class="partido_hora">17:00</p>
+                    </header>
 
-                    <div class="liga_info flex">
-                        <h2>Pareja 1</h2>
+                    <div class="partido_resultado">
+                        @foreach($jugadores as $jugador)
+
+                        @php
+                        $idPartido = $partido->id;
+                        @endphp
+
+                        @if ($jugador->partidos_id == $idPartido)
+                        <h2>{{$jugador->name}}</h2>
                         <h2>vs</h2>
                         <h2>Pareja 2</h2>
+                        @endif
+                        @endforeach
+                    </div>
+
+                    <div class="partido_resultado">
+                        <h2>{{$partido->resultado}}</h2>
                     </div>
                 </div>
             </article>
-
-            <article class="section1_liga">
-                <div class="liga_info">
-                    <p style="margin-bottom:.5rem; display:inline;">08/04/2024</p>
-                    <p style="margin-left:9.5rem; display:inline;">17:00</p>
-
-                    <div class="liga_info flex">
-                        <h2>Pareja 1</h2>
-                        <h2>vs</h2>
-                        <h2>Pareja 2</h2>
-                    </div>
-                </div>
-            </article>
-
-            <article class="section1_liga">
-                <div class="liga_info">
-                    <p style="margin-bottom:.5rem; display:inline;">08/04/2024</p>
-                    <p style="margin-left:9.5rem; display:inline;">17:00</p>
-
-                    <div class="liga_info flex">
-                        <h2>Pareja 1</h2>
-                        <h2>vs</h2>
-                        <h2>Pareja 2</h2>
-                    </div>
-                </div>
-            </article>
-
-            <article class="section1_liga">
-                <div class="liga_info">
-                    <p style="margin-bottom:.5rem; display:inline;">08/04/2024</p>
-                    <p style="margin-left:9.5rem; display:inline;">17:00</p>
-
-                    <div class="liga_info flex">
-                        <h2>Pareja 1</h2>
-                        <h2>vs</h2>
-                        <h2>Pareja 2</h2>
-                    </div>
-                </div>
-            </article>
-
+            @endforeach
+            @endif
         </section>
 
     </main>

@@ -19,7 +19,7 @@
             <div class="flex-column">
                 <label class="titulo-input">Añadir foto de perfil</label>
             </div>
-            <div class="file" onclick="activarInput()">
+            <div class="file" onclick="acticonstInput()">
                 <i class="fa-solid fa-file"></i>
                 <input type="file" name="logo" class="input-hidden" onchange="checkFile(this)">
                 Añadir foto

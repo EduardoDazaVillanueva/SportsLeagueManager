@@ -75,8 +75,35 @@
         </div>
 
 
+        @if (!$juegaJornada && $organizador->id != $user->id && $esJugador == 1)
+        <div class="alerta" id="alerta">
+            <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
+            <h2 class="alerta_titulo">Apuntate a la próxima jornada ({{$liga->fecha_fin_inscripcion}})</h2>
 
+            <form action="{{ route('liga.jugarJornada', ['liga' => $liga->id, 'userId' => $user->id]) }}" method="POST">
+                <div class="alerta_div-form">
+                    @for ($i = 0; $i < count($liga->dia_jornada); $i++)
 
+                        @csrf
+
+                        <div class="alerta_div-input">
+
+                            @php
+                            $checkboxId = 'dia_jornada_' . $liga->dia_jornada[$i];
+                            @endphp
+
+                            <label for="{{ $checkboxId }}">{{ $liga->dia_jornada[$i] }}</label>
+                            <input type="checkbox" name="dia_jornada[]" class="alerta_input" value="{{ $liga->dia_jornada[$i] }}" id="{{ $checkboxId }}">
+                        </div>
+                        @endfor
+                </div>
+
+                <div class="alerta_div-btn">
+                    <button type="submit" class="alerta_btn" id="alerta_btn">Enviar</button>
+                </div>
+            </form>
+        </div>
+        @endif
 
     </main>
 </x-layoutLiga>

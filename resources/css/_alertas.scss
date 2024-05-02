@@ -1,0 +1,85 @@
+.alerta{
+    position: absolute;
+    top: 200px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: $colorPrincipal;
+    color: $colorSecundario;
+
+    font-size: 3rem;
+
+    border-radius: 10px;
+
+    padding: 1rem 5rem;
+
+    z-index: 200;
+}
+
+.alerta_salir{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    font-size: 2rem;
+}
+
+.alerta_titulo{
+    font-size: 4rem;
+}
+
+.alerta_div-form{
+    width: 70%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 3rem;
+
+    margin-bottom: 3rem;
+}
+
+.alerta_div-input{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: .5rem;
+}
+
+.alerta_input{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.alerta_div-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alerta_btn{
+    color: $colorPrincipal;
+    background-color: $colorSecundario;
+
+    text-transform: uppercase;
+    font-weight: bold;
+
+    padding: 0 3rem;
+
+    border-radius: 5px;
+
+    margin-bottom: 1rem;
+
+    transition: scale 300ms ease-in-out;
+}
+
+.alerta_btn:hover{
+    scale: 1.1;
+}

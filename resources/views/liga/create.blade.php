@@ -20,7 +20,7 @@
 
                 <div id="logo-div">
                     <label for="logo" class="crear-label">Logo</label>
-                    <div class="file" onclick="activarInput()">
+                    <div class="file" onclick="acticonstInput()">
                         <i class="fa-solid fa-file"></i>
                         <input type="file" name="logo" class="input-hidden" onchange="checkFile(this)">
                         <span class="text_foto">Añadir foto</span>
