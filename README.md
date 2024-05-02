@@ -19,3 +19,4 @@ Este proyecto es una aplicación web desarrollada con el framework Laravel que p
 - **Gestión de Ligas**: Los usuarios que crean una liga pueden gestionarla, incluyendo la adición de jugadores y la actualización de información de la liga.
 - **Vinculación de Usuarios y Jugadores**: La aplicación relaciona a los usuarios con sus correspondientes jugadores para facilitar la participación en ligas.
 
+

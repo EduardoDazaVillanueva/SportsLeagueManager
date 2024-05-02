@@ -7,3 +7,4 @@ php:
       - index.php
 js: true
 css: true
+
