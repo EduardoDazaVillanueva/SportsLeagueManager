@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('jornadas', function (Blueprint $table) {
             $table->id();
             $table->integer('num_jornada')->unsigned();
-            $table->date('fecha');
+            $table->dateTime('fecha-inicio');
+            $table->dateTime('fecha-final');
             $table->foreignId('liga_id')->constrained();
             
             $table->timestamps();

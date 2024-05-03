@@ -41,4 +41,3 @@ export function cerrar() {
         alerta.style.display = "none"; // Oculta el elemento
     }
 }
-

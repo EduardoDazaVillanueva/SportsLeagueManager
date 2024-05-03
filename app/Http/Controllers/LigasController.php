@@ -40,29 +40,35 @@ class LigasController extends Controller
 
     public function crearJornada(Ligas $liga)
     {
-        // Obten las fechas de inicio y final de la liga
         $fechaInicio = Carbon::parse($liga->fecha_inicio);
         $fechaFinal = Carbon::parse($liga->fecha_final);
 
-        // Calcular el número de semanas entre las dos fechas
-        $numSemanas = $fechaInicio->diffInWeeks($fechaFinal) + 1;
+        $numSemanas = $fechaInicio->diffInWeeks($fechaFinal);
 
-        // Crear las jornadas
         for ($i = 0; $i < $numSemanas; $i++) {
-            // Calcular la fecha para cada jornada
-            $fechaJornada = $fechaInicio->copy()->addWeeks($i);
 
-            // Crear una nueva jornada con el número y la fecha
-            Jornadas::create([
-                'num_jornada' => $i + 1, // Número de jornada secuencial
-                'fecha' => $fechaJornada, // Fecha de la jornada
-                'liga_id' => $liga->id, // Liga a la que pertenece la jornada
-            ]);
+            $fechaJornadaInicio = $fechaInicio->copy()->addWeeks($i);
+            $fechaJornadaFin = $fechaJornadaInicio->copy()->addWeeks(1)->subDay();
+
+            if ($fechaJornadaFin->greaterThan($fechaFinal)) {
+                $fechaJornadaFin = $fechaFinal;
+            }
+
+            $dateDiff = $fechaJornadaInicio->diffInDays($fechaJornadaFin);
+
+            if ($dateDiff == 6) {
+                Jornadas::create([
+                    'num_jornada' => $i + 1,
+                    'fecha-inicio' => $fechaJornadaInicio->toDateTimeString(),
+                    'fecha-final' => $fechaJornadaFin->toDateTimeString(),
+                    'liga_id' => $liga->id,
+                ]);
+            }
         }
 
-        // Indicar que las jornadas se crearon con éxito
         return redirect()->back()->with('success', 'Jornadas creadas con éxito');
     }
+
 
 
     /**
@@ -153,7 +159,7 @@ class LigasController extends Controller
         // Buscar el organizador y obtener el user_id
         $organizador = Organizadores::where('organizadores.id', $organizadores_id)
             ->join('users', 'organizadores.user_id', '=', 'users.id')
-            ->select('organizadores.id', 'users.*')
+            ->select('organizadores.id', 'users.name', 'users.telefono')
             ->first();
 
 
@@ -186,36 +192,63 @@ class LigasController extends Controller
         $juegaJornada = false;
 
         if ($jugador) {
-            // Obtener la jornada de la liga
             $jornada = Jornadas::where('liga_id', $liga->id)->first();
 
             if ($jornada) {
-                // Verificar si el jugador está en la jornada
                 $juegaJornada = JugadorJuegaJornada::where('jornada_id', $jornada->id)
                     ->where('jugador_id', $jugador->id)
-                    ->exists(); // Retorna true si el jugador está asociado a la jornada
+                    ->exists();
             } else {
-                $juegaJornada = false; // La jornada no existe, por lo que el jugador no puede jugarla
+                $juegaJornada = false;
             }
         } else {
-            // Si no hay jugador, no puede estar en la jornada
             $juegaJornada = false;
         }
 
+        $fechaJornada = $this->getFechaJornada($liga);
+
         // Devolver la vista con todos los datos
-        return view(
-            'liga.liga',
-            [
-                'liga' => $liga,
-                'user' => Auth::user(),
-                'organizador' => $organizador,
-                'esJugador' => $esJugador,
-                'jugadores' => $jugadores,
-                'juegaJornada' => $juegaJornada
-            ]
-        );
+        return view('liga.liga', [
+            'liga' => $liga,
+            'user' => Auth::user(),
+            'organizador' => $organizador,
+            'esJugador' => $esJugador,
+            'jugadores' => $jugadores,
+            'juegaJornada' => $juegaJornada,
+            'fechaJornada' => $fechaJornada,
+            'mostrarDivRango' => $this->mostrarDivRango($fechaJornada),
+            'mostrarBotonInscribirse' => $this->mostrarBotonInscribirse($liga->fecha_fin_inscripcion)
+        ]);
     }
 
+    private function getFechaJornada(Ligas $liga)
+    {
+        $fechaActual = Carbon::now();
+
+        // Obtener la próxima jornada después de la fecha actual
+        $jornada = Jornadas::where('liga_id', $liga->id)
+            ->where('fecha-inicio', '>', $fechaActual)
+            ->orderBy('fecha-inicio', 'asc')
+            ->firstOrFail();
+
+        $fecha = $jornada->getAttribute('fecha-inicio');
+
+        return $fecha ? Carbon::parse($fecha)->format('Y-m-d') : null;
+    }
+
+    private function mostrarDivRango($fechaJornada)
+    {
+        $fechaJornada = Carbon::create($fechaJornada);
+        $dateDiff = abs($fechaJornada->diffInDays(Carbon::now()));
+        return $dateDiff < 5 && $dateDiff > 2;
+    }
+
+    private function mostrarBotonInscribirse($fechaFinInscripcion)
+    {
+        $fechaFinInscripcion = Carbon::create($fechaFinInscripcion);
+        $dateDiff = abs($fechaFinInscripcion->diffInDays(Carbon::now()));
+        return $dateDiff > 0;
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -242,11 +275,25 @@ class LigasController extends Controller
     }
 
     //mostrar todas las ligas que tengan el idDeporte
-    public function ligaDeporte(string $deporte)
+    public function ligaDeporte(Request $request, string $deporte)
     {
-        $ligas = Ligas::where('deporte_id', $deporte)->get();
-        $deporteNombre = Deportes::where('id', $deporte)->first();
-        $localidades = $ligas->pluck('localidad')->unique();
+        // Obtener todas las localidades seleccionadas del request
+        $localidadesSeleccionadas = $request->input('localidades', []);
+
+        // Iniciar la consulta base
+        $ligasQuery = Ligas::where('deporte_id', $deporte);
+
+        // Filtrar por localidades seleccionadas, si hay alguna
+        if (!empty($localidadesSeleccionadas)) {
+            $ligasQuery->whereIn('localidad', $localidadesSeleccionadas);
+        }
+
+        // Obtener las ligas filtradas
+        $ligas = $ligasQuery->get();
+
+        // Obtener el nombre del deporte y todas las localidades
+        $deporteNombre = Deportes::find($deporte);
+        $localidades = Ligas::where('deporte_id', $deporte)->pluck('localidad')->unique()->values();
 
         return view(
             'liga.ligas',
@@ -312,7 +359,7 @@ class LigasController extends Controller
         $jornadas = Jornadas::where('liga_id', $liga->id)->get();
 
         // Obtener el número de jornada seleccionado del request
-        $numJornada = $request->input('num_jornada', 1); // Por defecto, toma la jornada 1
+        $numJornada = $request->input('num_jornada', 1);
 
         // Obtener la jornada específica de la liga
         $jornada = Jornadas::where('liga_id', $liga->id)
@@ -323,37 +370,47 @@ class LigasController extends Controller
             return redirect()->back()->with('error', 'Jornada no encontrada');
         }
 
-        // Filtrar partidos por jornada
         $partidos = Partidos::where('jornada_id', $jornada->id)->get();
 
-        $fecha = Jornadas::where('num_jornada', $numJornada)->select('fecha')->first();
+        $fechaInicio = Jornadas::where('liga_id', $liga->id)
+            ->where('num_jornada', $numJornada)
+            ->select('fecha-inicio')
+            ->first();
 
-        $fechaString = $fecha ? $fecha->fecha : null;
+        $fechaStringInicio = $fechaInicio ? Carbon::parse($fechaInicio->getAttribute('fecha-inicio'))->format('Y-m-d') : null;
 
-        $jugadores = "";
+        $fechaFinal = Jornadas::where('liga_id', $liga->id)
+            ->where('num_jornada', $numJornada)
+            ->select('fecha-final')
+            ->first();
+
+        $fechaStringFinal = $fechaFinal ? Carbon::parse($fechaFinal->getAttribute('fecha-final'))->format('Y-m-d') : null;
+
+
+        $jugadores = collect();
 
         foreach ($partidos as $partido) {
-            // Unir PartidoParticipaJugadores con Jugadores y luego con Users para obtener el nombre del usuario
-            $jugadores = PartidoParticipaJugadores::where('partido_participa_jugadores.partidos_id', $partido->id)
-                ->join('jugadores', 'partido_participa_jugadores.jugador1_id', '=', 'jugadores.id') // Unir con Jugadores
+            $jugadoresPartido = PartidoParticipaJugadores::where('partidos_id', $partido->id)
+                ->join('jugadores', 'partido_participa_jugadores.jugador1_id', '=', 'jugadores.id')
                 ->join('users', 'jugadores.user_id', '=', 'users.id')
-                ->select('partido_participa_jugadores.*', 'users.name') // Seleccionar campos necesarios
+                ->select('partido_participa_jugadores.*', 'users.name')
                 ->get();
+
+            $jugadores = $jugadores->concat($jugadoresPartido); // Concatenar resultados
         }
 
-
-
-        // Retornar la vista con los datos necesarios
         return view('liga.ligaPartidos', [
             'liga' => $liga,
             'user' => Auth::user(),
             'jornadas' => $jornadas,
             'partidos' => $partidos,
             'numJornada' => $numJornada,
-            'fecha' => $fechaString,
-            'jugadores' => $jugadores
+            'fechaInicio' => $fechaStringInicio,
+            'fechaFinal' => $fechaStringFinal,
+            'jugadores' => $jugadores,
         ]);
     }
+
 
     public function inscribirse(string $ligaId, string $userId)
     {
@@ -382,12 +439,15 @@ class LigasController extends Controller
 
     public function jugarJornada(Request $request, string $ligaId, string $userId)
     {
-        //Seleccionar la jornada uniendo el id_jornada de $ligaId con la tabla jornadas
-        $jornada = Jornadas::where('liga_id', $ligaId)->first();
+        $fechaActual = Carbon::now();
 
-        // Si no se encuentra la jornada, manejar el error
+        $jornada = Jornadas::where('liga_id', $ligaId)
+            ->where('fecha-inicio', '>', $fechaActual)
+            ->orderBy('fecha-inicio', 'asc')
+            ->first();
+
         if (!$jornada) {
-            return response()->json(['error' => 'Jornada no encontrada'], 404);
+            return redirect()->back()->with('error', 'No hay jornadas próximas disponibles');
         }
 
         $jugador = Jugadores::where('user_id', $userId)->first();
@@ -396,13 +456,12 @@ class LigasController extends Controller
             'dia_jornada' => ['required', 'array']
         ]);
 
-        //Guardar la respuesta en la tabla jugador_juega_jornadas con el userId jornada_id y la request
         JugadorJuegaJornada::create([
             'jugador_id' => $jugador->id,
             'jornada_id' => $jornada->id,
-            'dia_posible' => $validatedData
+            'dia_posible' => $validatedData['dia_jornada']
         ]);
 
-        return redirect()->back()->with('success', 'Jugador inscrito a la jornada con éxito');
+        return redirect()->back()->with('success', 'Jugador inscrito a la próxima jornada con éxito');
     }
 }

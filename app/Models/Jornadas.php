@@ -11,7 +11,8 @@ class Jornadas extends Model
 
     protected $fillable = [
         'num_jornada',
-        'fecha',
+        'fecha-inicio',
+        'fecha-final',
         'liga_id',
     ];
 }

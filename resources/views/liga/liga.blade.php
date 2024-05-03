@@ -65,7 +65,7 @@
             </div>
             <div class="liena"></div>
             @if ($organizador->id != $user->id && $esJugador == 0)
-            <div class="div-info-liga">
+            <div class="{{$mostrarBotonInscribirse ? 'div-info-liga' : 'hidden'}}">
                 <form action="{{ route('liga.inscribirse', ['liga' => $liga->id, 'userId' => $user->id]) }}" method="POST">
                     @csrf
                     <button type="submit" class="crear-boton btn-unirse">INSCRIBIRSE</button>
@@ -76,9 +76,9 @@
 
 
         @if (!$juegaJornada && $organizador->id != $user->id && $esJugador == 1)
-        <div class="alerta" id="alerta">
+        <div class=" {{$mostrarDivRango ? 'alerta' : 'hidden'}}" id="alerta">
             <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
-            <h2 class="alerta_titulo">Apuntate a la próxima jornada ({{$liga->fecha_fin_inscripcion}})</h2>
+            <h2 class="alerta_titulo">Apuntate a la próxima jornada ({{$fechaJornada}})</h2>
 
             <form action="{{ route('liga.jugarJornada', ['liga' => $liga->id, 'userId' => $user->id]) }}" method="POST">
                 <div class="alerta_div-form">
@@ -104,6 +104,6 @@
             </form>
         </div>
         @endif
-
     </main>
+
 </x-layoutLiga>

@@ -12,7 +12,7 @@
                     @endforeach
                 </select>
             </form>
-            <p class="header_partido-fecha">{{$fecha}}</p>
+            <p class="header_partido-fecha">{{$fechaInicio}} / {{$fechaFinal}}</p>
         </header>
 
         <section class="container-partidos">

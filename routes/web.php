@@ -4,6 +4,8 @@ use App\Http\Controllers\LigasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ViewController;
+use App\Mail\VerificarElEmail;
+use Illuminate\Support\Facades\Mail;
 
 
 Route::controller(ViewController::class)->group(function () {
@@ -14,7 +16,7 @@ Route::controller(ViewController::class)->group(function () {
 
 
 Route::controller(LigasController::class)->group(function () {
-    Route::get('liga/deporte/{deporte}', 'LigaDeporte')->middleware('auth');
+    Route::get('liga/deporte/{deporte}', 'LigaDeporte')->middleware('auth')->name('liga.ligaDeporte');
     
     Route::get('liga/{liga}/Clasificacion', 'ligaClasificacion')->middleware('auth');
     Route::get('liga/{liga}/Jugadores', 'ligaJugadores')->middleware('auth');
@@ -36,3 +38,11 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('login', 'getLogin')->middleware('guest')->name('login');
     Route::get('registro', 'register')->name('registro')->middleware('guest');
 });
+
+Route::get('VerificarElEmail', function () {
+    Mail::to('eduardodazavillanueva@gmail.com')
+        ->send(new VerificarElEmail);
+
+        return "Mensaje enviado";
+        
+})->name('VerificarElEmail');
