@@ -38,10 +38,7 @@ class LoginController extends Controller
             ],
             'telefono' => [
                 'required',
-                'string',
-                'regex:/^\+?[\d\s()-]+$/',
-                'min:9',
-                'max:20'
+                'regex:/^\+?[1-9]\d{1,14}$/'
             ],
             'password' => [
                 'required',

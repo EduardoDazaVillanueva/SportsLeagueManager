@@ -25,9 +25,12 @@ Route::controller(LigasController::class)->group(function () {
 
     Route::get('liga/{liga}', 'show')->middleware('auth', 'verified')->whereNumber('liga');
     Route::get('liga/crear/{deporteID}', 'create');
+    Route::get('liga/editar/{liga}', 'edit');
     Route::post('liga', 'store')->name('crearLiga')->middleware('auth', 'verified');
     Route::post('/liga/{liga}/inscribirse/{userId}', 'inscribirse')->name('liga.inscribirse')->middleware('auth', 'verified');
     Route::post('/liga/{liga}/jugarJornada/{userId}', 'jugarJornada')->name('liga.jugarJornada')->middleware('auth', 'verified');
+
+    Route::put('ligas/{liga}', 'update')->name('ligas.update');
 });
 
 

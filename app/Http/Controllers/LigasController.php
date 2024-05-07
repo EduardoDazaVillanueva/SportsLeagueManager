@@ -81,26 +81,30 @@ class LigasController extends Controller
             $request['precio'] = 0;
         }
 
+        if ($request->pnts_juego == "") {
+            $request['pnts_juego'] = 0;
+        }
+
         // Validar la entrada del usuario con una regla de validación personalizada
         $validatedData = $request->validate([
-            'nombre' => ['required', 'string', 'max:255'],
-            'fecha_final' => ['required', 'date'],
-            'localidad' => ['required', 'string', 'max:255'],
-            'sede' => ['required', 'string', 'max:255'],
-            'dia_jornada' => ['required', 'array'],
-            'pnts_ganar' => ['required', 'integer', 'min:0'],
-            'pnts_perder' => ['required', 'integer', 'min:0'],
+            'nombre' => ['string', 'max:255'],
+            'fecha_final' => ['date'],
+            'localidad' => ['string', 'max:255'],
+            'sede' => ['string', 'max:255'],
+            'dia_jornada' => ['array'],
+            'pnts_ganar' => ['integer', 'min:0'],
+            'pnts_perder' => ['integer', 'min:0'],
             'pnts_empate' => ['nullable', 'integer', 'min:0'],
             'pnts_juego' => ['nullable', 'integer', 'min:0'],
-            'txt_responsabilidad' => ['required', 'string', 'max:1000'],
-            'deporte_id' => ['required', Rule::exists('deportes', 'id')],
+            'txt_responsabilidad' => ['string', 'max:1000'],
+            'deporte_id' => [Rule::exists('deportes', 'id')],
             'logo' => ['nullable', 'file', 'mimes:jpg,png,gif,jpeg'],
-            'precio' => ['required', 'integer'],
+            'precio' => ['integer'],
             'posicion' => [],
 
             // Validación personalizada para fechas
             'fecha_fin_inscripcion' => [
-                'required',
+
                 'date',
                 function ($attribute, $value, $fail) use ($request) {
                     // Validar que fecha_fin_inscripcion sea menor que fecha_inicio
@@ -110,7 +114,7 @@ class LigasController extends Controller
                 }
             ],
             'fecha_inicio' => [
-                'required',
+
                 'date',
                 function ($attribute, $value, $fail) use ($request) {
                     // Validar que fecha_inicio sea menor que fecha_final
@@ -159,7 +163,7 @@ class LigasController extends Controller
         // Buscar el organizador y obtener el user_id
         $organizador = Organizadores::where('organizadores.id', $organizadores_id)
             ->join('users', 'organizadores.user_id', '=', 'users.id')
-            ->select('organizadores.id', 'users.name', 'users.telefono')
+            ->select('users.id', 'users.name', 'users.telefono')
             ->first();
 
 
@@ -253,18 +257,61 @@ class LigasController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Ligas $ligas)
+    public function edit(Ligas $liga)
     {
-        //
+
+        return view('liga.edit', [
+            'liga' => $liga,
+            'deportes' => Deportes::all(),
+            'user' => Auth::user()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Ligas $ligas)
+    public function update(Request $request, Ligas $liga)
     {
-        //
+        // Validar solo los campos que están presentes en la solicitud
+        $validatedData = $request->validate([
+            'nombre' => ['sometimes', 'nullable', 'string', 'max:255'],
+            'dia_jornada' => ['sometimes', 'nullable', 'array'],
+            'pnts_ganar' => ['sometimes', 'nullable', 'integer', 'min:0'],
+            'pnts_perder' => ['sometimes', 'nullable', 'integer', 'min:0'],
+            'pnts_empate' => ['sometimes', 'nullable', 'integer', 'min:0'],
+            'pnts_juego' => ['sometimes', 'nullable', 'integer', 'min:0'],
+            'txt_responsabilidad' => ['sometimes', 'nullable', 'string', 'max:1000'],
+            'posicion' => ['sometimes', 'nullable', 'string'],
+            'premio' => ['sometimes', 'nullable', 'string'],
+            'logo' => ['sometimes', 'nullable', 'file', 'mimes:jpg,png,gif,jpeg'],
+        ]);
+
+        // Remover campos nulos o vacíos del arreglo validado
+        $cleanedData = array_filter($validatedData, function ($value) {
+            return !is_null($value) && $value !== ''; // Retorna true si el valor no es nulo o vacío
+        });
+
+        // Si hay un nuevo logo, manejar la carga y eliminación del anterior
+        if ($request->hasFile('logo')) {
+            try {
+                if ($liga->logo) {
+                    Storage::disk('public')->delete('imagenes/' . $liga->logo); // Eliminar el logo anterior
+                }
+
+                // Guardar el nuevo logo
+                $path = Storage::disk('public')->putFile('imagenes', $request->file('logo'));
+                $validatedData['logo'] = basename($path); // Actualizar el valor del logo
+            } catch (Exception $e) {
+                return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);
+            }
+        }
+
+        // Actualizar solo los campos que han sido validados y enviados
+        $liga->update($cleanedData);
+
+        return redirect('/')->with('success', 'La liga ha sido actualizada con éxito.');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -471,7 +518,7 @@ class LigasController extends Controller
         $jugador = Jugadores::where('user_id', $userId)->first();
 
         $validatedData = $request->validate([
-            'dia_jornada' => ['required', 'array']
+            'dia_jornada' => ['array']
         ]);
 
         JugadorJuegaJornada::create([

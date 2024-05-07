@@ -54,6 +54,8 @@
 }
 
 .container-infoLiga {
+    position: relative;
+
     text-align: center;
     font-size: 1.5rem;
 
@@ -109,4 +111,21 @@
     justify-content: space-between;
     align-items: center;
     gap: 3rem;
+}
+
+.edit{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    font-size: 2rem;
+    color: $colorPrincipal;
+
+    cursor: pointer;
+
+    transition: color 200ms;
+}
+
+.edit:hover{
+    color: $colorSecundario;
 }

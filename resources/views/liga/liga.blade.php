@@ -7,6 +7,11 @@
         </div>
 
         <div class="container-infoLiga">
+
+            @if ($organizador->id == $user->id)
+            <a href="/liga/editar/{{$liga->id}}"><i class="fa-solid fa-pen-to-square edit"></i></a>
+            @endif
+
             <div class="div-info-liga">
                 <p>Localidad: <strong>{{$liga->localidad}}</strong></p>
                 <p>Sede: <strong>{{$liga->sede}}</strong></p>
