@@ -38,8 +38,6 @@ class ViewController extends Controller
 
     public function getPerfil(Request $request, User $user)
     {
-
-
         // Unir 'users' con 'jugadores' para obtener 'jugador_id'
         $jugador = Jugadores::where('user_id', $user->id)->first();
 

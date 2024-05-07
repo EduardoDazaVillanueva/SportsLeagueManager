@@ -142,10 +142,12 @@
                     <input type="number" name="pnts_empate" id="pnts_empate" class="crear-input" min="0" placeholder="1">
                 </div>
 
+                @if ($deporteID == 3 || $deporteID == 4 || $deporteID == 5)
                 <div id="pnts_juego-div">
-                    <label for="pnts_juego" class="crear-label">Puntos por juego</label>
+                    <label for="pnts_juego" class="crear-label">Puntos por juegos de diferencia</label>
                     <input type="number" name="pnts_juego" id="pnts_juego" class="crear-input" min="0" placeholder="Juegos de diferencia">
                 </div>
+                @endif
 
                 <div id="inscripcion-div">
                     <label for="inscripcion" class="crear-label">Precio inscripción *</label>
@@ -161,7 +163,11 @@
                         </div>
                     </div>
 
-                    <input type="number" name="precio" id="precio" class="crear-input txt_inscripcion" placeholder="Indica el precio" min="1">
+                    <div class="tooltip top"> 
+                        <input type="number" name="precio" id="precio" class="crear-input txt_inscripcion" placeholder="Indica el precio" min="1">
+                        <span class="tiptext">La web se queda un 20% del precio</span>
+                    </div>
+
 
                 </div>
 

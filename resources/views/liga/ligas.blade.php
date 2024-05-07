@@ -1,6 +1,6 @@
 <x-layout :deportes="$deportes" :user="$user">
     <main class="main-grid">
-    
+
         <h1 class="main_titulo">{{$nombreDeporte->nombre}}</h1>
 
         <section class="main_section1">
@@ -13,6 +13,16 @@
 
                     <div class="liga_info">
                         <h2 class="liga_nombre"> {{$liga["nombre"]}} </h2>
+
+                        {{-- Obtener el número de jugadores de la liga actual --}}
+                        @php
+                        $numeroJugadores = $jugadores->has($liga->id)
+                        ? $jugadores->get($liga->id)->count()
+                        : 0;
+                        @endphp
+
+                        <p class="liga_localidad"> Jugadores: <strong>{{ $numeroJugadores }}</strong> </p>
+
                         <p class="liga_localidad"> {{$liga["fecha_inicio"]}} / {{$liga["fecha_final"]}} </p>
                         <p class="liga_localidad">Localidad: <strong> {{$liga["localidad"]}} </strong></p>
                         <p class="liga_sede">Sede: <strong> {{$liga["sede"]}} </strong></p>

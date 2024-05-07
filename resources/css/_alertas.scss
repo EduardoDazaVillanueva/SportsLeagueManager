@@ -87,3 +87,18 @@
 .alerta_btn:hover{
     scale: 1.1;
 }
+
+.w-100{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+.envioEmail{
+    top: 150px;
+}
+
+.alerta-email_titulo{
+    font-size: 3rem;
+}

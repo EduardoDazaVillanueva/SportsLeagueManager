@@ -15,7 +15,7 @@
             <div class="liena"></div>
 
             <div class="div-info-liga">
-                <p><strong>{{count($jugadores)}} </strong>jugadores inscritos</p>
+                <p><strong> {{count($jugadores)}} </strong>jugadores inscritos</p>
                 <p>Las jornadas se juegan el/los día/s: <strong>
                         @for ($i = 0; $i < count($liga->dia_jornada); $i++)
                             @if ($i == (count($liga->dia_jornada) -2) )
@@ -37,8 +37,12 @@
                     <div class="container-pnt">
                         <p>Si ganas el partido:<strong> {{$liga->pnts_ganar}}</strong></p>
                         <p>Si pierder el partido:<strong> {{$liga->pnts_perder}}</strong></p>
+                        @if ($liga->pnts_empate > 0)
                         <p>Si empatas el partido:<strong> {{$liga->pnts_empate}}</strong></p>
+                        @endif
+                        @if ($liga->pnts_juego > 0)
                         <p>Juegos:<strong> {{$liga->pnts_juego}}</strong> por cada juego de diferencia</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -58,9 +62,18 @@
                 </div>
 
                 <div>
-                    <p>La inscripción finaliza:<strong> {{$liga->fecha_fin_inscripcion}}</strong></p>
-                    <p>La inscripción es de <strong> {{$liga->precio}} </strong></p>
+                    <p><strong>Inscripción:</strong></p>
+                    @if ($mostrarBotonInscribirse)
+                    <p>La inscripción finaliza el día:<strong> {{$liga->fecha_fin_inscripcion}}</strong></p>
+                    @else
+                    <p>La inscripción finalizó el día:<strong> {{$liga->fecha_fin_inscripcion}}</strong></p>
+                    @endif
+                    @if ($liga->precio > 0)
+                    <p>La inscripción es de <strong> {{$liga->precio}}€ </strong></p>
                     <p>Para abonarla hable con el creador de la liga<strong> {{$organizador->name}}</strong> en el número <strong>{{$organizador->telefono}}</strong></p>
+                    @else
+                    <p>La inscripción es <strong> Gratis </strong></p>
+                    @endif
                 </div>
             </div>
             <div class="liena"></div>

@@ -77,7 +77,7 @@ class LigasController extends Controller
     public function store(Request $request)
     {
 
-        if ($request->txt_inscripcion == "") {
+        if ($request->precio == "") {
             $request['precio'] = 0;
         }
 
@@ -246,8 +246,8 @@ class LigasController extends Controller
     private function mostrarBotonInscribirse($fechaFinInscripcion)
     {
         $fechaFinInscripcion = Carbon::create($fechaFinInscripcion);
-        $dateDiff = abs($fechaFinInscripcion->diffInDays(Carbon::now()));
-        return $dateDiff > 0;
+        $dateDiff = $fechaFinInscripcion->diffInDays(Carbon::now());
+        return $dateDiff < 0;
     }
 
     /**
@@ -295,6 +295,23 @@ class LigasController extends Controller
         $deporteNombre = Deportes::find($deporte);
         $localidades = Ligas::where('deporte_id', $deporte)->pluck('localidad')->unique()->values();
 
+        // Para obtener detalles de jugadores por liga, usar `whereIn`
+        $ligaIds = $ligas->pluck('id');
+
+        // Obtener todos los jugadores de las ligas
+        $jugadoresPorLiga = ParticipaEnLiga::whereIn('liga_id', $ligaIds)
+            ->join('jugadores', 'participa_en_ligas.jugadores_id', '=', 'jugadores.id')
+            ->join('users', 'jugadores.user_id', '=', 'users.id')
+            ->select(
+                'participa_en_ligas.liga_id',
+                'jugadores.*',
+                'users.name as user_name'
+            )
+            ->get();
+
+        // Agrupar jugadores por liga_id para facilitar la consulta en la vista
+        $jugadoresPorLigaAgrupados = $jugadoresPorLiga->groupBy('liga_id');
+
         return view(
             'liga.ligas',
             [
@@ -304,6 +321,7 @@ class LigasController extends Controller
                 'deporteID' => $deporte,
                 'user' => Auth::user(),
                 'localidades' => $localidades,
+                'jugadores' => $jugadoresPorLigaAgrupados
             ]
         );
     }

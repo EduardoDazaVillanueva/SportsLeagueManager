@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VerificarElEmail;
+use Illuminate\Support\Facades\Mail;
+
 use Illuminate\Http\Request;
 
 use App\Models\User;
@@ -64,19 +67,25 @@ class LoginController extends Controller
 
         $user = User::create($user);
 
-        return redirect("/login")->with('success', 'El usuario ha sido creada con éxito.');
-    }
+        // Enviar el correo de verificación
+        $this->enviarCorreo($user);
 
+        return redirect("/login")->with('success', 'El usuario ha sido creado con éxito. Revisa tu correo para verificar tu cuenta.');
+    }
     public function register()
     {
-        return view('user.register', ['deportes' => Deportes::all(),
-        'user' => Auth::user()]);
+        return view('user.register', [
+            'deportes' => Deportes::all(),
+            'user' => Auth::user()
+        ]);
     }
 
     public function getLogin()
     {
-        return view('user.login', ['deportes' => Deportes::all(),
-        'user' => Auth::user()]);
+        return view('user.login', [
+            'deportes' => Deportes::all(),
+            'user' => Auth::user()
+        ]);
     }
 
     public function login(Request $request)
@@ -88,6 +97,15 @@ class LoginController extends Controller
 
 
         if (auth()->attempt($credenciales)) {
+
+            $user = auth()->user();
+
+            if (is_null($user->email_verified_at)) {
+                auth()->logout();
+                return redirect()->back()->withErrors([
+                    'email' => 'Debes verificar tu correo electrónico antes de iniciar sesión.',
+                ]);
+            }
 
             $request->session()->regenerate();
 
@@ -105,5 +123,40 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         return redirect(route('login'));
+    }
+
+    private function enviarCorreo(User $user)
+    {
+        Mail::to($user->email)->send(new VerificarElEmail($user));
+    }
+
+    public function reenviarCorreo()
+    {
+        return view('user.verificacion', [
+            'deportes' => Deportes::all(),
+            'user' => Auth::user()
+        ]);
+    }
+
+
+    public function getUser(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        $email = $request->input('email');
+        $user = User::where('email', $email)->first();
+
+        if ($user) {
+            if (is_null($user->email_verified_at)) {
+                $this->enviarCorreo($user);
+                return redirect("/login")->with('success', 'Correo de verificación enviado. Por favor, revisa tu correo electrónico.');
+            } else {
+                return redirect()->back()->withErrors(['email' => 'Este correo electrónico ya está verificado.']);
+            }
+        }
+
+        return redirect()->back()->withErrors(['email' => 'Correo electrónico no registrado.']);
     }
 }

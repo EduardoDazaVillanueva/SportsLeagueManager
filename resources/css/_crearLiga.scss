@@ -131,30 +131,31 @@
     grid-area: txt_responsabilidad;
 }
 
-#inscripcion-div{
+#inscripcion-div {
     grid-area: inscripcion;
 }
 
-#premios-div{
+#premios-div {
     grid-area: premio;
 }
 
-.text_foto{
+.text_foto {
     text-align: center;
 }
 
-.div_check{
+.div_check {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 1rem;
 }
 
-.txt_inscripcion{
+.txt_inscripcion {
     display: none;
+    height: 33px;
 }
 
-.container-premios{
+.container-premios {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -162,21 +163,21 @@
     gap: 1rem;
 }
 
-.premio-titulos{
+.premio-titulos {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.premio-input{
+.premio-input {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.dia-check{
+.dia-check {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -186,6 +187,39 @@
     width: 100%;
 }
 
-.dia-check .crear-input{
+.dia-check .crear-input {
     width: fit-content;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tiptext {
+    visibility: hidden;
+
+    width: fit-content;
+
+    background-color: $colorOscuro;
+
+    color: $colorClaro;
+    text-align: center;
+    font-size: 1rem;
+
+    padding: 5px;
+
+    border-radius: 5px;
+
+    position: absolute;
+    top: 110%;
+    
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1;
+}
+
+.tooltip:hover .tiptext {
+    visibility: visible;
+    opacity: 1;
 }

@@ -17,7 +17,12 @@
             </div>
             @error('email')
             <div class="error">
-                <p>correo no válido</p>
+                {{ $message }}
+
+                <!-- Botón para Reenviar el Correo Electrónico -->
+                <button type="button" onclick="document.getElementById('resend-form').submit()">
+                    Reenviar Correo de Verificación
+                </button>
             </div>
             @enderror
 
@@ -48,5 +53,19 @@
             </p>
         </form>
     </main>
-    
+
+    @if (session('success'))
+    <div class="w-100">
+        <div class="alerta envioEmail" id="alerta">
+            <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
+            <h2 class="alerta-email_titulo">{{session('success')}}</h2>
+        </div>
+    </div>
+    @endif
+
+    <form id="resend-form" action="{{ route('reenviarCorreo') }}" method="post" style="display: none;">
+        @csrf
+    </form>
+
+
 </x-layout>

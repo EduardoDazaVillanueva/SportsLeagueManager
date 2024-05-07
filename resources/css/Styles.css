@@ -187,6 +187,7 @@ form, input, select, textarea, button, label {
 
 .txt_inscripcion {
   display: none;
+  height: 33px;
 }
 
 .container-premios {
@@ -223,6 +224,33 @@ form, input, select, textarea, button, label {
 .dia-check .crear-input {
   width: -moz-fit-content;
   width: fit-content;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tiptext {
+  visibility: hidden;
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: #333;
+  color: #eee;
+  text-align: center;
+  font-size: 1rem;
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+  top: 110%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+
+.tooltip:hover .tiptext {
+  visibility: visible;
+  opacity: 1;
 }
 
 .section2_titulo {
@@ -1268,6 +1296,21 @@ tbody {
 
 .alerta_btn:hover {
   scale: 1.1;
+}
+
+.w-100 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.envioEmail {
+  top: 150px;
+}
+
+.alerta-email_titulo {
+  font-size: 3rem;
 }
 
 @media (max-width: 1150px) {
