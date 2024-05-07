@@ -19,10 +19,12 @@
             <div class="error">
                 {{ $message }}
 
-                <!-- Botón para Reenviar el Correo Electrónico -->
+                @if ($message == 'Debes verificar tu correo electrónico antes de iniciar sesión.')
                 <button type="button" onclick="document.getElementById('resend-form').submit()">
                     Reenviar Correo de Verificación
                 </button>
+                    
+                @endif
             </div>
             @enderror
 

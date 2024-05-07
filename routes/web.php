@@ -46,3 +46,5 @@ Route::get('/verify-email/{user}', function (App\Models\User $user) {
     $user->save();
     return redirect('/login')->with('success', 'Tu correo ha sido verificado. Ahora puedes iniciar sesión.');
 });
+
+Route::fallback([ViewController::class, 'get404']);

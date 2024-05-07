@@ -157,6 +157,6 @@ class LoginController extends Controller
             }
         }
 
-        return redirect()->back()->withErrors(['email' => 'Correo electrónico no registrado.']);
+        return redirect('/login')->withErrors(['email' => 'Correo electrónico no registrado.']);
     }
 }

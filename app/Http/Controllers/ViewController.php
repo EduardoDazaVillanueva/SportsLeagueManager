@@ -63,4 +63,12 @@ class ViewController extends Controller
             ]);
         }
     }
+
+    public function get404()
+    {
+        return view('errors.404', [
+            'deportes' => Deportes::all(),
+            'user' => Auth::user(),
+        ]);
+    }
 }

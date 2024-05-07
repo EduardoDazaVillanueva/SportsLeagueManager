@@ -1,0 +1,58 @@
+.main-404 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-section {
+    text-align: center;
+    margin-top: 6rem; 
+}
+
+/* Títulos */
+.error-title {
+    font-size: 5rem; 
+    font-weight: bold; 
+    color: $colorOscuro; 
+}
+
+.error-message {
+    font-size: 2rem; 
+    color: #6c757d;
+}
+
+.error-suggestion {
+    font-size: 1.8rem; 
+    color: #6c757d; 
+    margin-bottom: 4rem;
+}
+
+.navigation {
+    display: flex;
+    justify-content: center; 
+    gap: 2.5rem;
+}
+
+.button {
+    padding: .8rem 2rem; 
+
+    border-radius: 5px; 
+    
+    background-color: $colorPrincipal;
+    color: $colorClaro; 
+    text-decoration: none; 
+    font-size: 2.5rem;
+    
+    box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, .5);
+    -webkit-box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, .5);
+    -moz-box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, .5);
+
+    transition: all 0.3s; 
+}
+
+.button:hover {
+    scale: 1.1;
+    box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 1);
+    -webkit-box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 1);
+    -moz-box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 1);
+}
