@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('partidos', function (Blueprint $table) {
             $table->id();
             $table->string('dia');
+            $table->string('hora_inicio');
+            $table->string('hora_final');
             $table->string('resultado');
             $table->json('jugadores');
 

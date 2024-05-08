@@ -77,42 +77,72 @@
                     <label class="crear-label">Dia de la jornada *</label>
 
                     <div class="dia-check">
-                        <label>Lunes</label>
-                        <input type="checkbox" value="Lunes" name="dia_jornada[]" class="crear-input">
+                        <label for="Lunes">Lunes</label>
+                        <input type="checkbox" value="Lunes" id="Lunes" name="dia_jornada[]" class="crear-input">
                     </div>
 
                     <div class="dia-check">
-                        <label>Martes</label>
-                        <input type="checkbox" value="Martes" name="dia_jornada[]" class="crear-input">
+                        <label for="Martes">Martes</label>
+                        <input type="checkbox" value="Martes" id="Martes" name="dia_jornada[]" class="crear-input">
                     </div>
 
                     <div class="dia-check">
-                        <label>Miércoles</label>
-                        <input type="checkbox" value="Miércoles" name="dia_jornada[]" class="crear-input">
+                        <label for="Miercoles">Miércoles</label>
+                        <input type="checkbox" value="Miércoles" id="Miercoles" name="dia_jornada[]" class="crear-input">
                     </div>
 
                     <div class="dia-check">
-                        <label>Jueves</label>
-                        <input type="checkbox" value="Jueves" name="dia_jornada[]" class="crear-input">
+                        <label for="Jueves">Jueves</label>
+                        <input type="checkbox" value="Jueves" id="Jueves" name="dia_jornada[]" class="crear-input">
                     </div>
 
                     <div class="dia-check">
-                        <label>Viernes</label>
-                        <input type="checkbox" value="Viernes" name="dia_jornada[]" class="crear-input">
+                        <label for="Viernes">Viernes</label>
+                        <input type="checkbox" value="Viernes" id="Viernes" name="dia_jornada[]" class="crear-input">
                     </div>
 
                     <div class="dia-check">
-                        <label>Sábado</label>
-                        <input type="checkbox" value="Sábado" name="dia_jornada[]" class="crear-input">
+                        <label for="Sabado">Sábado</label>
+                        <input type="checkbox" value="Sábado" id="Sabado" name="dia_jornada[]" class="crear-input">
                     </div>
 
                     <div class="dia-check">
-                        <label>Domingo</label>
-                        <input type="checkbox" value="Domingo" name="dia_jornada[]" class="crear-input">
+                        <label for="Domingo">Domingo</label>
+                        <input type="checkbox" value="Domingo" id="Domingo" name="dia_jornada[]" class="crear-input">
                     </div>
                     @error('dia_jornada')
                     <div class="error">
                         <p>Día no válido</p>
+                    </div>
+                    @enderror
+                </div>
+
+                <div id="numPistas-div">
+                    <label for="numPistas" class="crear-label">Pistas disponibles por turno *</label>
+                    <input type="number" name="numPistas" id="numPistas" class="crear-input" min="1" placeholder="Pistas disponibles por turno">
+                    @error('numPistas')
+                    <div class="error">
+                        <p>Número de pistas no válido</p>
+                    </div>
+                    @enderror
+                </div>
+
+                <div id="primera_hora-div">
+                    <label for="primera_hora" class="crear-label">El primer turno de pistas se reserva a las... *</label>
+                    <input type="time" name="primera_hora" id="primera_hora" class="crear-input">
+                    @error('primera_hora')
+                    <div class="error">
+                        <p>La hora no es válida.</p>
+                    </div>
+                    @enderror
+                </div>
+
+                <div id="ultima_hora-div">
+                    <label for="ultima_hora" class="crear-label">El último turno de pistas se reserva a las... *</label>
+                    <input type="time" name="ultima_hora" id="ultima_hora" class="crear-input">
+                    @error('ultima_hora')
+                    <div class="error">
+                        <p>La hora debe ser posterior a la hora de inicio.</p>
                     </div>
                     @enderror
                 </div>
@@ -163,7 +193,7 @@
                         </div>
                     </div>
 
-                    <div class="tooltip top"> 
+                    <div class="tooltip top">
                         <input type="number" name="precio" id="precio" class="crear-input txt_inscripcion" placeholder="Indica el precio" min="1">
                         <span class="tiptext">La web se queda un 20% del precio</span>
                     </div>

@@ -25,7 +25,10 @@ class Ligas extends Model
         'organizadores_id',
         'deporte_id',
         'logo',
-        'precio'
+        'precio',
+        'numPistas',
+        'primera_hora',
+        'ultima_hora'
     ];
 
     protected $casts = [

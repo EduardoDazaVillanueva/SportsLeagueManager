@@ -27,6 +27,9 @@ return new class extends Migration
             $table->integer('pnts_juego')->unsigned();
             $table->string('txt_responsabilidad');
             $table->integer('precio')->unsigned();
+            $table->integer('numPistas')->unsigned();
+            $table->integer('primera_hora')->unsigned();
+            $table->integer('ultima_hora')->unsigned();
 
             $table->foreignId('deporte_id')->constrained();
             $table->foreignId('organizadores_id')->constrained();

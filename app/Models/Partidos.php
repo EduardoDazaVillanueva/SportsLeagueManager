@@ -13,6 +13,8 @@ class Partidos extends Model
         'dia',
         'resultado',
         'jornada_id',
-        'jugadores'
+        'jugadores',
+        'hora_inicio',
+        'hora_final'
     ];
 }

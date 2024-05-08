@@ -33,6 +33,8 @@
                             @endfor
 
                     </strong></p>
+                
+                <p><strong>Desde las {{$liga->primera_hora}} hasta las {{$liga->ultima_hora}}</strong></p>
             </div>
             <div class="liena"></div>
 

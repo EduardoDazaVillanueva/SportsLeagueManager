@@ -12,6 +12,7 @@
     display: grid;
     grid-template-areas: 'nombre fecha_inicio fecha_final fecha_fin_inscripcion'
         'logo localidad sede dia_jornada'
+        'numPistas primera_hora ultima_hora dia_jornada'
         'pnts_ganar pnts_perder pnts_empate pnts_juego'
         'inscripcion premio txt_responsabilidad txt_responsabilidad'
         '. btn btn .';
@@ -137,6 +138,18 @@
 
 #premios-div {
     grid-area: premio;
+}
+
+#numPistas-div{
+    grid-area: numPistas;
+}
+
+#primera_hora-div{
+    grid-area: primera_hora;
+}
+
+#ultima_hora-div{
+    grid-area: ultima_hora;
 }
 
 .text_foto {

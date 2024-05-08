@@ -88,46 +88,55 @@ class LigasController extends Controller
     {
 
         //Si no hay ningún valor en el campo "precio", significa que es gratis
-        if ($request->precio == "") {
+        if (empty($request->precio)) {
             $request['precio'] = 0;
         }
 
-        //Si no hay ningún valor en el campo "pnts_juego", significa que es 0
-        if ($request->pnts_juego == "") {
+        // Si no hay ningún valor en el campo "pnts_juego", significa que es 0
+        if (empty($request->pnts_juego)) {
             $request['pnts_juego'] = 0;
         }
 
         // Validar la entrada del usuario con una regla de validación personalizada
         $validatedData = $request->validate([
-            'nombre' => ['string', 'max:255'],
-            'fecha_final' => ['date'],
-            'localidad' => ['string', 'max:255'],
-            'sede' => ['string', 'max:255'],
-            'dia_jornada' => ['array'],
-            'pnts_ganar' => ['integer', 'min:0'],
-            'pnts_perder' => ['integer', 'min:0'],
-            'pnts_empate' => ['nullable', 'integer', 'min:0'],
-            'pnts_juego' => ['nullable', 'integer', 'min:0'],
-            'txt_responsabilidad' => ['string', 'max:1000'],
-            'deporte_id' => [Rule::exists('deportes', 'id')],
-            'logo' => ['nullable', 'file', 'mimes:jpg,png,gif,jpeg'],
-            'precio' => ['integer'],
-            'posicion' => [],
-
-            // Validación personalizada para fechas
+            'nombre' => ['required', 'string', 'max:255'],
+            'fecha_final' => ['required', 'date'],
+            'localidad' => ['required', 'string', 'max:255'],
+            'sede' => ['required', 'string', 'max:255'],
+            'dia_jornada' => ['required', 'array'],
+            'pnts_ganar' => ['required', 'integer', 'min:0'],
+            'pnts_perder' => ['required', 'integer', 'min:0'],
+            'pnts_empate' => ['required', 'integer', 'min:0'],
+            'pnts_juego' => ['required', 'integer', 'min:0'],
+            'txt_responsabilidad' => ['required', 'string', 'max:1000'],
+            'deporte_id' => ['required', Rule::exists('deportes', 'id')],
+            'logo' => ['nullable', 'file', 'mimes:jpg,png,gif,jpeg', 'max:2048'],
+            'precio' => ['required', 'integer', 'min:0'],
+            'posicion' => ['required', 'integer'],
+            'numPistas' => ['required', 'integer', 'min:1'],
+            'primera_hora' => ['required', 'date_format:H:i'],
+            'ultima_hora' => [
+                'required',
+                'date_format:H:i',
+                function ($attribute, $value, $fail) use ($request) {
+                    if ($value <= $request->primera_hora) {
+                        $fail("La última hora debe ser posterior a la primera hora.");
+                    }
+                }
+            ],
             'fecha_fin_inscripcion' => [
+                'required',
                 'date',
                 function ($attribute, $value, $fail) use ($request) {
-                    // Validar que fecha_fin_inscripcion sea menor que fecha_inicio
-                    if ($value >= $request->fecha_inicio) {
+                    if (isset($request->fecha_inicio) && $value >= $request->fecha_inicio) {
                         $fail("La fecha de fin de inscripción debe ser anterior a la fecha de inicio de la liga.");
                     }
                 }
             ],
             'fecha_inicio' => [
+                'required',
                 'date',
                 function ($attribute, $value, $fail) use ($request) {
-                    // Validar que fecha_inicio sea menor que fecha_final
                     if ($value >= $request->fecha_final) {
                         $fail("La fecha de inicio de la liga debe ser anterior a la fecha de fin de la liga.");
                     }
@@ -142,6 +151,8 @@ class LigasController extends Controller
         // Verificar si el organizador ya existe y crear si no
         $organizador = Organizadores::where('user_id', $userId)->first() ?? Organizadores::create(['user_id' => $userId]);
         $validatedData['organizadores_id'] = $organizador->id;
+
+
 
         // Manejo de carga de archivos
         if ($request->hasFile('logo')) {
@@ -161,7 +172,6 @@ class LigasController extends Controller
 
         return redirect("liga/deporte/{$deporteID}")->with('success', 'La liga ha sido creada con éxito.');
     }
-
 
 
     /**
@@ -207,9 +217,9 @@ class LigasController extends Controller
 
         $juegaJornada = false;
 
-        if ($jugador) {
-            $jornada = Jornadas::where('liga_id', $liga->id)->first();
+        $jornada = Jornadas::where('liga_id', $liga->id)->first();
 
+        if ($jugador) {
             //Si existe la jornada y el jugador la juega, se guarda en la variable
             if ($jornada) {
                 $juegaJornada = JugadorJuegaJornada::where('jornada_id', $jornada->id)
@@ -228,7 +238,7 @@ class LigasController extends Controller
         $fecha2Dias = $this->comprobarFecha('2024-05-10');
 
         $hayPartidos = Partidos::where('jornada_id', $jornada->id)
-        ->exists();
+            ->exists();
 
         if ($fecha2Dias && !$hayPartidos) {
             switch ($liga->deporte_id) {
@@ -328,16 +338,16 @@ class LigasController extends Controller
     {
         // Validar solo los campos que están presentes en la solicitud
         $validatedData = $request->validate([
-            'nombre' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'dia_jornada' => ['sometimes', 'nullable', 'array'],
-            'pnts_ganar' => ['sometimes', 'nullable', 'integer', 'min:0'],
-            'pnts_perder' => ['sometimes', 'nullable', 'integer', 'min:0'],
-            'pnts_empate' => ['sometimes', 'nullable', 'integer', 'min:0'],
-            'pnts_juego' => ['sometimes', 'nullable', 'integer', 'min:0'],
-            'txt_responsabilidad' => ['sometimes', 'nullable', 'string', 'max:1000'],
-            'posicion' => ['sometimes', 'nullable', 'string'],
-            'premio' => ['sometimes', 'nullable', 'string'],
-            'logo' => ['sometimes', 'nullable', 'file', 'mimes:jpg,png,gif,jpeg'],
+            'nombre' => ['sometimes', 'required', 'string', 'max:255'],
+            'dia_jornada' => ['sometimes', 'required', 'array'],
+            'pnts_ganar' => ['sometimes', 'required', 'integer', 'min:0'],
+            'pnts_perder' => ['sometimes', 'required', 'integer', 'min:0'],
+            'pnts_empate' => ['sometimes', 'required', 'integer', 'min:0'],
+            'pnts_juego' => ['sometimes', 'required', 'integer', 'min:0'],
+            'txt_responsabilidad' => ['sometimes', 'required', 'string', 'max:1000'],
+            'posicion' => ['sometimes', 'required', 'string'],
+            'premio' => ['sometimes', 'required', 'string'],
+            'logo' => ['sometimes', 'required', 'file', 'mimes:jpg,png,gif,jpeg'],
         ]);
 
         if ($request->hasFile('logo')) {
