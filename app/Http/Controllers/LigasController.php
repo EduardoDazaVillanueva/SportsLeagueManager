@@ -31,31 +31,39 @@ class LigasController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Enviar a la vista del formulario para crear una liga
      */
     public function create(string $deporteID)
     {
         return view('liga.create', ['deportes' => Deportes::all(), 'deporteID' => $deporteID, 'user' => Auth::user()]);
     }
 
+    /**
+     * Crea una jornada teniendo en cuenta la fecha de inicio y la de fin de la liga
+     */
     public function crearJornada(Ligas $liga)
     {
         $fechaInicio = Carbon::parse($liga->fecha_inicio);
         $fechaFinal = Carbon::parse($liga->fecha_final);
 
+        //Cuenta el numero de semanas entre el inicio y el fin
         $numSemanas = $fechaInicio->diffInWeeks($fechaFinal);
 
+        //Recorre el bucle por cada semana
         for ($i = 0; $i < $numSemanas; $i++) {
 
             $fechaJornadaInicio = $fechaInicio->copy()->addWeeks($i);
             $fechaJornadaFin = $fechaJornadaInicio->copy()->addWeeks(1)->subDay();
 
+            //Si la fecha de fin de la jornada se pasa de la fecha de fin de la liga
+            //se pone como máximo la fecha de fin liga
             if ($fechaJornadaFin->greaterThan($fechaFinal)) {
                 $fechaJornadaFin = $fechaFinal;
             }
 
             $dateDiff = $fechaJornadaInicio->diffInDays($fechaJornadaFin);
 
+            //Si la diferencia es igual a 6 (una semana), se crea la jornada
             if ($dateDiff == 6) {
                 Jornadas::create([
                     'num_jornada' => $i + 1,
@@ -72,15 +80,18 @@ class LigasController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
+     * Función que se llama desde la vista liga.create.
+     * Sirve para comprobar los campos y almacenar la liga para crearla
      */
     public function store(Request $request)
     {
 
+        //Si no hay ningún valor en el campo "precio", significa que es gratis
         if ($request->precio == "") {
             $request['precio'] = 0;
         }
 
+        //Si no hay ningún valor en el campo "pnts_juego", significa que es 0
         if ($request->pnts_juego == "") {
             $request['pnts_juego'] = 0;
         }
@@ -104,7 +115,6 @@ class LigasController extends Controller
 
             // Validación personalizada para fechas
             'fecha_fin_inscripcion' => [
-
                 'date',
                 function ($attribute, $value, $fail) use ($request) {
                     // Validar que fecha_fin_inscripcion sea menor que fecha_inicio
@@ -114,7 +124,6 @@ class LigasController extends Controller
                 }
             ],
             'fecha_inicio' => [
-
                 'date',
                 function ($attribute, $value, $fail) use ($request) {
                     // Validar que fecha_inicio sea menor que fecha_final
@@ -125,8 +134,9 @@ class LigasController extends Controller
             ],
         ]);
 
+        //Obtener el id del deporte y del usuario actual
         $deporteID = $validatedData["deporte_id"];
-        $userId = Auth::id(); // Obtener el ID del usuario actual
+        $userId = Auth::id(); 
 
         // Verificar si el organizador ya existe y crear si no
         $organizador = Organizadores::where('user_id', $userId)->first() ?? Organizadores::create(['user_id' => $userId]);
@@ -145,15 +155,16 @@ class LigasController extends Controller
         // Crear la nueva liga
         $liga = Ligas::create($validatedData);
 
+        //Crear las jornadas
         $this->crearJornada($liga);
 
-        return redirect("liga/deporte/{$validatedData['deporte_id']}")->with('success', 'La liga ha sido creada con éxito.');
+        return redirect("liga/deporte/{$deporteID}")->with('success', 'La liga ha sido creada con éxito.');
     }
 
 
 
     /**
-     * Display the specified resource.
+     * Mostrar la vista de una liga en específico
      */
     public function show(Ligas $liga)
     {
@@ -173,7 +184,6 @@ class LigasController extends Controller
         // Verificar si el usuario es un jugador
         $jugador = Jugadores::where('user_id', $userId)->first();
 
-        // Por defecto, esJugador es falso
         $esJugador = false;
 
         if ($jugador) {
@@ -183,6 +193,7 @@ class LigasController extends Controller
                 ->exists();
         }
 
+        //Seleccionar todos los jugadores, para despues hacer un count()
         $jugadores = ParticipaEnLiga::where('liga_id', $liga->id)
             ->join('jugadores', 'participa_en_ligas.jugadores_id', '=', 'jugadores.id')
             ->join('users', 'jugadores.user_id', '=', 'users.id')
@@ -198,6 +209,7 @@ class LigasController extends Controller
         if ($jugador) {
             $jornada = Jornadas::where('liga_id', $liga->id)->first();
 
+            //Si existe la jornada y el jugador la juega, se guarda en la variable
             if ($jornada) {
                 $juegaJornada = JugadorJuegaJornada::where('jornada_id', $jornada->id)
                     ->where('jugador_id', $jugador->id)
@@ -209,6 +221,7 @@ class LigasController extends Controller
             $juegaJornada = false;
         }
 
+        //Obtener la fecha de la siguiente jornada
         $fechaJornada = $this->getFechaJornada($liga);
 
         // Devolver la vista con todos los datos
@@ -225,6 +238,9 @@ class LigasController extends Controller
         ]);
     }
 
+    /**
+     * Obtener la fecha de la próxima jornada
+     */
     private function getFechaJornada(Ligas $liga)
     {
         $fechaActual = Carbon::now();
@@ -240,6 +256,11 @@ class LigasController extends Controller
         return $fecha ? Carbon::parse($fecha)->format('Y-m-d') : null;
     }
 
+    /**
+     * Comprobar si tiene que mostrar la alerta.
+     * 
+     * Si la fecha de la jornada es en menos de 5 días y más de 2
+     */
     private function mostrarDivRango($fechaJornada)
     {
         $fechaJornada = Carbon::create($fechaJornada);
@@ -247,6 +268,9 @@ class LigasController extends Controller
         return $dateDiff < 5 && $dateDiff > 2;
     }
 
+    /**
+     * Comprobar si la fecha de inscripción no ha pasado
+     */
     private function mostrarBotonInscribirse($fechaFinInscripcion)
     {
         $fechaFinInscripcion = Carbon::create($fechaFinInscripcion);
@@ -255,7 +279,7 @@ class LigasController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Enviar a la vista de editar la liga
      */
     public function edit(Ligas $liga)
     {
@@ -268,7 +292,7 @@ class LigasController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Comprobar los valores y actualizar la liga
      */
     public function update(Request $request, Ligas $liga)
     {
@@ -286,32 +310,26 @@ class LigasController extends Controller
             'logo' => ['sometimes', 'nullable', 'file', 'mimes:jpg,png,gif,jpeg'],
         ]);
 
-        // Remover campos nulos o vacíos del arreglo validado
-        $cleanedData = array_filter($validatedData, function ($value) {
-            return !is_null($value) && $value !== ''; // Retorna true si el valor no es nulo o vacío
-        });
-
-        // Si hay un nuevo logo, manejar la carga y eliminación del anterior
         if ($request->hasFile('logo')) {
             try {
-                if ($liga->logo) {
-                    Storage::disk('public')->delete('imagenes/' . $liga->logo); // Eliminar el logo anterior
-                }
-
-                // Guardar el nuevo logo
                 $path = Storage::disk('public')->putFile('imagenes', $request->file('logo'));
-                $validatedData['logo'] = basename($path); // Actualizar el valor del logo
+                // Incluir el nombre del archivo en validatedData
+                $validatedData['logo'] = basename($path);
             } catch (Exception $e) {
                 return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);
             }
         }
 
+        // Remover campos nulos o vacíos del arreglo validado
+        $cleanedData = array_filter($validatedData, function ($value) {
+            return !is_null($value) && $value !== ''; 
+        });
+
         // Actualizar solo los campos que han sido validados y enviados
         $liga->update($cleanedData);
 
-        return redirect('/')->with('success', 'La liga ha sido actualizada con éxito.');
+        return redirect()->route('liga.show', ['liga' => $liga->id])->with('success', 'La liga ha sido actualizada con éxito.');
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -321,7 +339,9 @@ class LigasController extends Controller
         //
     }
 
-    //mostrar todas las ligas que tengan el idDeporte
+    /**
+     * Mostrar todas las ligas de un deporte
+     */
     public function ligaDeporte(Request $request, string $deporte)
     {
         // Obtener todas las localidades seleccionadas del request
@@ -342,9 +362,9 @@ class LigasController extends Controller
         $deporteNombre = Deportes::find($deporte);
         $localidades = Ligas::where('deporte_id', $deporte)->pluck('localidad')->unique()->values();
 
-        // Para obtener detalles de jugadores por liga, usar `whereIn`
         $ligaIds = $ligas->pluck('id');
-
+        
+        // Para obtener detalles de jugadores por liga, usar `whereIn`
         // Obtener todos los jugadores de las ligas
         $jugadoresPorLiga = ParticipaEnLiga::whereIn('liga_id', $ligaIds)
             ->join('jugadores', 'participa_en_ligas.jugadores_id', '=', 'jugadores.id')
@@ -373,9 +393,12 @@ class LigasController extends Controller
         );
     }
 
+    /**
+     * Enviar a la vista de clasificación de una liga específica
+     */
     public function ligaClasificacion(Ligas $liga)
     {
-        // Obtener todos los jugadores que participan en la liga
+        //Obtener todos los jugadores que participan en la liga, ordenados por puntos
         $jugadores = ParticipaEnLiga::where('liga_id', $liga->id)
             ->join('jugadores', 'participa_en_ligas.jugadores_id', '=', 'jugadores.id')
             ->join('users', 'jugadores.user_id', '=', 'users.id')
@@ -397,8 +420,12 @@ class LigasController extends Controller
         );
     }
 
+    /**
+     * Enviar a la vista de jugadores de una liga específica
+     */
     public function ligaJugadores(Ligas $liga)
     {
+        //Obtener todos los jugadores que participan en la liga
         $jugadores = ParticipaEnLiga::where('liga_id', $liga->id)
             ->join('jugadores', 'participa_en_ligas.jugadores_id', '=', 'jugadores.id')
             ->join('users', 'jugadores.user_id', '=', 'users.id')
@@ -419,8 +446,12 @@ class LigasController extends Controller
         );
     }
 
+    /**
+     * Enviar a la vista de los partidos de una liga
+     */
     public function ligaPartidos(Request $request, Ligas $liga)
     {
+        //Seleccionar todas las jornadas de la liga
         $jornadas = Jornadas::where('liga_id', $liga->id)->get();
 
         // Obtener el número de jornada seleccionado del request
@@ -454,6 +485,7 @@ class LigasController extends Controller
 
         $jugadores = collect();
 
+        //Mostrar que jugador participa en cada partido
         foreach ($partidos as $partido) {
             $jugadoresPartido = PartidoParticipaJugadores::where('partidos_id', $partido->id)
                 ->join('jugadores', 'partido_participa_jugadores.jugador1_id', '=', 'jugadores.id')
@@ -477,6 +509,9 @@ class LigasController extends Controller
     }
 
 
+    /**
+     * Función para poder unirte a una liga
+     */
     public function inscribirse(string $ligaId, string $userId)
     {
         try {
@@ -502,6 +537,9 @@ class LigasController extends Controller
         }
     }
 
+    /**
+     * Almacenar el jugador que juega la jornada y que dia quiere jugarla
+     */
     public function jugarJornada(Request $request, string $ligaId, string $userId)
     {
         $fechaActual = Carbon::now();

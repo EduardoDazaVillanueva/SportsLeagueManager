@@ -17,6 +17,9 @@ use Exception;
 
 class LoginController extends Controller
 {
+    /**
+     * Función para registrar al usuario
+     */
     public function store(Request $request)
     {
         $user = $request->validate([
@@ -69,6 +72,10 @@ class LoginController extends Controller
 
         return redirect("/login")->with('success', 'El usuario ha sido creado con éxito. Revisa tu correo para verificar tu cuenta.');
     }
+
+    /**
+     * Enviar a la vista de register
+     */
     public function register()
     {
         return view('user.register', [
@@ -77,6 +84,9 @@ class LoginController extends Controller
         ]);
     }
 
+    /**
+     * Enviar a la vista de login
+     */
     public function getLogin()
     {
         return view('user.login', [
@@ -85,6 +95,9 @@ class LoginController extends Controller
         ]);
     }
 
+    /**
+     * Función para comprobar que el usuario exite y las credenciales son correctas
+     */
     public function login(Request $request)
     {
         $credenciales = $request->validate([
@@ -97,6 +110,7 @@ class LoginController extends Controller
 
             $user = auth()->user();
 
+            //Comprobar si tiene el email verificado
             if (is_null($user->email_verified_at)) {
                 auth()->logout();
                 return redirect()->back()->withErrors([
@@ -112,6 +126,9 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * Función para cerrar sesión
+     */
     public function logout(Request $request)
     {
         Auth::logout();
@@ -122,11 +139,17 @@ class LoginController extends Controller
         return redirect(route('login'));
     }
 
+    /**
+     * Envia un correo al email del usuario que se pase por parámetro
+     */
     private function enviarCorreo(User $user)
     {
         Mail::to($user->email)->send(new VerificarElEmail($user));
     }
 
+    /**
+     * Envia a la vista de reenvio de email de verificación
+     */
     public function reenviarCorreo()
     {
         return view('user.verificacion', [
@@ -135,7 +158,9 @@ class LoginController extends Controller
         ]);
     }
 
-
+    /**
+     * Obtener el usuario para reenviarle el correo de verificación
+     */
     public function getUser(Request $request)
     {
         $request->validate([

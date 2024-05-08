@@ -10,6 +10,7 @@ use App\Http\Controllers\VerificationController;
 
 
 Route::controller(ViewController::class)->group(function () {
+
     Route::get('/', 'getWelcome')->name('welcome');
     Route::get('faq', 'getFAQ')->name('faq');
     Route::get('perfil/{user}', 'getPerfil')->name('perfil');
@@ -17,15 +18,15 @@ Route::controller(ViewController::class)->group(function () {
 
 
 Route::controller(LigasController::class)->group(function () {
-    Route::get('liga/deporte/{deporte}', 'LigaDeporte')->middleware('auth', 'verified')->name('liga.ligaDeporte');
 
+    Route::get('liga/deporte/{deporte}', 'LigaDeporte')->middleware('auth', 'verified')->name('liga.ligaDeporte');
     Route::get('liga/{liga}/Clasificacion', 'ligaClasificacion')->middleware('auth', 'verified');
     Route::get('liga/{liga}/Jugadores', 'ligaJugadores')->middleware('auth', 'verified');
     Route::get('liga/{liga}/Partidos', 'ligaPartidos')->name('liga.partidos')->middleware('auth', 'verified');
-
-    Route::get('liga/{liga}', 'show')->middleware('auth', 'verified')->whereNumber('liga');
+    Route::get('liga/{liga}', 'show')->middleware('auth', 'verified')->whereNumber('liga')->name('liga.show');
     Route::get('liga/crear/{deporteID}', 'create');
     Route::get('liga/editar/{liga}', 'edit');
+
     Route::post('liga', 'store')->name('crearLiga')->middleware('auth', 'verified');
     Route::post('/liga/{liga}/inscribirse/{userId}', 'inscribirse')->name('liga.inscribirse')->middleware('auth', 'verified');
     Route::post('/liga/{liga}/jugarJornada/{userId}', 'jugarJornada')->name('liga.jugarJornada')->middleware('auth', 'verified');
@@ -35,13 +36,15 @@ Route::controller(LigasController::class)->group(function () {
 
 
 Route::controller(LoginController::class)->group(function () {
+
     Route::post('validar-register', 'store')->name('validar-register');
     Route::post('login',  'login')->name('login');
     Route::post('logout', 'logout')->name('logout')->middleware('auth')->withoutMiddleware('guest');
     Route::post('getUser', 'getUser')->name('getUser');
+    Route::post('reenviarCorreo', 'reenviarCorreo')->name('reenviarCorreo');
+
     Route::get('login', 'getLogin')->middleware('guest')->name('login');
     Route::get('registro', 'register')->name('registro')->middleware('guest');
-    Route::post('reenviarCorreo', 'reenviarCorreo')->name('reenviarCorreo');
 });
 
 Route::get('/verify-email/{user}', function (App\Models\User $user) {
