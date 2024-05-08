@@ -92,7 +92,6 @@
             @endif
         </div>
 
-
         @if (!$juegaJornada && $organizador->id != $user->id && $esJugador == 1)
         <div class=" {{$mostrarDivRango ? 'alerta' : 'hidden'}}" id="alerta">
             <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>

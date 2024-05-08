@@ -27,7 +27,7 @@
             <article class="partidos-div_partido">
                 <div class="partido_info">
                     <header class="partido_info-header">
-                        <p class="partido_fecha">{{$partido->fecha}}</p>
+                        <p class="partido_fecha">{{$partido->dia}}</p>
                         <p class="partido_hora">17:00</p>
                     </header>
 
@@ -38,10 +38,8 @@
                         $idPartido = $partido->id;
                         @endphp
 
-                        @if ($jugador->partidos_id == $idPartido)
+                        @if ($jugador->partido_id == $idPartido)
                         <h2>{{$jugador->name}}</h2>
-                        <h2>vs</h2>
-                        <h2>Pareja 2</h2>
                         @endif
                         @endforeach
                     </div>

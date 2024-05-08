@@ -10,8 +10,9 @@ class Partidos extends Model
     use HasFactory;
 
     protected $fillable = [
-        'fecha',
+        'dia',
         'resultado',
         'jornada_id',
+        'jugadores'
     ];
 }
