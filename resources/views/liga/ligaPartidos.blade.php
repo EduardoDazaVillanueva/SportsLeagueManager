@@ -28,7 +28,8 @@
                 <div class="partido_info">
                     <header class="partido_info-header">
                         <p class="partido_fecha">{{$partido->dia}}</p>
-                        <p class="partido_hora">17:00</p>
+                        <p class="partido_hora">{{$partido->hora_inicio}} / {{$partido->hora_final}}</p>
+                        <p class="partido_hora">Pista {{$partido->pista}}</p>
                     </header>
 
                     <div class="partido_resultado">

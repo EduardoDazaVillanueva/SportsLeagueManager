@@ -152,8 +152,6 @@ class LigasController extends Controller
         $organizador = Organizadores::where('user_id', $userId)->first() ?? Organizadores::create(['user_id' => $userId]);
         $validatedData['organizadores_id'] = $organizador->id;
 
-
-
         // Manejo de carga de archivos
         if ($request->hasFile('logo')) {
             try {
@@ -629,6 +627,26 @@ class LigasController extends Controller
             return response()->json(['error' => 'No hay jornadas próximas disponibles'], 404);
         }
 
+        // Obtener la configuración de la liga
+        $liga = Ligas::find($ligaId);
+        $numPistas = $liga->numPistas;
+
+        // Calcular las horas de la liga
+        $horaInicio = Carbon::parse($liga->primera_hora);
+        $horaFinal = Carbon::parse($liga->ultima_hora);
+
+        // Duración de cada partido
+        $duracionPartido = 90; // 1:30 horas en minutos
+
+        // Crear una lista de horas posibles para los partidos
+        $horasPosibles = [];
+        $horaActual = $horaInicio;
+
+        while ($horaActual->lte($horaFinal)) {
+            $horasPosibles[] = $horaActual->copy();
+            $horaActual->addMinutes($duracionPartido); // Siguiente segmento
+        }
+
         // Obtener todas las inscripciones para esta jornada
         $inscripciones = JugadorJuegaJornada::where('jornada_id', $jornada->id)->get();
 
@@ -650,23 +668,28 @@ class LigasController extends Controller
             // Mezclar jugadores para tener aleatoriedad
             shuffle($jugadores);
 
-            // Crear partidos mientras haya suficientes jugadores
-            while (count($jugadores) >= $jugadoresPorPartido) {
+            foreach ($horasPosibles as $hora) {
+                $numPartidosEnHora = 0;
 
-                $jugadoresPartido = array_splice($jugadores, 0, $jugadoresPorPartido);
+                while (count($jugadores) >= $jugadoresPorPartido && $numPartidosEnHora < $numPistas) {
+                    $jugadoresPartido = array_splice($jugadores, 0, $jugadoresPorPartido);
 
-                // Crear el partido
-                $partido = Partidos::create([
-                    'jornada_id' => $jornada->id,
-                    'dia' => $dia,
-                    'jugadores' => json_encode($jugadoresPartido),
-                    'resultado' => ""
-                ]);
+                    // Crear el partido
+                    $partido = Partidos::create([
+                        'jornada_id' => $jornada->id,
+                        'dia' => $dia,
+                        'hora_inicio' => $hora->format('H:i'),
+                        'hora_final' => $hora->copy()->addMinutes($duracionPartido)->format('H:i'),
+                        'jugadores' => json_encode($jugadoresPartido),
+                        'resultado' => "",
+                        'pista' => $numPartidosEnHora + 1
+                    ]);
 
-                $partidosCreados[] = $partido;
+                    $partidosCreados[] = $partido;
+                    $numPartidosEnHora++;
+                }
             }
         }
-
         // Resultado
         return response()->json([
             'success' => 'Partidos creados con éxito',

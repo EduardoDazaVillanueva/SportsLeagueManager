@@ -48,7 +48,7 @@
                         <p>Si empatas el partido:<strong> {{$liga->pnts_empate}}</strong></p>
                         @endif
                         @if ($liga->pnts_juego > 0)
-                        <p>Juegos:<strong> {{$liga->pnts_juego}}</strong> por cada juego de diferencia</p>
+                        <p><strong>{{$liga->pnts_juego}}</strong> por cada juego de diferencia</p>
                         @endif
                     </div>
                 </div>

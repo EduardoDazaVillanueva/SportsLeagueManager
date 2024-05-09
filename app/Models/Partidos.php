@@ -15,6 +15,7 @@ class Partidos extends Model
         'jornada_id',
         'jugadores',
         'hora_inicio',
-        'hora_final'
+        'hora_final',
+        'pista'
     ];
 }

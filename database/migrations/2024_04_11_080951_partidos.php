@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('hora_final');
             $table->string('resultado');
             $table->json('jugadores');
+            $table->integer('pista');
 
             $table->foreignId('jornada_id')->constrained();
             

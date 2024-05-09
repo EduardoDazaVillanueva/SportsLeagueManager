@@ -195,7 +195,7 @@
 
                     <div class="tooltip top">
                         <input type="number" name="precio" id="precio" class="crear-input txt_inscripcion" placeholder="Indica el precio" min="1">
-                        <span class="tiptext">La web se queda un 20% del precio</span>
+                        <span class="tiptext">El propietario se queda un 80% del precio</span>
                     </div>
 
 
