@@ -32,8 +32,16 @@ button {
     visibility: hidden;
 }
 
+.none{
+    display: none;
+}
+
 main{
     height: fit-content;
+}
+
+.resalto{
+    color: $colorSecundario;
 }
 
 

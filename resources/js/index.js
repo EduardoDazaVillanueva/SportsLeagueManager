@@ -22,7 +22,7 @@ export function toggleInscripcion() {
     const gratis = document.getElementById("gratis");
     const input = document.getElementById("precio");
     if (pago.checked) {
-        input.style.display = "block"; // Muestra el input
+        input.style.display = "block";
         pago.style.display = "none";
     }
     if (gratis.checked) {
@@ -36,8 +36,7 @@ export function cerrar() {
     // Obtén el elemento de alerta
     const alerta = document.getElementById("alerta");
 
-    // Asegúrate de que el elemento existe antes de intentar cambiar su estilo
     if (alerta) {
-        alerta.style.display = "none"; // Oculta el elemento
+        alerta.style.display = "none";
     }
 }

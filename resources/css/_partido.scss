@@ -47,10 +47,14 @@
     background-color: $colorClaro;
 
     flex-basis: calc(50% - 3rem);
+
+    border-radius: 5px;
 }
 
 .partido_info {
     font-size: 1.5rem;
+
+    position: relative;
 }
 
 .partido_info-header {
@@ -76,6 +80,9 @@
     align-items: center;
     flex-direction: row;
     gap: 2rem;
+
+    max-height: 50px;
+    min-height: 50px;
 }
 
 .sin-partidos{
@@ -87,4 +94,39 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.partido_informacion{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5rem;
+
+    width: 90%;
+}
+
+.pareja_nombre{
+    flex-basis: calc(50% - 5rem);
+
+    font-size: 1rem;
+    text-align: center;
+}
+
+.pareja_nombre-resultado{
+    flex-basis: calc(50% - 5rem);
+
+    font-size: 2rem;
+    text-align: center;
+}
+
+.btnResultado{
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: scale 250ms;
+}
+
+.btnResultado:hover{
+    scale: 1.1;
 }

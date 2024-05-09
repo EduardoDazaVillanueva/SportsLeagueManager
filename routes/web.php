@@ -18,7 +18,6 @@ Route::controller(ViewController::class)->group(function () {
 
 
 Route::controller(LigasController::class)->group(function () {
-
     Route::get('liga/deporte/{deporte}', 'LigaDeporte')->middleware('auth', 'verified')->name('liga.ligaDeporte');
     Route::get('liga/{liga}/Clasificacion', 'ligaClasificacion')->middleware('auth', 'verified');
     Route::get('liga/{liga}/Jugadores', 'ligaJugadores')->middleware('auth', 'verified');
@@ -26,6 +25,7 @@ Route::controller(LigasController::class)->group(function () {
     Route::get('liga/{liga}', 'show')->middleware('auth', 'verified')->whereNumber('liga')->name('liga.show');
     Route::get('liga/crear/{deporteID}', 'create');
     Route::get('liga/editar/{liga}', 'edit');
+    Route::get('liga/{liga}/resultado/{idPartido}', 'resultado');
 
     Route::post('liga', 'store')->name('crearLiga')->middleware('auth', 'verified');
     Route::post('/liga/{liga}/inscribirse/{userId}', 'inscribirse')->name('liga.inscribirse')->middleware('auth', 'verified');
@@ -36,7 +36,6 @@ Route::controller(LigasController::class)->group(function () {
 
 
 Route::controller(LoginController::class)->group(function () {
-
     Route::post('validar-register', 'store')->name('validar-register');
     Route::post('login',  'login')->name('login');
     Route::post('logout', 'logout')->name('logout')->middleware('auth')->withoutMiddleware('guest');

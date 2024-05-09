@@ -504,6 +504,28 @@ class LigasController extends Controller
             return redirect()->back()->with('error', 'Jornada no encontrada');
         }
 
+        switch ($liga->deporte_id) {
+            case '1':
+                $jugadoresPorPartido = 22;
+                break;
+
+            case '2':
+                $jugadoresPorPartido = 10;
+                break;
+
+            case '3':
+                $jugadoresPorPartido = 2;
+                break;
+
+            case '4':
+                $jugadoresPorPartido = 4;
+                break;
+
+            case '5':
+                $jugadoresPorPartido = 2;
+                break;
+        }
+
         $partidos = Partidos::where('jornada_id', $jornada->id)->get();
 
         $fechaInicio = Jornadas::where('liga_id', $liga->id)
@@ -521,6 +543,7 @@ class LigasController extends Controller
         $fechaStringFinal = $fechaFinal ? Carbon::parse($fechaFinal->getAttribute('fecha-final'))->format('Y-m-d') : null;
 
 
+
         $jugadoresPartido = collect();
 
         foreach ($partidos as $partido) {
@@ -531,7 +554,7 @@ class LigasController extends Controller
             $jugadoresDeEstePartido = DB::table('jugadores')
                 ->whereIn('jugadores.id', $idsJugadores) // Unir con el array de IDs
                 ->join('users', 'jugadores.user_id', '=', 'users.id')
-                ->select('users.name', DB::raw($partido->id . ' as partido_id')) // Almacenar ID del partido
+                ->select('users.name', 'users.id', DB::raw($partido->id . ' as partido_id')) // Almacenar ID del partido
                 ->get();
 
             // Concatenar resultados a la colección
@@ -548,8 +571,42 @@ class LigasController extends Controller
             'fechaInicio' => $fechaStringInicio,
             'fechaFinal' => $fechaStringFinal,
             'jugadores' => $jugadoresPartido,
+            'jugadoresPorPartido' => $jugadoresPorPartido
         ]);
     }
+
+
+    public function resultado(Request $request, Ligas $liga)
+    {
+        $partidos = Partidos::where('id', $request->idPartido)->get();
+
+        $jugadoresPartido = collect();
+
+        foreach ($partidos as $partido) {
+            // Obtener IDs de jugadores de la columna JSON
+            $idsJugadores = json_decode($partido->jugadores, true);
+
+            // Hacer JOIN para obtener nombres de jugadores y agregar ID del partido
+            $jugadoresDeEstePartido = DB::table('jugadores')
+                ->whereIn('jugadores.id', $idsJugadores) // Unir con el array de IDs
+                ->join('users', 'jugadores.user_id', '=', 'users.id')
+                ->select('users.name', 'users.id') // Almacenar ID del partido
+                ->get();
+
+            // Concatenar resultados a la colección
+            $jugadoresPartido = $jugadoresPartido->concat($jugadoresDeEstePartido);
+        }
+
+
+        return view('liga.partidoResultado', [
+            'liga' => $liga,
+            'user' => Auth::user(),
+            'partidos' => $partidos,
+            'jugadores' => $jugadoresPartido,
+        ]);
+    }
+
+
 
 
     /**
