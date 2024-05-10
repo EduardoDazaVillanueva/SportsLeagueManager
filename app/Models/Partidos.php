@@ -13,7 +13,6 @@ class Partidos extends Model
         'dia',
         'resultado',
         'jornada_id',
-        'jugadores',
         'hora_inicio',
         'hora_final',
         'pista'

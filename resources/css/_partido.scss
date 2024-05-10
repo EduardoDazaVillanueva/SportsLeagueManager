@@ -85,18 +85,18 @@
     min-height: 50px;
 }
 
-.sin-partidos{
+.sin-partidos {
     width: 100%;
 
     font-size: 3rem;
     text-align: center;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.partido_informacion{
+.partido_informacion {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -105,21 +105,21 @@
     width: 90%;
 }
 
-.pareja_nombre{
+.pareja_nombre {
     flex-basis: calc(50% - 5rem);
 
     font-size: 1rem;
     text-align: center;
 }
 
-.pareja_nombre-resultado{
+.pareja_nombre-resultado {
     flex-basis: calc(50% - 5rem);
 
     font-size: 2rem;
     text-align: center;
 }
 
-.btnResultado{
+.btnResultado {
     font-weight: bold;
 
     cursor: pointer;
@@ -127,6 +127,81 @@
     transition: scale 250ms;
 }
 
-.btnResultado:hover{
+.btnResultado:hover {
     scale: 1.1;
+}
+
+.divResultado {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.divResultado_parejas {
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+
+    padding: 0 5rem;
+
+    height: 80%;
+}
+
+.parejas_pareja {
+    font-size: 2.3rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 2rem;
+
+    width: 100%;
+}
+
+.lineaVertical {
+    position: absolute;
+    right: 50%;
+    width: 3px;
+    height: 40%;
+    background-color: $colorSecundario;
+}
+
+.partido_input {
+    width: 50px;
+    height: 50px;
+
+    text-align: center;
+}
+
+.divResultado_Btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 4rem;
+
+    width: 100%;
+}
+
+.divResultado_Btn button {
+    padding: .5rem 3rem;
+
+    color: $blanco;
+    background-color: $colorPrincipal;
+
+    border-radius: 5px;
+    border: 2px solid $colorPrincipal;
+
+    transition: all 250ms;
+}
+
+.divResultado_Btn button:hover {
+    scale: 1.1;
+
+    background-color: $colorClaro;
+    color: $colorPrincipal;
 }

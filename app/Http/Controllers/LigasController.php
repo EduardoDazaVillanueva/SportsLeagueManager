@@ -15,6 +15,7 @@ use App\Models\Partidos;
 use App\Models\PartidoParticipaJugadores;
 use Illuminate\Support\Facades\DB;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -547,20 +548,16 @@ class LigasController extends Controller
         $jugadoresPartido = collect();
 
         foreach ($partidos as $partido) {
-            // Obtener IDs de jugadores de la columna JSON
-            $idsJugadores = json_decode($partido->jugadores, true);
 
-            // Hacer JOIN para obtener nombres de jugadores y agregar ID del partido
-            $jugadoresDeEstePartido = DB::table('jugadores')
-                ->whereIn('jugadores.id', $idsJugadores) // Unir con el array de IDs
+            $jugadoresDeEstePartido = PartidoParticipaJugadores::where('partidos_id', $partido->id)
+                ->join('jugadores', 'partido_participa_jugadores.jugadores_id', '=', 'jugadores.id')
                 ->join('users', 'jugadores.user_id', '=', 'users.id')
-                ->select('users.name', 'users.id', DB::raw($partido->id . ' as partido_id')) // Almacenar ID del partido
+                ->select('users.name', 'users.id', DB::raw($partido->id . ' as partido_id'))
                 ->get();
 
             // Concatenar resultados a la colección
             $jugadoresPartido = $jugadoresPartido->concat($jugadoresDeEstePartido);
         }
-
 
         return view('liga.ligaPartidos', [
             'liga' => $liga,
@@ -578,24 +575,16 @@ class LigasController extends Controller
 
     public function resultado(Request $request, Ligas $liga)
     {
-        $partidos = Partidos::where('id', $request->idPartido)->get();
+        $partidos = Partidos::where('id', $request->idPartido)->first();
 
-        $jugadoresPartido = collect();
+        $jugadoresDeEstePartido = PartidoParticipaJugadores::where('partidos_id', $request->idPartido)
+            ->join('jugadores', 'partido_participa_jugadores.jugadores_id', '=', 'jugadores.id')
+            ->join('users', 'jugadores.user_id', '=', 'users.id')
+            ->select('users.name', 'users.id')
+            ->get();
 
-        foreach ($partidos as $partido) {
-            // Obtener IDs de jugadores de la columna JSON
-            $idsJugadores = json_decode($partido->jugadores, true);
-
-            // Hacer JOIN para obtener nombres de jugadores y agregar ID del partido
-            $jugadoresDeEstePartido = DB::table('jugadores')
-                ->whereIn('jugadores.id', $idsJugadores) // Unir con el array de IDs
-                ->join('users', 'jugadores.user_id', '=', 'users.id')
-                ->select('users.name', 'users.id') // Almacenar ID del partido
-                ->get();
-
-            // Concatenar resultados a la colección
-            $jugadoresPartido = $jugadoresPartido->concat($jugadoresDeEstePartido);
-        }
+        // Concatenar resultados a la colección
+        $jugadoresPartido = $jugadoresDeEstePartido;
 
 
         return view('liga.partidoResultado', [
@@ -605,8 +594,6 @@ class LigasController extends Controller
             'jugadores' => $jugadoresPartido,
         ]);
     }
-
-
 
 
     /**
@@ -693,7 +680,7 @@ class LigasController extends Controller
         $horaFinal = Carbon::parse($liga->ultima_hora);
 
         // Duración de cada partido
-        $duracionPartido = 90; // 1:30 horas en minutos
+        $duracionPartido = 90;
 
         // Crear una lista de horas posibles para los partidos
         $horasPosibles = [];
@@ -709,11 +696,15 @@ class LigasController extends Controller
 
         // Agrupar jugadores por día posible
         $jugadoresPorDia = [];
+
         foreach ($inscripciones as $inscripcion) {
+
             foreach ($inscripcion->dia_posible as $dia) {
+
                 if (!isset($jugadoresPorDia[$dia])) {
                     $jugadoresPorDia[$dia] = [];
                 }
+
                 $jugadoresPorDia[$dia][] = $inscripcion->jugador_id;
             }
         }
@@ -725,25 +716,36 @@ class LigasController extends Controller
             // Mezclar jugadores para tener aleatoriedad
             shuffle($jugadores);
 
+            $numPartidosEnHora = 0;
             foreach ($horasPosibles as $hora) {
-                $numPartidosEnHora = 0;
 
-                while (count($jugadores) >= $jugadoresPorPartido && $numPartidosEnHora < $numPistas) {
-                    $jugadoresPartido = array_splice($jugadores, 0, $jugadoresPorPartido);
+                for ($j = 0; $j < $liga->numPistas; $j++) {
 
-                    // Crear el partido
-                    $partido = Partidos::create([
-                        'jornada_id' => $jornada->id,
-                        'dia' => $dia,
-                        'hora_inicio' => $hora->format('H:i'),
-                        'hora_final' => $hora->copy()->addMinutes($duracionPartido)->format('H:i'),
-                        'jugadores' => json_encode($jugadoresPartido),
-                        'resultado' => "",
-                        'pista' => $numPartidosEnHora + 1
-                    ]);
+                    if (count($jugadores) >= $jugadoresPorPartido) {
+                        // Crear el partido
+                        $partido = Partidos::create([
+                            'jornada_id' => $jornada->id,
+                            'dia' => $dia,
+                            'hora_inicio' => $hora->format('H:i'),
+                            'hora_final' => $hora->copy()->addMinutes($duracionPartido)->format('H:i'),
+                            'resultado' => "",
+                            'pista' => $j + 1
+                        ]);
 
-                    $partidosCreados[] = $partido;
-                    $numPartidosEnHora++;
+                        for ($k = 0; $k < $jugadoresPorPartido; $k++) {
+
+                            if (isset($jugadores[$k])) {
+                                PartidoParticipaJugadores::create([
+                                    'jugadores_id' => $jugadores[$k],
+                                    'partidos_id' => $partido->id,
+                                ]);
+                            }
+                        }
+
+                        $jugadores = array_splice($jugadores, $jugadoresPorPartido);
+
+                        $partidosCreados[] = $partido;
+                    }
                 }
             }
         }
@@ -755,10 +757,16 @@ class LigasController extends Controller
         ]);
     }
 
+
+
     private function comprobarFecha($fechaJornada)
     {
         $fechaJornada = Carbon::create($fechaJornada);
         $dateDiff = abs($fechaJornada->diffInDays(Carbon::now()));
         return $dateDiff < 2;
+    }
+
+    public function addResultado(Request $request)
+    {
     }
 }

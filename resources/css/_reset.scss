@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     vertical-align: baseline;
@@ -6,28 +6,29 @@
 
 *,
 *::before,
-*::after{
+*::after {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;    
+    -moz-box-sizing: border-box;
 }
 
-html{
+html {
     scroll-behavior: smooth;
 }
 
-body{
+body {
     min-height: 100vh;
     scroll-behavior: smooth;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
 }
 
-ul, ol{
+ul,
+ol {
     list-style: none;
 }
 
-a{
+a {
     display: block;
     text-decoration: none;
     font-family: inherit;
@@ -35,18 +36,38 @@ a{
     color: inherit;
 }
 
-p a{
+p a {
     display: inline;
 }
 
-img, video, iframe, picture, figure{
+img,
+video,
+iframe,
+picture,
+figure {
     max-width: 100%;
     display: block;
 }
 
-form, input, select, textarea, button, label{
+form,
+input,
+select,
+textarea,
+button,
+label {
     display: block;
     font-family: inherit;
     font-size: inherit;
     color: inherit;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Para Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
 }

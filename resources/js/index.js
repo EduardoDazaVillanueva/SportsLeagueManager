@@ -33,10 +33,21 @@ export function toggleInscripcion() {
 
 
 export function cerrar() {
-    // Obtén el elemento de alerta
     const alerta = document.getElementById("alerta");
 
     if (alerta) {
         alerta.style.display = "none";
+    }
+}
+
+export function checkInput(input) {
+    let value = input.value;
+
+    if (value < 0) {
+        input.value = 0;
+    }
+
+    if (value > 7) {
+        input.value = 7;
     }
 }

@@ -10,7 +10,7 @@ class PartidoParticipaJugadores extends Model
     use HasFactory;
 
     protected $fillable = [
-        'jugadores_ids',
+        'jugadores_id',
         'partidos_id',
     ];
 }

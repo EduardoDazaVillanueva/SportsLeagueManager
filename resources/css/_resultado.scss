@@ -1,0 +1,87 @@
+.form_resultado {
+    width: 90%;
+}
+
+.resultado_parejas {
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 4rem;
+}
+
+.parejas_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 4rem;
+
+    flex-basis: 40%;
+    overflow: hidden;
+
+    text-align: center;
+}
+
+
+.pareja2 {
+    flex-direction: row-reverse;
+}
+
+.pareja_nombre-resultado {
+    font-size: 3rem;
+}
+
+.div-input p {
+    font-size: 2rem;
+}
+
+.lineaVertical-resultado {
+    position: absolute;
+    right: 50%;
+    top: 20px;
+
+    background-color: $colorSecundario;
+    width: 4px;
+    height: 100%;
+}
+
+.btn_resultado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 4rem;
+
+    font-size: 2rem;
+
+    width: 100%;
+}
+
+.btn_resultado button {
+    padding: .5rem 3rem;
+
+    color: $blanco;
+    background-color: $colorPrincipal;
+
+    border-radius: 5px;
+    border: 2px solid $colorPrincipal;
+
+    transition: all 250ms;
+}
+
+.btn_resultado button:hover {
+    scale: 1.1;
+
+    background-color: $colorClaro;
+    color: $colorPrincipal;
+}
+
+.partido_input {
+    font-size: 2.3rem;
+    text-align: center;
+}

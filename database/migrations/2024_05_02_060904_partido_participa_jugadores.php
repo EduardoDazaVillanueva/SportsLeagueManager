@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('partido_participa_jugadores', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jugadores_ids')
+            $table->foreignId('jugadores_id')
                 ->constrained('jugadores')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();

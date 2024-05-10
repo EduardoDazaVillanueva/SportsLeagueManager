@@ -24,7 +24,8 @@ body {
   line-height: 1.5;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
@@ -40,16 +41,36 @@ p a {
   display: inline;
 }
 
-img, video, iframe, picture, figure {
+img,
+video,
+iframe,
+picture,
+figure {
   max-width: 100%;
   display: block;
 }
 
-form, input, select, textarea, button, label {
+form,
+input,
+select,
+textarea,
+button,
+label {
   display: block;
   font-family: inherit;
   font-size: inherit;
   color: inherit;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Para Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 .main {
@@ -966,6 +987,69 @@ strong {
   scale: 1.1;
 }
 
+.divResultado {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.divResultado_parejas {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+  padding: 0 5rem;
+  height: 80%;
+}
+
+.parejas_pareja {
+  font-size: 2.3rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2rem;
+  width: 100%;
+}
+
+.lineaVertical {
+  position: absolute;
+  right: 50%;
+  width: 3px;
+  height: 40%;
+  background-color: #C6CF25;
+}
+
+.partido_input {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+}
+
+.divResultado_Btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+  width: 100%;
+}
+
+.divResultado_Btn button {
+  padding: 0.5rem 3rem;
+  color: #fafafa;
+  background-color: #040738;
+  border-radius: 5px;
+  border: 2px solid #040738;
+  transition: all 250ms;
+}
+
+.divResultado_Btn button:hover {
+  scale: 1.1;
+  background-color: #eee;
+  color: #040738;
+}
+
 .main-jugadores {
   display: flex;
   align-items: center;
@@ -1375,73 +1459,6 @@ tbody {
   font-size: 3rem;
 }
 
-.divResultado {
-  font-size: 2rem;
-  text-align: center;
-}
-
-.divResultado_parejas {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 3rem;
-  padding: 0 5rem;
-  height: 80%;
-}
-
-.parejas_pareja {
-  font-size: 2.3rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  gap: 2rem;
-  width: 100%;
-}
-
-.pareja2 {
-  flex-direction: row-reverse;
-}
-
-.lineaVertical {
-  position: absolute;
-  right: 50%;
-  width: 3px;
-  height: 40%;
-  background-color: #C6CF25;
-}
-
-.partido_input {
-  width: 50px;
-  height: 50px;
-  text-align: center;
-}
-
-.divResultado_Btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 4rem;
-  width: 100%;
-}
-
-.divResultado_Btn button {
-  padding: 0.5rem 3rem;
-  color: #fafafa;
-  background-color: #040738;
-  border-radius: 5px;
-  border: 2px solid #040738;
-  transition: all 250ms;
-}
-
-.divResultado_Btn button:hover {
-  scale: 1.1;
-  background-color: #eee;
-  color: #040738;
-}
-
 .main-404 {
   display: flex;
   align-items: center;
@@ -1495,6 +1512,82 @@ tbody {
   box-shadow: 0px 15px 8px -10px rgb(4, 7, 56);
   -webkit-box-shadow: 0px 15px 8px -10px rgb(4, 7, 56);
   -moz-box-shadow: 0px 15px 8px -10px rgb(4, 7, 56);
+}
+
+.form_resultado {
+  width: 90%;
+}
+
+.resultado_parejas {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 4rem;
+}
+
+.parejas_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 4rem;
+  flex-basis: 40%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.pareja2 {
+  flex-direction: row-reverse;
+}
+
+.pareja_nombre-resultado {
+  font-size: 3rem;
+}
+
+.div-input p {
+  font-size: 2rem;
+}
+
+.lineaVertical-resultado {
+  position: absolute;
+  right: 50%;
+  top: 20px;
+  background-color: #C6CF25;
+  width: 4px;
+  height: 100%;
+}
+
+.btn_resultado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+  font-size: 2rem;
+  width: 100%;
+}
+
+.btn_resultado button {
+  padding: 0.5rem 3rem;
+  color: #fafafa;
+  background-color: #040738;
+  border-radius: 5px;
+  border: 2px solid #040738;
+  transition: all 250ms;
+}
+
+.btn_resultado button:hover {
+  scale: 1.1;
+  background-color: #eee;
+  color: #040738;
+}
+
+.partido_input {
+  font-size: 2.3rem;
+  text-align: center;
 }
 
 @media (max-width: 1150px) {
