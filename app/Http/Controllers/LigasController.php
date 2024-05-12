@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\CrearPartido;
 
 use App\Models\Ligas;
 use App\Models\Organizadores;
@@ -13,7 +14,9 @@ use App\Models\Jornadas;
 use App\Models\JugadorJuegaJornada;
 use App\Models\Partidos;
 use App\Models\PartidoParticipaJugadores;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 
 use Illuminate\Http\Request;
@@ -710,13 +713,14 @@ class LigasController extends Controller
         foreach ($jugadoresPorDia as $dia => $jugadores) {
             // Mezclar jugadores para tener aleatoriedad
             shuffle($jugadores);
+            
 
-            $numPartidosEnHora = 0;
             foreach ($horasPosibles as $hora) {
 
                 for ($j = 0; $j < $liga->numPistas; $j++) {
 
                     if (count($jugadores) >= $jugadoresPorPartido) {
+                        
                         // Crear el partido
                         $partido = Partidos::create([
                             'jornada_id' => $jornada->id,
@@ -734,6 +738,14 @@ class LigasController extends Controller
                                     'jugadores_id' => $jugadores[$k],
                                     'partidos_id' => $partido->id,
                                 ]);
+                            
+                                $jugador = Jugadores::find($jugadores[$k]);
+
+                                $user = User::find($jugador->user_id);
+
+                                if ($user) {
+                                    Mail::to($user->email)->send(new CrearPartido($user));
+                                }
                             }
                         }
 
@@ -742,6 +754,7 @@ class LigasController extends Controller
                         $partidosCreados[] = $partido;
                     }
                 }
+                
             }
         }
         // Resultado
@@ -772,6 +785,8 @@ class LigasController extends Controller
         $pareja1 = array_chunk($jugadores, $jugadoresPorPareja)[0];
         $pareja2 = array_chunk($jugadores, $jugadoresPorPareja)[1];
 
+        
+
         for ($i = 1; $i <= 3; $i++) {
             ${"set{$i}P1"} = $request->pareja1[$i - 1];
             ${"set{$i}P2"} = $request->pareja2[$i - 1];
@@ -800,8 +815,8 @@ class LigasController extends Controller
                 $contadorP2++;
                 $contadorSet++;
             } else {
-                //El reultado no es válido
                 dd("error");
+                //El reultado no es válido
             }
 
             if ($contadorP1 == 2) {

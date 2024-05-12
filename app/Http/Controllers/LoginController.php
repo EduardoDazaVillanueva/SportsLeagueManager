@@ -142,7 +142,7 @@ class LoginController extends Controller
     /**
      * Envia un correo al email del usuario que se pase por parámetro
      */
-    private function enviarCorreo(User $user)
+    public function enviarCorreo(User $user)
     {
         Mail::to($user->email)->send(new VerificarElEmail($user));
     }
