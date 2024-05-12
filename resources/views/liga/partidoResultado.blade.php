@@ -2,63 +2,68 @@
     <main class="main-jugadores">
         <h1 class="jugadores_titulo">Introduce el resultado del partido</h1>
 
-        <form class="form_resultado" action="{{ route('liga.addResultado', ['liga' => $liga->id, 'idPartido' => $partidos->id]) }}" method="post">
+        <form class="form_resultado"
+            action="{{ route('liga.addResultado', ['liga' => $liga->id, 'partido' => $partidos->id]) }}" method="post">
+            @csrf
 
             @php
-            $numJugadores = count($jugadores);
-            $jugadoresPorPareja = ceil($numJugadores / 2);
+                $numJugadores = count($jugadores);
+                $jugadoresPorPareja = ceil($numJugadores / 2);
             @endphp
 
             <div class="resultado_parejas">
                 <div class="parejas_container">
                     <div class="pareja_nombre-resultado">
-                        @foreach($jugadores as $index => $jugador)
-                        @if ($index < $jugadoresPorPareja) <p>{{ $jugador->name }}</p>
+                        @foreach ($jugadores as $index => $jugador)
+                            @if ($index < $jugadoresPorPareja)
+                                <p>{{ $jugador->name }}</p>
                             @endif
-                            @endforeach
-                    </div>
-
-                    <div class="pareja_div-inputs">
-                        <div class="div-input">
-                            <p>Set 1</p>
-                            <input type="number" name="pareja1[]" id="" class="partido_input" oninput="checkInput(this)">
-                        </div>
-
-                        <div class="div-input">
-                            <p>Set 2</p>
-                            <input type="number" name="pareja1[]" id="" class="partido_input" oninput="checkInput(this)">
-                        </div>
-
-                        <div class="div-input">
-                            <p>Set 3</p>
-                            <input type="number" name="pareja1[]" id="" class="partido_input" oninput="checkInput(this)">
-                        </div>
-                    </div>
-                </div>
-                <div class="lineaVertical-resultado"></div>
-                <div class="parejas_container pareja2">
-                    <div class="pareja_nombre-resultado">
-                        @foreach($jugadores as $index => $jugador)
-                        @if ($index >= $jugadoresPorPareja)
-                        <p>{{ $jugador->name }}</p>
-                        @endif
+                            <input type="hidden" name="jugadores[]" value="{{$jugador->id}}">
                         @endforeach
                     </div>
 
                     <div class="pareja_div-inputs">
                         <div class="div-input">
                             <p>Set 1</p>
-                            <input type="number" name="pareja2[]" id="" class="partido_input"oninput="checkInput(this)">
+                            <input type="number" name="pareja1[]" class="partido_input" oninput="checkInput(this)" value="0">
                         </div>
 
                         <div class="div-input">
                             <p>Set 2</p>
-                            <input type="number" name="pareja2[]" id="" class="partido_input" oninput="checkInput(this)">
+                            <input type="number" name="pareja1[]" class="partido_input" oninput="checkInput(this)" value="0">
                         </div>
 
                         <div class="div-input">
                             <p>Set 3</p>
-                            <input type="number" name="pareja2[]" id="" class="partido_input" oninput="checkInput(this)">
+                            <input type="number" name="pareja1[]" class="partido_input" oninput="checkInput(this)" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="lineaVertical-resultado"></div>
+                <div class="parejas_container pareja2">
+                    <div class="pareja_nombre-resultado">
+                        @foreach ($jugadores as $index => $jugador)
+                            @if ($index >= $jugadoresPorPareja)
+                                <p>{{ $jugador->name }}</p>
+                            @endif
+                        @endforeach
+                    </div>
+
+
+                    <div class="pareja_div-inputs">
+                        <div class="div-input">
+                            <p>Set 1</p>
+                            <input type="number" name="pareja2[]" class="partido_input" oninput="checkInput(this)" value="0">
+                        </div>
+
+                        <div class="div-input">
+                            <p>Set 2</p>
+                            <input type="number" name="pareja2[]" class="partido_input" oninput="checkInput(this)" value="0">
+                        </div>
+
+                        <div class="div-input">
+                            <p>Set 3</p>
+                            <input type="number" name="pareja2[]" class="partido_input" oninput="checkInput(this)" value="0">
                         </div>
                     </div>
                 </div>
@@ -67,6 +72,5 @@
                 <button type="submit">Enviar resultado</button>
             </div>
         </form>
-
     </main>
 </x-layoutLiga>

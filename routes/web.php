@@ -30,7 +30,7 @@ Route::controller(LigasController::class)->group(function () {
     Route::post('liga', 'store')->name('crearLiga')->middleware('auth', 'verified');
     Route::post('/liga/{liga}/inscribirse/{userId}', 'inscribirse')->name('liga.inscribirse')->middleware('auth', 'verified');
     Route::post('/liga/{liga}/jugarJornada/{userId}', 'jugarJornada')->name('liga.jugarJornada')->middleware('auth', 'verified');
-    Route::post('/liga/{liga}/resultado/{idPartido}', 'addResultado')->name('liga.addResultado')->middleware('auth', 'verified');
+    Route::post('/liga/{liga}/addResultado/{partido}', 'addResultado')->name('liga.addResultado')->middleware('auth', 'verified');
 
     Route::put('ligas/{liga}', 'update')->name('ligas.update');
 });
