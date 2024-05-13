@@ -61,6 +61,10 @@ class ViewController extends Controller
 
         if ($jugador) {
             // Unir con 'participa_en_ligas' para obtener las ligas donde el jugador participa
+            $ligas = null;
+            $ligasPropias = null;
+
+            
             $ligas = ParticipaEnLiga::where('jugadores_id', $jugador->id)
                 ->join('ligas', 'participa_en_ligas.liga_id', '=', 'ligas.id')
                 ->select(
