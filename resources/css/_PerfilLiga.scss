@@ -108,13 +108,37 @@
     margin: 0 1rem;
 }
 
+.container-carrusel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+}
+
+.carrusel{
+    width: 50%;
+
+    overflow: hidden;
+}
+
+.perfil-ligas{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 200%;
+    transition: transform 300ms;
+    transform: translateX(0);
+}
+
 .div_mis-ligas{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
 
-    width: 70%;
+    width: 50%;
 
     margin-bottom: 4rem;
 }
@@ -123,4 +147,17 @@
     font-size: 3rem;
     text-transform: uppercase;
     color: $colorPrincipal;
+}
+
+.flecha{
+    font-size: 5rem;
+    color: $colorPrincipal;
+
+    cursor: pointer;
+
+    transition: color 250ms;
+}
+
+.flecha:hover{
+    color: $colorSecundario
 }

@@ -31,16 +31,15 @@
             </a>
             @endforeach
 
-
-
-            <form method="get" action="/liga/crear/{{$deporteID}}">
-                <button type="submit">
-                    <article class="section1_liga-crear">
-                        <i class="fa-solid fa-plus"></i>
-                    </article>
-                </button>
-            </form>
-
+            <div class="nuevaLiga">
+                <form method="get" action="/liga/crear/{{$deporteID}}">
+                    <button type="submit">
+                        <article class="section1_liga-crear">
+                            <i class="fa-solid fa-plus"></i>
+                        </article>
+                    </button>
+                </form>
+            </div>
 
         </section>
 

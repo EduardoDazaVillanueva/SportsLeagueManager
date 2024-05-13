@@ -74,7 +74,6 @@ tbody {
 
     scrollbar-color: $colorOscuro $colorClaro;
 
-    padding-top: 1rem;
     background-color: #fff;
 
     font-weight: bold;
@@ -90,7 +89,7 @@ tbody {
 }
 
 .tabla_dato {
-    padding-bottom: 1rem;
+    padding: .5rem 0;
 }
 
 .tabla_img {

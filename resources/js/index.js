@@ -51,3 +51,15 @@ export function checkInput(input) {
         input.value = 7;
     }
 }
+
+export function carrusel(elemeto, direccion){
+    let elemento = document.querySelector(elemeto);
+
+    console.log(direccion);
+
+    if(direccion == "right"){
+        elemento.style.transform = 'translateX(0%)';
+    }else{
+        elemento.style.transform = 'translateX(-50%)';
+    }
+}

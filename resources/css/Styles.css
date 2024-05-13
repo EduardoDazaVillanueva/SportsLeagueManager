@@ -87,6 +87,7 @@ input[type=number] {
   grid-template-areas: "nombre fecha_inicio fecha_final fecha_fin_inscripcion" "logo localidad sede dia_jornada" "numPistas primera_hora ultima_hora dia_jornada" "pnts_ganar pnts_perder pnts_empate pnts_juego" "inscripcion premio txt_responsabilidad txt_responsabilidad" ". btn btn .";
   gap: 2rem;
   padding: 2rem 1.8rem;
+  margin-bottom: 5rem;
   border-radius: 15px;
   background-color: #fff;
   font-size: 1.4rem;
@@ -355,8 +356,8 @@ input[type=number] {
 .main_section1 {
   grid-area: ligas;
   display: flex;
-  align-items: stretch;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   -moz-column-gap: 3rem;
        column-gap: 3rem;
@@ -389,11 +390,14 @@ input[type=number] {
   border-radius: 5px;
 }
 
-.section1_liga-crear {
+.nuevaLiga {
   flex-basis: calc(50% - 6rem);
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+}
+
+.section1_liga-crear {
   background-color: #eee;
   padding: 2rem;
   border-radius: 5px;
@@ -1125,7 +1129,6 @@ tbody {
   min-height: 30vh;
   overflow: auto;
   scrollbar-color: #333 #eee;
-  padding-top: 1rem;
   background-color: #fff;
   font-weight: bold;
   border-radius: 0.5rem;
@@ -1137,7 +1140,7 @@ tbody {
 }
 
 .tabla_dato {
-  padding-bottom: 1rem;
+  padding: 0.5rem 0;
 }
 
 .tabla_img {
@@ -1347,12 +1350,34 @@ tbody {
   margin: 0 1rem;
 }
 
+.container-carrusel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+}
+
+.carrusel {
+  width: 50%;
+  overflow: hidden;
+}
+
+.perfil-ligas {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 200%;
+  transition: transform 300ms;
+  transform: translateX(0);
+}
+
 .div_mis-ligas {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  width: 70%;
+  width: 50%;
   margin-bottom: 4rem;
 }
 
@@ -1360,6 +1385,17 @@ tbody {
   font-size: 3rem;
   text-transform: uppercase;
   color: #040738;
+}
+
+.flecha {
+  font-size: 5rem;
+  color: #040738;
+  cursor: pointer;
+  transition: color 250ms;
+}
+
+.flecha:hover {
+  color: #C6CF25;
 }
 
 .main-preguntas {

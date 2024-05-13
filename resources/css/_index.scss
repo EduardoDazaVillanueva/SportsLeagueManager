@@ -49,8 +49,8 @@
     grid-area: ligas;
 
     display: flex;
-    align-items: stretch;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     column-gap: 3rem;
     row-gap: 4rem;
@@ -91,13 +91,15 @@
     border-radius: 5px;
 }
 
-.section1_liga-crear {
+.nuevaLiga{
     flex-basis: calc(50% - 6rem);
-
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    
+
+}
+
+.section1_liga-crear {    
     background-color: $colorClaro;
 
     padding: 2rem;

@@ -17,8 +17,8 @@
 
                 
                 <tbody>
-                    @foreach ($jugadores as $jugador)
-                    <tr class="tabla_datos">
+                    @foreach ($jugadores as $index => $jugador)
+                    <tr class="tabla_datos {{$index % 2 ? 'gris' : ''}}">
                         <td class="tabla_dato"><a href="/perfil/{{$jugador->user_id}}">{{$jugador["user_name"]}}</a></td>
                         <td class="tabla_dato">{{$jugador["num_partidos"]}}</td>
                         <td class="tabla_dato">{{$jugador["num_partidos_ganados"]}}</td>
