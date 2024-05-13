@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Mail\CrearPartido;
+use App\Mail\ResultadoPartido;
 
 use App\Models\Ligas;
 use App\Models\Organizadores;
@@ -112,7 +113,7 @@ class LigasController extends Controller
             'pnts_perder' => ['required', 'integer', 'min:0'],
             'pnts_empate' => ['required', 'integer', 'min:0'],
             'pnts_juego' => ['required', 'integer', 'min:0'],
-            'txt_responsabilidad' => ['required', 'string', 'max:1000'],
+            'txt_responsabilidad' => ['required', 'string', 'max:2000'],
             'deporte_id' => ['required', Rule::exists('deportes', 'id')],
             'logo' => ['nullable', 'file', 'mimes:jpg,png,gif,jpeg', 'max:2048'],
             'precio' => ['required', 'integer', 'min:0'],
@@ -237,12 +238,12 @@ class LigasController extends Controller
         //Obtener la fecha de la siguiente jornada
         $fechaJornada = $this->getFechaJornada($liga);
 
-        $fecha2Dias = $this->comprobarFecha('2024-05-10');
+        $fecha2Dias = $this->comprobarFecha($fechaJornada);
 
         $hayPartidos = Partidos::where('jornada_id', $jornada->id)
             ->exists();
 
-        if (!$hayPartidos) {
+        if ($fecha2Dias && !$hayPartidos) {
             switch ($liga->deporte_id) {
                 case '1':
                     $this->crearPartidosPorDia($liga->id, 22);
@@ -713,14 +714,14 @@ class LigasController extends Controller
         foreach ($jugadoresPorDia as $dia => $jugadores) {
             // Mezclar jugadores para tener aleatoriedad
             shuffle($jugadores);
-            
+
 
             foreach ($horasPosibles as $hora) {
 
                 for ($j = 0; $j < $liga->numPistas; $j++) {
 
                     if (count($jugadores) >= $jugadoresPorPartido) {
-                        
+
                         // Crear el partido
                         $partido = Partidos::create([
                             'jornada_id' => $jornada->id,
@@ -738,7 +739,7 @@ class LigasController extends Controller
                                     'jugadores_id' => $jugadores[$k],
                                     'partidos_id' => $partido->id,
                                 ]);
-                            
+
                                 $jugador = Jugadores::find($jugadores[$k]);
 
                                 $user = User::find($jugador->user_id);
@@ -754,7 +755,6 @@ class LigasController extends Controller
                         $partidosCreados[] = $partido;
                     }
                 }
-                
             }
         }
         // Resultado
@@ -785,7 +785,12 @@ class LigasController extends Controller
         $pareja1 = array_chunk($jugadores, $jugadoresPorPareja)[0];
         $pareja2 = array_chunk($jugadores, $jugadoresPorPareja)[1];
 
-        
+        $jugadorID = Jugadores::where('user_id', auth()->id())
+            ->first();
+
+        $enP1 = in_array($jugadorID->id, $pareja1);
+        $enP2 = in_array($jugadorID->id, $pareja2);
+
 
         for ($i = 1; $i <= 3; $i++) {
             ${"set{$i}P1"} = $request->pareja1[$i - 1];
@@ -795,8 +800,17 @@ class LigasController extends Controller
         $contadorP1 = 0;
         $contadorP2 = 0;
         $contadorSet = 0;
+        $puntosGanar = $liga->pnts_ganar;
+        $puntosPerder = $liga->pnts_perder;
+        $puntosJuego = $liga->pnts_juego;
+
+        $juegosP1 = $set1P1 + $set2P1 + $set3P1;
+        $juegosP2 = $set1P2 + $set2P2 + $set3P2;
+        $diferenciaJuegosP1 = $juegosP1 - $juegosP2;
+        $diferenciaJuegosP2 = $juegosP2 - $juegosP1;
 
         for ($i = 1; $i <= 3; $i++) {
+
             //Comprobar set
             if (${"set{$i}P1"} == 6 && ${"set{$i}P2"} < 5) {
                 //pareja1 gana
@@ -815,19 +829,20 @@ class LigasController extends Controller
                 $contadorP2++;
                 $contadorSet++;
             } else {
-                dd("error");
+                return redirect()->back()->with('error', 'El resultado no es válido');
                 //El reultado no es válido
             }
 
             if ($contadorP1 == 2) {
                 // Pareja 1 gana
 
+                if ($contadorP2 != 1 && ($set3P1 > 0 || $set3P2 > 0)) {
+                    return redirect()->back()->with('error', 'El resultado no es válido');
+                }
+
                 for ($i = 0; $i < $jugadoresPorPareja; $i++) {
                     $idJugadorP1 = $pareja1[$i];
                     $idJugadorP2 = $pareja2[$i];
-
-                    $puntosGanar = $liga->pnts_ganar;
-                    $puntosPerder = $liga->pnts_perder;
 
                     // Actualizar información de la pareja 1 (ganadora)
                     $jugadorLigaP1 = ParticipaEnLiga::where('liga_id', $liga->id)
@@ -836,7 +851,12 @@ class LigasController extends Controller
 
                     $partidosJugadosP1 = $jugadorLigaP1->num_partidos + 1;
                     $partidosGanados = $jugadorLigaP1->num_partidos_ganados + 1;
-                    $puntosP1 = $jugadorLigaP1->puntos + $puntosGanar;
+
+                    if ($puntosJuego > 0 && $diferenciaJuegosP1 > 0) {
+                        $puntosP1 = $jugadorLigaP1->puntos + $puntosGanar + ($puntosJuego * $diferenciaJuegosP1);
+                    } else {
+                        $puntosP1 = $jugadorLigaP1->puntos + $puntosGanar;
+                    }
 
                     $jugadorLigaP1->update([
                         'num_partidos' => $partidosJugadosP1,
@@ -851,7 +871,12 @@ class LigasController extends Controller
 
                     $partidosJugadosP2 = $jugadorLigaP2->num_partidos + 1;
                     $partidosPerdidos = $jugadorLigaP2->num_partidos_perdidos + 1;
-                    $puntosP2 = $jugadorLigaP2->puntos + $puntosPerder;
+
+                    if ($puntosJuego > 0 && $diferenciaJuegosP2 > 0) {
+                        $puntosP2 = $jugadorLigaP2->puntos + $puntosPerder + ($puntosJuego * $diferenciaJuegosP2);
+                    } else {
+                        $puntosP2 = $jugadorLigaP2->puntos + $puntosPerder;
+                    }
 
                     $jugadorLigaP2->update([
                         'num_partidos' => $partidosJugadosP2,
@@ -863,6 +888,34 @@ class LigasController extends Controller
                         'resultado' => [$set1P1, $set1P2, $set2P1, $set2P2, $set3P1, $set3P2]
                     ]);
 
+                    if ($enP1) {
+                        foreach ($pareja2 as $jugador) {
+                            // Obtener el jugador y su usuario asociado
+                            $jugador = Jugadores::find($jugador);
+                            $user = User::find($jugador->user_id);
+
+                            // Verificar si el jugador tiene un usuario asociado
+                            if ($user) {
+                                // Enviar correo electrónico al usuario
+                                Mail::to($user->email)->send(new ResultadoPartido($user, $liga));
+                            }
+                        }
+                    }
+
+                    if ($enP2) {
+                        foreach ($pareja1 as $jugador) {
+                            // Obtener el jugador y su usuario asociado
+                            $jugador = Jugadores::find($jugador);
+                            $user = User::find($jugador->user_id);
+
+                            // Verificar si el jugador tiene un usuario asociado
+                            if ($user) {
+                                // Enviar correo electrónico al usuario
+                                Mail::to($user->email)->send(new ResultadoPartido($user, $liga));
+                            }
+                        }
+                    }
+
                     return redirect()->route('liga.partidos', ['liga' => $liga->id])->with('success', 'La puntuación ha sido actualizada.');
                 }
             }
@@ -871,12 +924,13 @@ class LigasController extends Controller
             if ($contadorP2 == 2) {
                 // Pareja 2 gana
 
-                for ($i = 0; $i < $jugadoresPorPareja; $i++) {
-                    $idJugadorP1 = $pareja1[$i];
-                    $idJugadorP2 = $pareja2[$i];
+                if ($contadorP1 != 1 && ($set3P1 > 0 || $set3P2 > 0)) {
+                    return redirect()->back()->with('error', 'El resultado no es válido');
+                }
 
-                    $puntosGanar = $liga->pnts_ganar;
-                    $puntosPerder = $liga->pnts_perder;
+                for ($j = 0; $j < $jugadoresPorPareja; $j++) {
+                    $idJugadorP1 = $pareja1[$j];
+                    $idJugadorP2 = $pareja2[$j];
 
                     // Actualizar información de la pareja 2 (ganadora)
                     $jugadorLigaP2 = ParticipaEnLiga::where('liga_id', $liga->id)
@@ -885,7 +939,12 @@ class LigasController extends Controller
 
                     $partidosJugadosP2 = $jugadorLigaP2->num_partidos + 1;
                     $partidosGanados = $jugadorLigaP2->num_partidos_ganados + 1;
-                    $puntosP2 = $jugadorLigaP2->puntos + $puntosGanar;
+
+                    if ($puntosJuego > 0 && $diferenciaJuegosP2 > 0) {
+                        $puntosP2 = $jugadorLigaP2->puntos + $puntosGanar + ($puntosJuego * $diferenciaJuegosP2);
+                    } else {
+                        $puntosP2 = $jugadorLigaP2->puntos + $puntosGanar;
+                    }
 
                     $jugadorLigaP2->update([
                         'num_partidos' => $partidosJugadosP2,
@@ -900,7 +959,12 @@ class LigasController extends Controller
 
                     $partidosJugadosP1 = $jugadorLigaP1->num_partidos + 1;
                     $partidosPerdidos = $jugadorLigaP1->num_partidos_perdidos + 1;
-                    $puntosP1 = $jugadorLigaP1->puntos + $puntosPerder;
+
+                    if ($puntosJuego > 0 && $diferenciaJuegosP1 > 0) {
+                        $puntosP1 = $jugadorLigaP1->puntos + $puntosPerder + ($puntosJuego * $diferenciaJuegosP1);
+                    } else {
+                        $puntosP1 = $jugadorLigaP1->puntos + $puntosPerder;
+                    }
 
                     $jugadorLigaP1->update([
                         'num_partidos' => $partidosJugadosP1,
@@ -909,15 +973,41 @@ class LigasController extends Controller
                     ]);
 
                     $partido->update([
-                        'resultado' => $set1P1, $set1P2, $set2P1, $set2P2, $set3P1, $set3P2
+                        'resultado' => [$set1P1, $set1P2, $set2P1, $set2P2, $set3P1, $set3P2]
                     ]);
+
+                    if ($enP1) {
+                        foreach ($pareja2 as $jugador) {
+                            // Obtener el jugador y su usuario asociado
+                            $jugador = Jugadores::find($jugador);
+                            $user = User::find($jugador->user_id);
+
+                            // Verificar si el jugador tiene un usuario asociado
+                            if ($user) {
+                                // Enviar correo electrónico al usuario
+                                Mail::to($user->email)->send(new ResultadoPartido($user));
+                            }
+                        }
+                    }
+
+                    if ($enP2) {
+                        foreach ($pareja1 as $jugador) {
+                            // Obtener el jugador y su usuario asociado
+                            $jugador = Jugadores::find($jugador);
+                            $user = User::find($jugador->user_id);
+
+                            // Verificar si el jugador tiene un usuario asociado
+                            if ($user) {
+                                // Enviar correo electrónico al usuario
+                                Mail::to($user->email)->send(new ResultadoPartido($user));
+                            }
+                        }
+                    }
+
 
                     return redirect()->route('liga.partidos', ['liga' => $liga->id])->with('success', 'La puntuación ha sido actualizada.');
                 }
             }
         }
-
-        
-
     }
 }
