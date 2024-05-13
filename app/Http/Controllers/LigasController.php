@@ -985,7 +985,7 @@ class LigasController extends Controller
                             // Verificar si el jugador tiene un usuario asociado
                             if ($user) {
                                 // Enviar correo electrónico al usuario
-                                Mail::to($user->email)->send(new ResultadoPartido($user));
+                                Mail::to($user->email)->send(new ResultadoPartido($user, $liga));
                             }
                         }
                     }
@@ -999,7 +999,7 @@ class LigasController extends Controller
                             // Verificar si el jugador tiene un usuario asociado
                             if ($user) {
                                 // Enviar correo electrónico al usuario
-                                Mail::to($user->email)->send(new ResultadoPartido($user));
+                                Mail::to($user->email)->send(new ResultadoPartido($user, $liga));
                             }
                         }
                     }

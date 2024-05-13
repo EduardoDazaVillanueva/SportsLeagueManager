@@ -107,3 +107,20 @@
 .resultado{
     margin: 0 1rem;
 }
+
+.div_mis-ligas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+
+    width: 70%;
+
+    margin-bottom: 4rem;
+}
+
+.perfil-titulo-liga{
+    font-size: 3rem;
+    text-transform: uppercase;
+    color: $colorPrincipal;
+}

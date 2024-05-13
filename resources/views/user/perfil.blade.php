@@ -8,12 +8,12 @@
 
         <div class="div-info-perfil">
             <h2 class="nombre_miPerfil">Datos personales</h2>
-            <p>Fecha de nacimiento: <strong>04/10/2003</strong></p>
             <p>Correo: <strong>{{$user['email']}}</strong></p>
             <p>Teléfono: <strong>{{$user['telefono']}}</strong></p>
         </div>
 
         @if ($ligas != null)
+        <h2 class="perfil-titulo-liga">Ligas en las que participas</h2>
         <div class="div_mis-ligas">
             @foreach ($ligas as $liga)
             <a href="/liga/{{$liga->id}}" class="section1_liga">

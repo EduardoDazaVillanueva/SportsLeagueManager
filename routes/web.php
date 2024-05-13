@@ -13,6 +13,7 @@ Route::controller(ViewController::class)->group(function () {
 
     Route::get('/', 'getWelcome')->name('welcome');
     Route::get('faq', 'getFAQ')->name('faq');
+    Route::get('cookies', 'getCookies')->name('cookies');
     Route::get('perfil/{user}', 'getPerfil')->name('perfil');
 });
 

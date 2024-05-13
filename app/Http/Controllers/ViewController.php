@@ -36,6 +36,14 @@ class ViewController extends Controller
         ]);
     }
 
+    public function getCookies()
+    {
+        return view('cookies', [
+            'deportes' => Deportes::all(),
+            'user' => Auth::user(),
+        ]);
+    }
+
     public function getPerfil(Request $request, User $user)
     {
         // Unir 'users' con 'jugadores' para obtener 'jugador_id'

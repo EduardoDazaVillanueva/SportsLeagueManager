@@ -1,0 +1,39 @@
+.footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+    
+    background-color: $colorPrincipal;
+    
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: $blanco;
+    
+    padding: 1rem 3rem;
+    
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.div-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 7rem;
+    
+    width: 100%;
+}
+
+.rrss-icon{
+    font-size: 2rem;
+}
+
+.copy{
+    font-size: 1.3rem;
+    color: $colorSecundario;
+}
