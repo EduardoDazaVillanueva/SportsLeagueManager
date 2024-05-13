@@ -46,6 +46,14 @@ class ViewController extends Controller
         ]);
     }
 
+    public function getResponsabilidad()
+    {
+        return view('responsabilidad', [
+            'deportes' => Deportes::all(),
+            'user' => Auth::user(),
+        ]);
+    }
+
     public function getPerfil(Request $request, User $user)
     {
         // Unir 'users' con 'jugadores' para obtener 'jugador_id'

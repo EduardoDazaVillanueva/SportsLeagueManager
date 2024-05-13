@@ -1,0 +1,24 @@
+.main-responsabilidad {
+    background-color: $colorClaro;
+
+    height: 87vh;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main-responsabilidad p{
+    font-size: 1.5rem;
+}
+
+.main-responsabilidad ul{
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.main-responsabilidad h3{
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}

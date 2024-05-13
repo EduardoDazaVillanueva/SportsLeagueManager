@@ -2,9 +2,9 @@
 
     <div class="div-footer">
         <ul class="nav_list">
-            <li><a href="/">Responsabilidad del propietario</a></li>
+            <li><a href="/resposabilidad">Política para Organizadores y Jugadores</a></li>
             <li><a href="/cookies">Política de cookies</a></li>
-            <li><a href="/faq">Sobre nosotros</a></li>
+            <li><a href="/sobreNosotros">Sobre nosotros</a></li>
         </ul>
 
         <ul class="nav_list rrss">
