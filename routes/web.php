@@ -18,7 +18,6 @@ Route::controller(ViewController::class)->group(function () {
     Route::get('/resposabilidad', 'getResponsabilidad');
 });
 
-
 Route::controller(LigasController::class)->group(function () {
     Route::get('liga/deporte/{deporte}', 'LigaDeporte')->middleware('auth', 'verified')->name('liga.ligaDeporte');
     Route::get('liga/{liga}/Clasificacion', 'ligaClasificacion')->middleware('auth', 'verified');
@@ -27,16 +26,17 @@ Route::controller(LigasController::class)->group(function () {
     Route::get('liga/{liga}', 'show')->middleware('auth', 'verified')->whereNumber('liga')->name('liga.show');
     Route::get('liga/crear/{deporteID}', 'create');
     Route::get('liga/editar/{liga}', 'edit');
+    Route::get('liga/invitar/{liga}', 'invitar')->middleware('auth', 'verified');
     Route::get('liga/{liga}/resultado/{idPartido}', 'resultado');
 
     Route::post('liga', 'store')->name('crearLiga')->middleware('auth', 'verified');
     Route::post('/liga/{liga}/inscribirse/{userId}', 'inscribirse')->name('liga.inscribirse')->middleware('auth', 'verified');
     Route::post('/liga/{liga}/jugarJornada/{userId}', 'jugarJornada')->name('liga.jugarJornada')->middleware('auth', 'verified');
     Route::post('/liga/{liga}/addResultado/{partido}', 'addResultado')->name('liga.addResultado')->middleware('auth', 'verified');
+    Route::post('enviarInvitacion/{liga}', 'enviarInvitacion')->name('liga.enviarInvitacion');
 
     Route::put('ligas/{liga}', 'update')->name('ligas.update');
 });
-
 
 Route::controller(LoginController::class)->group(function () {
     Route::post('validar-register', 'store')->name('validar-register');
@@ -47,16 +47,6 @@ Route::controller(LoginController::class)->group(function () {
 
     Route::get('login', 'getLogin')->middleware('guest')->name('login');
     Route::get('registro', 'register')->name('registro')->middleware('guest');
-});
-
-Route::get('/verify-email/{user}', function (App\Models\User $user) {
-    $user->email_verified_at = now();
-    $user->save();
-    return redirect('/login')->with('success', 'Tu correo ha sido verificado. Ahora puedes iniciar sesión.');
-});
-
-Route::get('/recordatorio-partido', function (App\Models\User $user) {
-    return redirect('/login')->with('success', 'Tu correo ha sido verificado. Ahora puedes iniciar sesión.');
 });
 
 Route::fallback([ViewController::class, 'get404']);

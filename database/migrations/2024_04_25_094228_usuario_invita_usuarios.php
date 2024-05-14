@@ -15,13 +15,11 @@ return new class extends Migration
         Schema::create('usuario_invita_usuarios', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_invita');  // Usuario que invita
-            $table->unsignedBigInteger('user_invitado'); // Usuario invitado
+            $table->string('user_invitado'); // Usuario invitado
         
             // Definición de claves foráneas
             $table->foreign('user_invita')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreign('user_invitado')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
         
-            // Timestamps
             $table->timestamps();
         });
         

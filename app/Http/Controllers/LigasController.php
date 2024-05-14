@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\EmailController;
+
 use App\Mail\CrearPartido;
 use App\Mail\ResultadoPartido;
 
@@ -15,11 +17,11 @@ use App\Models\Jornadas;
 use App\Models\JugadorJuegaJornada;
 use App\Models\Partidos;
 use App\Models\PartidoParticipaJugadores;
+use App\Models\UsuarioInvitaUsuario;
 use App\Models\User;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-
-
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -342,7 +344,7 @@ class LigasController extends Controller
         // Validar solo los campos que están presentes en la solicitud
         $validatedData = $request->validate([
             'nombre' => ['sometimes', 'required', 'string', 'max:255'],
-            'dia_jornada' => ['sometimes', 'required', 'array'],
+            'numPistas' => ['sometimes', 'required', 'integer', 'min:0'],
             'pnts_ganar' => ['sometimes', 'required', 'integer', 'min:0'],
             'pnts_perder' => ['sometimes', 'required', 'integer', 'min:0'],
             'pnts_empate' => ['sometimes', 'required', 'integer', 'min:0'],
@@ -745,7 +747,8 @@ class LigasController extends Controller
                                 $user = User::find($jugador->user_id);
 
                                 if ($user) {
-                                    Mail::to($user->email)->send(new CrearPartido($user));
+                                    $emailController = new EmailController();
+                                    $emailController->enviarCorreoPartido($user);
                                 }
                             }
                         }
@@ -897,7 +900,8 @@ class LigasController extends Controller
                             // Verificar si el jugador tiene un usuario asociado
                             if ($user) {
                                 // Enviar correo electrónico al usuario
-                                Mail::to($user->email)->send(new ResultadoPartido($user, $liga));
+                                $emailController = new EmailController();
+                                $emailController->enviarCorreoResultado($user, $liga);
                             }
                         }
                     }
@@ -911,7 +915,8 @@ class LigasController extends Controller
                             // Verificar si el jugador tiene un usuario asociado
                             if ($user) {
                                 // Enviar correo electrónico al usuario
-                                Mail::to($user->email)->send(new ResultadoPartido($user, $liga));
+                                $emailController = new EmailController();
+                                $emailController->enviarCorreoResultado($user, $liga);
                             }
                         }
                     }
@@ -985,7 +990,8 @@ class LigasController extends Controller
                             // Verificar si el jugador tiene un usuario asociado
                             if ($user) {
                                 // Enviar correo electrónico al usuario
-                                Mail::to($user->email)->send(new ResultadoPartido($user, $liga));
+                                $emailController = new EmailController();
+                                $emailController->enviarCorreoResultado($user, $liga);
                             }
                         }
                     }
@@ -999,7 +1005,8 @@ class LigasController extends Controller
                             // Verificar si el jugador tiene un usuario asociado
                             if ($user) {
                                 // Enviar correo electrónico al usuario
-                                Mail::to($user->email)->send(new ResultadoPartido($user, $liga));
+                                $emailController = new EmailController();
+                                $emailController->enviarCorreoResultado($user, $liga);
                             }
                         }
                     }
@@ -1009,5 +1016,36 @@ class LigasController extends Controller
                 }
             }
         }
+    }
+
+    /**
+     * Enviar a la vista de invitar a la liga
+     */
+    public function invitar(Ligas $liga)
+    {
+        return view('liga.invitar', [
+            'liga' => $liga,
+            'deportes' => Deportes::all(),
+            'user' => Auth::user()
+        ]);
+    }
+
+    public function enviarInvitacion(Request $request, Ligas $liga)
+    {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        $email = $request->input('email');
+
+        $emailController = new EmailController();
+        $emailController->enviarCorreoInvitacion($email, $liga);
+
+        UsuarioInvitaUsuario::create([
+            'user_invita' => Auth()->id(),
+            'user_invitado' => $email,
+        ]);
+
+        return redirect()->route('liga.show', ['liga' => $liga->id])->with('success', 'Correo de invitación enviado.');
     }
 }

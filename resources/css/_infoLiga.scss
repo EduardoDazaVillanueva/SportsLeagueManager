@@ -114,7 +114,9 @@
     gap: 3rem;
 }
 
-.edit{
+.edit,
+.share,
+.share-own{
     position: absolute;
     top: 20px;
     right: 20px;
@@ -127,6 +129,12 @@
     transition: color 200ms;
 }
 
-.edit:hover{
+.share-own{
+    right: 80px;
+}
+
+.edit:hover,
+.share:hover,
+.share-own:hover{
     color: $colorSecundario;
 }

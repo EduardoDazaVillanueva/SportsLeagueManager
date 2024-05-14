@@ -10,6 +10,9 @@
 
             @if ($organizador->id == $user->id)
             <a href="/liga/editar/{{$liga->id}}"><i class="fa-solid fa-pen-to-square edit"></i></a>
+            <a href="/liga/invitar/{{$liga->id}}"><i class="fa-solid fa-share-nodes share-own"></i></a>
+            @else
+            <a href="/liga/invitar/{{$liga->id}}"><i class="fa-solid fa-share-nodes share"></i></a>
             @endif
 
             <div class="div-info-liga">
@@ -33,8 +36,9 @@
                             @endfor
 
                     </strong></p>
-                
-                <p><strong>Desde las {{$liga->primera_hora}} hasta las {{$liga->ultima_hora}}</strong></p>
+
+                <p><strong>Desde las {{ substr($liga->primera_hora, 0, 5) }} hasta las {{ substr($liga->ultima_hora, 0, 5) }}</strong></p>
+
             </div>
             <div class="liena"></div>
 
@@ -83,8 +87,8 @@
                     @endif
                 </div>
             </div>
-            <div class="liena"></div>
             @if ($organizador->id != $user->id && $esJugador == 0)
+            <div class="liena"></div>
             <div class="{{$mostrarBotonInscribirse ? 'div-info-liga' : 'hidden'}}">
                 <form action="{{ route('liga.inscribirse', ['liga' => $liga->id, 'userId' => $user->id]) }}" method="POST">
                     @csrf

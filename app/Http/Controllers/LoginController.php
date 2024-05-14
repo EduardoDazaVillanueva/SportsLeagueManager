@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\EmailController;
+
 use App\Mail\VerificarElEmail;
 use Illuminate\Support\Facades\Mail;
 
@@ -68,7 +70,8 @@ class LoginController extends Controller
         $user = User::create($user);
 
         // Enviar el correo de verificación
-        $this->enviarCorreo($user);
+        $emailController = new EmailController();
+        $emailController->enviarCorreoVerificacion($user);
 
         return redirect("/login")->with('success', 'El usuario ha sido creado con éxito. Revisa tu correo para verificar tu cuenta.');
     }
@@ -140,14 +143,6 @@ class LoginController extends Controller
     }
 
     /**
-     * Envia un correo al email del usuario que se pase por parámetro
-     */
-    public function enviarCorreo(User $user)
-    {
-        Mail::to($user->email)->send(new VerificarElEmail($user));
-    }
-
-    /**
      * Envia a la vista de reenvio de email de verificación
      */
     public function reenviarCorreo()
@@ -172,7 +167,8 @@ class LoginController extends Controller
 
         if ($user) {
             if (is_null($user->email_verified_at)) {
-                $this->enviarCorreo($user);
+                $emailController = new EmailController();
+                $emailController->enviarCorreoVerificacion($user);
                 return redirect("/login")->with('success', 'Correo de verificación enviado. Por favor, revisa tu correo electrónico.');
             } else {
                 return redirect()->back()->withErrors(['email' => 'Este correo electrónico ya está verificado.']);
