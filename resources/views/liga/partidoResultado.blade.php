@@ -23,20 +23,12 @@
                     </div>
 
                     <div class="pareja_div-inputs">
+                        @for ($i = 1; $i <= $sets; $i++)
                         <div class="div-input">
-                            <p>Set 1</p>
+                            <p>Set {{$i}}</p>
                             <input type="number" name="pareja1[]" class="partido_input" oninput="checkInput(this)" value="0">
                         </div>
-
-                        <div class="div-input">
-                            <p>Set 2</p>
-                            <input type="number" name="pareja1[]" class="partido_input" oninput="checkInput(this)" value="0">
-                        </div>
-
-                        <div class="div-input">
-                            <p>Set 3</p>
-                            <input type="number" name="pareja1[]" class="partido_input" oninput="checkInput(this)" value="0">
-                        </div>
+                        @endfor
                     </div>
                 </div>
                 <div class="lineaVertical-resultado"></div>
@@ -51,20 +43,12 @@
 
 
                     <div class="pareja_div-inputs">
+                        @for ($i = 1; $i <= $sets; $i++)
                         <div class="div-input">
-                            <p>Set 1</p>
-                            <input type="number" name="pareja2[]" class="partido_input" oninput="checkInput(this)" value="0">
+                            <p>Set {{$i}}</p>
+                            <input type="number" name="pareja1[]" class="partido_input" oninput="checkInput(this)" value="0">
                         </div>
-
-                        <div class="div-input">
-                            <p>Set 2</p>
-                            <input type="number" name="pareja2[]" class="partido_input" oninput="checkInput(this)" value="0">
-                        </div>
-
-                        <div class="div-input">
-                            <p>Set 3</p>
-                            <input type="number" name="pareja2[]" class="partido_input" oninput="checkInput(this)" value="0">
-                        </div>
+                        @endfor
                     </div>
                 </div>
             </div>
