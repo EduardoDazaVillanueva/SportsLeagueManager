@@ -2,12 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\EmailController;
-
-use App\Mail\CrearPartido;
-use App\Mail\ResultadoPartido;
-
 use App\Models\Ligas;
 use App\Models\Organizadores;
 use App\Models\ParticipaEnLiga;
@@ -21,7 +15,6 @@ use App\Models\UsuarioInvitaUsuario;
 use App\Models\User;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -93,7 +86,6 @@ class LigasController extends Controller
      */
     public function store(Request $request)
     {
-
         //Si no hay ningún valor en el campo "precio", significa que es gratis
         if (empty($request->precio)) {
             $request['precio'] = 0;
