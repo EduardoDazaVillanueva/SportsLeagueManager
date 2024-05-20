@@ -206,22 +206,6 @@
                     <textarea name="txt_responsabilidad" id="txt_responsabilidad" class="crear-txt" placeholder="Los jugadores deberán pagar las pistas..."></textarea>
                 </div>
 
-                <div id="premios-div">
-                    <label class="crear-label">Premios</label>
-
-                    <div class="container-premios">
-                        <div class="premio-titulos">
-                            <p>Posición/es premiada/s</p>
-                            <input type="text" name="posicion" id="posicion" placeholder="1 al 5">
-                        </div>
-
-                        <div class="premio-input">
-                            <p>Premios</p>
-                            <input type="text" name="premio" id="premio" placeholder="50€">
-                        </div>
-                    </div>
-                </div>
-
                 <input type="hidden" name="organizadores_id" value="{{$user->id}}">
                 <input type="hidden" name="deporte_id" value="{{$deporteID}}">
 

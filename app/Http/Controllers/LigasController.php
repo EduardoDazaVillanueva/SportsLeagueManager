@@ -13,6 +13,7 @@ use App\Models\Partidos;
 use App\Models\PartidoParticipaJugadores;
 use App\Models\UsuarioInvitaUsuario;
 use App\Models\User;
+use App\Models\JugadorTieneEquipo;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -111,7 +112,6 @@ class LigasController extends Controller
             'deporte_id' => ['required', Rule::exists('deportes', 'id')],
             'logo' => ['nullable', 'file', 'mimes:jpg,png,gif,jpeg', 'max:2048'],
             'precio' => ['required', 'integer', 'min:0'],
-            'posicion' => ['required', 'integer'],
             'numPistas' => ['required', 'integer', 'min:1'],
             'primera_hora' => ['required', 'date_format:H:i'],
             'ultima_hora' => [
@@ -342,8 +342,6 @@ class LigasController extends Controller
             'pnts_empate' => ['sometimes', 'required', 'integer', 'min:0'],
             'pnts_juego' => ['sometimes', 'required', 'integer', 'min:0'],
             'txt_responsabilidad' => ['sometimes', 'required', 'string', 'max:1000'],
-            'posicion' => ['sometimes', 'required', 'string'],
-            'premio' => ['sometimes', 'required', 'string'],
             'logo' => ['sometimes', 'required', 'file', 'mimes:jpg,png,gif,jpeg'],
         ]);
 
@@ -580,27 +578,27 @@ class LigasController extends Controller
             ->select('users.name', 'jugadores.id')
             ->get();
 
-            switch ($liga->deporte_id) {
-                case '1':
-                    $sets = 1;
-                    break;
+        switch ($liga->deporte_id) {
+            case '1':
+                $sets = 1;
+                break;
 
-                case '2':
-                    $sets = 1;
-                    break;
+            case '2':
+                $sets = 1;
+                break;
 
-                case '3':
-                    $sets = 3;
-                    break;
+            case '3':
+                $sets = 3;
+                break;
 
-                case '4':
-                    $sets = 3;
-                    break;
+            case '4':
+                $sets = 3;
+                break;
 
-                case '5':
-                    $sets = 3;
-                    break;
-            }
+            case '5':
+                $sets = 3;
+                break;
+        }
 
 
         return view('liga.partidoResultado', [
@@ -619,23 +617,41 @@ class LigasController extends Controller
     public function inscribirse(string $ligaId, string $userId)
     {
         try {
-            // Verificar si el jugador ya existe
-            $jugador = Jugadores::where('user_id', $userId)->first();
 
-            if (!$jugador) {
-                // Si no existe, crea un nuevo jugador
-                $jugador = Jugadores::create([
-                    'user_id' => $userId
+            $deporte = Ligas::where('id', $ligaId)
+                ->select('deporte_id');
+
+            if ($deporte = 3 || $deporte = 4) {
+                // Verificar si el jugador ya existe
+                $jugador = Jugadores::where('user_id', $userId)->first();
+
+                if (!$jugador) {
+                    // Si no existe, crea un nuevo jugador
+                    $jugador = Jugadores::create([
+                        'user_id' => $userId
+                    ]);
+                }
+
+                // Añadir al jugador en la tabla participa_en_liga
+                ParticipaEnLiga::create([
+                    'liga_id' => $ligaId,
+                    'jugadores_id' => $jugador->id,
+                ]);
+
+                return redirect()->back()->with('success', 'Jugador inscrito en la liga con éxito.');
+            } else {
+                $jugador = Jugadores::where('user_id', $userId)
+                    ->select('id');
+
+                $equipo = JugadorTieneEquipo::where('jugadores_id', $jugador)
+                    ->where('liga_id', $ligaId)
+                    ->select('equipo_id');
+
+                ParticipaEnLiga::create([
+                    'liga_id' => $ligaId,
+                    'equipo_id' => $equipo,
                 ]);
             }
-
-            // Añadir al jugador en la tabla participa_en_liga
-            ParticipaEnLiga::create([
-                'liga_id' => $ligaId,
-                'jugadores_id' => $jugador->id,
-            ]);
-
-            return redirect()->back()->with('success', 'Jugador inscrito en la liga con éxito.');
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Ocurrió un error al inscribir al jugador: ' . $e->getMessage()]);
         }
@@ -1207,8 +1223,7 @@ class LigasController extends Controller
                     }
 
                     return redirect()->route('liga.partidos', ['liga' => $liga->id])->with('success', 'La puntuación ha sido actualizada.');
-
-                }else{
+                } else {
                     for ($i = 0; $i < $jugadoresPorPareja; $i++) {
                         $idJugadorP1 = $pareja1[$i];
                         $idJugadorP2 = $pareja2[$i];
@@ -1315,5 +1330,46 @@ class LigasController extends Controller
         ]);
 
         return redirect()->route('liga.show', ['liga' => $liga->id])->with('success', 'Correo de invitación enviado.');
+    }
+
+    public function StoreEquipo(Request $request, Ligas $liga)
+    {
+        dd($request);
+        
+        $validatedData = $request->validate([
+            'jugador1_nombre' => ['required', 'string', 'max:255'],
+            'numPistas' => ['required', 'integer', 'min:0'],
+            'pnts_ganar' => ['required', 'integer', 'min:0'],
+            'pnts_perder' => ['required', 'integer', 'min:0'],
+            'pnts_empate' => ['required', 'integer', 'min:0'],
+            'pnts_juego' => ['required', 'integer', 'min:0'],
+            'txt_responsabilidad' => ['required', 'string', 'max:1000'],
+            'logo' => ['required', 'file', 'mimes:jpg,png,gif,jpeg'],
+        ]);
+
+
+        return view('liga.pagar', [
+            'liga' => $liga,
+            'deportes' => Deportes::all(),
+            'user' => Auth::user()
+        ]);
+    }
+
+    public function pagar(Ligas $liga)
+    {
+        return view('liga.pagar', [
+            'liga' => $liga,
+            'deportes' => Deportes::all(),
+            'user' => Auth::user()
+        ]);
+    }
+
+    public function crearEquipo(Ligas $liga)
+    {
+        return view('liga.crearEquipo', [
+            'liga' => $liga,
+            'deportes' => Deportes::all(),
+            'user' => Auth::user()
+        ]);
     }
 }

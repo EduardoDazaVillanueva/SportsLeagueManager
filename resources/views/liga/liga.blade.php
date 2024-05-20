@@ -67,12 +67,6 @@
 
             <div class="div-info-liga">
                 <div>
-                    <p><strong>Premios:</strong></p>
-                    <p>El primero:<strong> 200€</strong></p>
-                    <p>Del segundo al quinto:<strong> 50€</strong></p>
-                </div>
-
-                <div>
                     <p><strong>Inscripción:</strong></p>
                     @if ($mostrarBotonInscribirse)
                     <p>La inscripción finaliza el día:<strong> {{$liga->fecha_fin_inscripcion}}</strong></p>
@@ -90,10 +84,13 @@
             @if ($organizador->id != $user->id && $esJugador == 0)
             <div class="liena"></div>
             <div class="{{$mostrarBotonInscribirse ? 'div-info-liga' : 'hidden'}}">
-                <form action="{{ route('liga.inscribirse', ['liga' => $liga->id, 'userId' => $user->id]) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="crear-boton btn-unirse">INSCRIBIRSE</button>
-                </form>
+
+                @if ($liga->deporte_id == 3 || $liga->deporte_id == 4)
+                <a class="crear-boton btn-unirse" href="{{ route('checkout.session') }}">INSCRIBIRSE</a>
+                @else
+                <a class="crear-boton btn-unirse" href="{{route('liga.crearEquipo', ['liga' => $liga->id])}}">INSCRIBIRSE</a>
+                @endif
+
             </div>
             @endif
         </div>
