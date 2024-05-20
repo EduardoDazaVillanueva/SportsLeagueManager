@@ -1,5 +1,5 @@
 <x-layout :deportes="$deportes" :user="$user">
-    <main class="main-login">
+    <main class="main-invitar">
         <h1 class="login_titulo">Invita a tus amigos</h1>
         <form class="form" action="{{route('liga.enviarInvitacion', ['liga' => $liga->id])}}" method="POST">
             @csrf

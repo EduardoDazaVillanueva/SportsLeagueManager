@@ -46,7 +46,7 @@
                         @for ($i = 1; $i <= $sets; $i++)
                         <div class="div-input">
                             <p>Set {{$i}}</p>
-                            <input type="number" name="pareja1[]" class="partido_input" oninput="checkInput(this)" value="0">
+                            <input type="number" name="pareja2[]" class="partido_input" oninput="checkInput(this)" value="0">
                         </div>
                         @endfor
                     </div>

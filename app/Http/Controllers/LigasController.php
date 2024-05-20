@@ -185,6 +185,8 @@ class LigasController extends Controller
             ->select('users.id', 'users.name', 'users.telefono')
             ->first();
 
+        //Obtener la fecha de la siguiente jornada
+        $fechaJornada = $this->getFechaJornada($liga);
 
         // Obtener el ID del usuario autenticado
         $userId = Auth::id();
@@ -214,7 +216,9 @@ class LigasController extends Controller
 
         $juegaJornada = false;
 
-        $jornada = Jornadas::where('liga_id', $liga->id)->first();
+        $jornada = Jornadas::where('liga_id', $liga->id)
+            ->where('fecha-inicio', $fechaJornada)
+            ->first();
 
         if ($jugador) {
             //Si existe la jornada y el jugador la juega, se guarda en la variable
@@ -228,9 +232,6 @@ class LigasController extends Controller
         } else {
             $juegaJornada = false;
         }
-
-        //Obtener la fecha de la siguiente jornada
-        $fechaJornada = $this->getFechaJornada($liga);
 
         $fecha2Dias = $this->comprobarFecha($fechaJornada);
 
@@ -253,10 +254,6 @@ class LigasController extends Controller
 
                 case '4':
                     $this->crearPartidosPorDia($liga->id, 4);
-                    break;
-
-                case '5':
-                    $this->crearPartidosPorDia($liga->id, 2);
                     break;
             }
         }
@@ -379,19 +376,48 @@ class LigasController extends Controller
      */
     public function ligaDeporte(Request $request, string $deporte)
     {
-        // Obtener todas las localidades seleccionadas del request
-        $localidadesSeleccionadas = $request->input('localidades', []);
-
         // Iniciar la consulta base
         $ligasQuery = Ligas::where('deporte_id', $deporte);
+
+        // Obtener todas las localidades seleccionadas del request
+        $localidadesSeleccionadas = $request->input('localidades', []);
+        $fechaInicioSeleccionada = $request->input('fechaInicio');
+        $fechaFinalSeleccionada = $request->input('fechaFinal');
+        $rangoJugadoresSeleccionada = $request->input('rangoJugadores', []);
+
 
         // Filtrar por localidades seleccionadas, si hay alguna
         if (!empty($localidadesSeleccionadas)) {
             $ligasQuery->whereIn('localidad', $localidadesSeleccionadas);
         }
 
+        // Filtrar por fecha de inicio, si se proporciona
+        if (!empty($fechaInicioSeleccionada)) {
+            $ligasQuery->where('fecha_inicio', '>=', $fechaInicioSeleccionada);
+        }
+
+        // Filtrar por fecha final, si se proporciona
+        if (!empty($fechaFinalSeleccionada)) {
+            $ligasQuery->where('fecha_final', '<=', $fechaFinalSeleccionada);
+        }
+
+        // Filtrar por rango de jugadores, si se proporciona
+        if (!empty($rangoJugadoresSeleccionada)) {
+            $ligasQuery->whereHas('participaEnLigas', function ($query) use ($rangoJugadoresSeleccionada) {
+                if (strpos($rangoJugadoresSeleccionada, '-') !== false) {
+                    $maxJugadores = (int)str_replace('-', '', $rangoJugadoresSeleccionada);
+                    $query->havingRaw('COUNT(jugadores_id) <= ?', [$maxJugadores]);
+                } elseif (strpos($rangoJugadoresSeleccionada, '+') !== false) {
+                    $minJugadores = (int)str_replace('+', '', $rangoJugadoresSeleccionada);
+                    $query->havingRaw('COUNT(jugadores_id) >= ?', [$minJugadores]);
+                }
+            });
+        }
+
+
         // Obtener las ligas filtradas
-        $ligas = $ligasQuery->get();
+        $ligas = $ligasQuery->paginate(9);
+
 
         // Obtener el nombre del deporte y todas las localidades
         $deporteNombre = Deportes::find($deporte);
@@ -517,10 +543,6 @@ class LigasController extends Controller
             case '4':
                 $jugadoresPorPartido = 4;
                 break;
-
-            case '5':
-                $jugadoresPorPartido = 2;
-                break;
         }
 
         $partidos = Partidos::where('jornada_id', $jornada->id)->get();
@@ -592,10 +614,6 @@ class LigasController extends Controller
                 break;
 
             case '4':
-                $sets = 3;
-                break;
-
-            case '5':
                 $sets = 3;
                 break;
         }
@@ -801,13 +819,15 @@ class LigasController extends Controller
     }
 
 
-
     private function comprobarFecha($fechaJornada)
     {
         $fechaJornada = Carbon::create($fechaJornada);
         $dateDiff = abs($fechaJornada->diffInDays(Carbon::now()));
         return $dateDiff < 2;
     }
+
+
+
 
     public function addResultado(Request $request, Ligas $liga, Partidos $partido)
     {
@@ -842,15 +862,11 @@ class LigasController extends Controller
             case '4':
                 $sets = 3;
                 break;
-
-            case '5':
-                $sets = 3;
-                break;
         }
 
         for ($i = 1; $i <= $sets; $i++) {
-            ${"set{$i}P1"} = $request->pareja1[$i - 1];
-            ${"set{$i}P2"} = $request->pareja2[$i - 1];
+            ${"set{$i}P1"} = $request->pareja1[$i-1];
+            ${"set{$i}P2"} = $request->pareja2[$i-1];
         }
 
         $contadorP1 = 0;
@@ -861,7 +877,7 @@ class LigasController extends Controller
         $puntosEmpatar = $liga->pnts_empate;
         $puntosJuego = $liga->pnts_juego;
 
-        if ($liga->deporte_id == 3 || $liga->deporte_id == 4 || $liga->deporte_id == 5) {
+        if ($liga->deporte_id == 3 || $liga->deporte_id == 4) {
             $juegosP1 = $set1P1 + $set2P1 + $set3P1;
             $juegosP2 = $set1P2 + $set2P2 + $set3P2;
         } else {
@@ -874,7 +890,7 @@ class LigasController extends Controller
 
         for ($i = 1; $i <= $sets; $i++) {
 
-            if ($liga->deporte_id == 3 || $liga->deporte_id == 4 || $liga->deporte_id == 5) {
+            if ($liga->deporte_id == 3 || $liga->deporte_id == 4) {
                 //Comprobar set
                 if (${"set{$i}P1"} == 6 && ${"set{$i}P2"} < 5) {
                     //pareja1 gana
@@ -953,33 +969,11 @@ class LigasController extends Controller
                         ]);
 
                         if ($enP1) {
-                            foreach ($pareja2 as $jugador) {
-                                // Obtener el jugador y su usuario asociado
-                                $jugador = Jugadores::find($jugador);
-                                $user = User::find($jugador->user_id);
-
-                                // Verificar si el jugador tiene un usuario asociado
-                                if ($user) {
-                                    // Enviar correo electrónico al usuario
-                                    $emailController = new EmailController();
-                                    $emailController->enviarCorreoResultado($user, $liga);
-                                }
-                            }
+                            $this->enviarEmailResultado($pareja2, $liga);
                         }
 
                         if ($enP2) {
-                            foreach ($pareja1 as $jugador) {
-                                // Obtener el jugador y su usuario asociado
-                                $jugador = Jugadores::find($jugador);
-                                $user = User::find($jugador->user_id);
-
-                                // Verificar si el jugador tiene un usuario asociado
-                                if ($user) {
-                                    // Enviar correo electrónico al usuario
-                                    $emailController = new EmailController();
-                                    $emailController->enviarCorreoResultado($user, $liga);
-                                }
-                            }
+                            $this->enviarEmailResultado($pareja1, $liga);
                         }
 
                         return redirect()->route('liga.partidos', ['liga' => $liga->id])->with('success', 'La puntuación ha sido actualizada.');
@@ -1043,33 +1037,11 @@ class LigasController extends Controller
                         ]);
 
                         if ($enP1) {
-                            foreach ($pareja2 as $jugador) {
-                                // Obtener el jugador y su usuario asociado
-                                $jugador = Jugadores::find($jugador);
-                                $user = User::find($jugador->user_id);
-
-                                // Verificar si el jugador tiene un usuario asociado
-                                if ($user) {
-                                    // Enviar correo electrónico al usuario
-                                    $emailController = new EmailController();
-                                    $emailController->enviarCorreoResultado($user, $liga);
-                                }
-                            }
+                            $this->enviarEmailResultado($pareja2, $liga);
                         }
 
                         if ($enP2) {
-                            foreach ($pareja1 as $jugador) {
-                                // Obtener el jugador y su usuario asociado
-                                $jugador = Jugadores::find($jugador);
-                                $user = User::find($jugador->user_id);
-
-                                // Verificar si el jugador tiene un usuario asociado
-                                if ($user) {
-                                    // Enviar correo electrónico al usuario
-                                    $emailController = new EmailController();
-                                    $emailController->enviarCorreoResultado($user, $liga);
-                                }
-                            }
+                            $this->enviarEmailResultado($pareja1, $liga);
                         }
 
 
@@ -1119,33 +1091,11 @@ class LigasController extends Controller
                         ]);
 
                         if ($enP1) {
-                            foreach ($pareja2 as $jugador) {
-                                // Obtener el jugador y su usuario asociado
-                                $jugador = Jugadores::find($jugador);
-                                $user = User::find($jugador->user_id);
-
-                                // Verificar si el jugador tiene un usuario asociado
-                                if ($user) {
-                                    // Enviar correo electrónico al usuario
-                                    $emailController = new EmailController();
-                                    $emailController->enviarCorreoResultado($user, $liga);
-                                }
-                            }
+                            $this->enviarEmailResultado($pareja2, $liga);
                         }
 
                         if ($enP2) {
-                            foreach ($pareja1 as $jugador) {
-                                // Obtener el jugador y su usuario asociado
-                                $jugador = Jugadores::find($jugador);
-                                $user = User::find($jugador->user_id);
-
-                                // Verificar si el jugador tiene un usuario asociado
-                                if ($user) {
-                                    // Enviar correo electrónico al usuario
-                                    $emailController = new EmailController();
-                                    $emailController->enviarCorreoResultado($user, $liga);
-                                }
-                            }
+                            $this->enviarEmailResultado($pareja1, $liga);
                         }
                     }
 
@@ -1192,33 +1142,11 @@ class LigasController extends Controller
                         ]);
 
                         if ($enP1) {
-                            foreach ($pareja2 as $jugador) {
-                                // Obtener el jugador y su usuario asociado
-                                $jugador = Jugadores::find($jugador);
-                                $user = User::find($jugador->user_id);
-
-                                // Verificar si el jugador tiene un usuario asociado
-                                if ($user) {
-                                    // Enviar correo electrónico al usuario
-                                    $emailController = new EmailController();
-                                    $emailController->enviarCorreoResultado($user, $liga);
-                                }
-                            }
+                            $this->enviarEmailResultado($pareja2, $liga);
                         }
 
                         if ($enP2) {
-                            foreach ($pareja1 as $jugador) {
-                                // Obtener el jugador y su usuario asociado
-                                $jugador = Jugadores::find($jugador);
-                                $user = User::find($jugador->user_id);
-
-                                // Verificar si el jugador tiene un usuario asociado
-                                if ($user) {
-                                    // Enviar correo electrónico al usuario
-                                    $emailController = new EmailController();
-                                    $emailController->enviarCorreoResultado($user, $liga);
-                                }
-                            }
+                            $this->enviarEmailResultado($pareja1, $liga);
                         }
                     }
 
@@ -1264,33 +1192,11 @@ class LigasController extends Controller
                         ]);
 
                         if ($enP1) {
-                            foreach ($pareja2 as $jugador) {
-                                // Obtener el jugador y su usuario asociado
-                                $jugador = Jugadores::find($jugador);
-                                $user = User::find($jugador->user_id);
-
-                                // Verificar si el jugador tiene un usuario asociado
-                                if ($user) {
-                                    // Enviar correo electrónico al usuario
-                                    $emailController = new EmailController();
-                                    $emailController->enviarCorreoResultado($user, $liga);
-                                }
-                            }
+                            $this->enviarEmailResultado($pareja2, $liga);
                         }
 
                         if ($enP2) {
-                            foreach ($pareja1 as $jugador) {
-                                // Obtener el jugador y su usuario asociado
-                                $jugador = Jugadores::find($jugador);
-                                $user = User::find($jugador->user_id);
-
-                                // Verificar si el jugador tiene un usuario asociado
-                                if ($user) {
-                                    // Enviar correo electrónico al usuario
-                                    $emailController = new EmailController();
-                                    $emailController->enviarCorreoResultado($user, $liga);
-                                }
-                            }
+                            $this->enviarEmailResultado($pareja1, $liga);
                         }
                     }
 
@@ -1299,6 +1205,29 @@ class LigasController extends Controller
             }
         }
         return redirect()->route('liga.partidos', ['liga' => $liga->id])->with('error', 'Error al actualizar la puntuación.');
+    }
+
+
+
+
+
+    /**
+     * Enviar el email del resultado
+     */
+    private function enviarEmailResultado(array $pareja, Ligas $liga)
+    {
+        foreach ($pareja as $jugador) {
+            // Obtener el jugador y su usuario asociado
+            $jugador = Jugadores::find($jugador);
+            $user = User::find($jugador->user_id);
+
+            // Verificar si el jugador tiene un usuario asociado
+            if ($user) {
+                // Enviar correo electrónico al usuario
+                $emailController = new EmailController();
+                $emailController->enviarCorreoResultado($user, $liga);
+            }
+        }
     }
 
     /**
@@ -1335,7 +1264,7 @@ class LigasController extends Controller
     public function StoreEquipo(Request $request, Ligas $liga)
     {
         dd($request);
-        
+
         $validatedData = $request->validate([
             'jugador1_nombre' => ['required', 'string', 'max:255'],
             'numPistas' => ['required', 'integer', 'min:0'],

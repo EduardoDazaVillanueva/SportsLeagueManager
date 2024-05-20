@@ -34,4 +34,9 @@ class Ligas extends Model
     protected $casts = [
         'dia_jornada' => 'array',
     ];
+
+    public function participaEnLigas()
+    {
+        return $this->hasMany(ParticipaEnLiga::class, 'liga_id');
+    }
 }

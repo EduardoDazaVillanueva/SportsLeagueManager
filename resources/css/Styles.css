@@ -322,6 +322,14 @@ input[type=number] {
   cursor: pointer;
 }
 
+.filtro-fecha_div {
+  margin-bottom: 1rem;
+}
+
+.filtro-fecha {
+  font-size: 1.2rem;
+}
+
 .main-grid {
   min-height: 87vh;
   padding: 0 5rem;
@@ -1284,6 +1292,14 @@ tbody {
 .share:hover,
 .share-own:hover {
   color: #C6CF25;
+}
+
+.main-invitar {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 8rem;
+  margin-bottom: 14rem;
 }
 
 .container-titulo_perfil {
