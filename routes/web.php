@@ -8,7 +8,7 @@ use App\Http\Controllers\StripeController;
 use App\Mail\VerificarElEmail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\VerificationController;
-
+use App\Http\Middleware\ParticipaPartido;
 
 Route::controller(ViewController::class)->group(function () {
 
@@ -26,9 +26,9 @@ Route::controller(LigasController::class)->group(function () {
     Route::get('liga/{liga}/Partidos', 'ligaPartidos')->name('liga.partidos')->middleware('auth', 'verified');
     Route::get('liga/{liga}', 'show')->middleware('auth', 'verified')->whereNumber('liga')->name('liga.show');
     Route::get('liga/crear/{deporteID}', 'create');
-    Route::get('liga/editar/{liga}', 'edit');
+    Route::get('liga/editar/{liga}', 'edit')->middleware('EsOrganizador');
     Route::get('liga/invitar/{liga}', 'invitar')->middleware('auth', 'verified');
-    Route::get('liga/{liga}/resultado/{idPartido}', 'resultado');
+    Route::get('liga/{liga}/resultado/{idPartido}', 'resultado')->middleware('ParticipaPartido');
     Route::get('liga/{liga}/crearEquipo', 'crearEquipo')->name('liga.crearEquipo')->middleware('auth', 'verified');
 
     Route::post('liga', 'store')->name('crearLiga')->middleware('auth', 'verified');
@@ -55,9 +55,18 @@ Route::controller(LoginController::class)->group(function () {
 Route::fallback([ViewController::class, 'get404']);
 
 Route::get('/create-checkout-session', [StripeController::class, 'createCheckoutSession'])->name('checkout.session');
+
 Route::get('/success', function () {
     return view('success');
 })->name('success');
+
 Route::get('/cancel', function () {
     return view('cancel');
 })->name('cancel');
+
+
+Route::get('/verify-email/{user}', function (App\Models\User $user) {
+    $user->email_verified_at = now();
+    $user->save();
+    return redirect('/login')->with('success', 'Tu correo ha sido verificado. Ahora puedes iniciar sesión.');
+})->middleware('auth');

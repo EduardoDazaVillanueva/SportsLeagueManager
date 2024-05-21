@@ -1,10 +1,30 @@
-.section2_titulo {
-    font-size: 3rem;
-    letter-spacing: 1px;
+.section2_header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
 
     margin-bottom: 1rem;
 
     color: $colorPrincipal;
+}
+
+.section2_titulo {
+    font-size: 3rem;
+    letter-spacing: 1px;
+}
+
+.section2_button{
+    font-size: 1.5rem;
+
+    cursor: pointer;
+
+    transition: color 250ms;
+}
+
+.section2_button:hover{
+    color: $colorSecundario;
 }
 
 .filtro_titulo {
@@ -46,3 +66,4 @@
     font-size: 1.2rem;
     
 }
+

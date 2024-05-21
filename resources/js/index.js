@@ -63,3 +63,24 @@ export function carrusel(elemeto, direccion){
         elemento.style.transform = 'translateX(-50%)';
     }
 }
+
+export function deseleccionarFiltros() {
+    // Deseleccionar los checkboxes de localidades
+    var checkboxesLocalidades = document.querySelectorAll('input[name="localidades[]"]');
+    checkboxesLocalidades.forEach(function(checkbox) {
+        checkbox.checked = false;
+    });
+
+    // Reiniciar los inputs de fecha de inicio y fecha final
+    document.getElementById('fechaInicio').value = '';
+    document.getElementById('fechaFinal').value = '';
+
+    // Deseleccionar los radios de rango de jugadores
+    var radiosRangoJugadores = document.querySelectorAll('input[name="rangoJugadores"]');
+    radiosRangoJugadores.forEach(function(radio) {
+        radio.checked = false;
+    });
+
+    // Enviar el formulario para aplicar los cambios
+    document.getElementById('form-filtro').submit();
+}

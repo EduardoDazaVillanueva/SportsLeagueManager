@@ -1,0 +1,35 @@
+.pagination-links {
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+}
+
+.pagination-link {
+    text-decoration: none;
+    color: $colorPrincipal;
+    padding: 5px;
+}
+
+.pagination-link:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination-link i {
+    font-size: 2rem;
+}
+
+.pagination-numbers{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.current-page{
+    color: $colorSecundario;
+}

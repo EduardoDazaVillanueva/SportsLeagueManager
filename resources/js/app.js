@@ -7,6 +7,7 @@ import {toggleInscripcion} from './index.js';
 import {cerrar} from './index.js';
 import {checkInput} from './index.js';
 import {carrusel} from './index.js';
+import {deseleccionarFiltros} from './index.js';
 
 window.acticonstInput = acticonstInput;
 window.checkFile = checkFile;
@@ -14,3 +15,4 @@ window.toggleInscripcion = toggleInscripcion;
 window.cerrar = cerrar;
 window.checkInput = checkInput;
 window.carrusel = carrusel;
+window.deseleccionarFiltros = deseleccionarFiltros;

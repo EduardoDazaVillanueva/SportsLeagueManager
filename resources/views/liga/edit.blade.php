@@ -72,5 +72,14 @@
                 <button type="submit" class="crear-boton">Enviar</button>
             </div>
         </form>
+
+        @if (session('error'))
+        <div class="w-100">
+            <div class="alerta envioEmail" id="alerta">
+                <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
+                <h2 class="alerta-email_titulo">{{session('error')}}</h2>
+            </div>
+        </div>
+        @endif
     </main>
 </x-layout>

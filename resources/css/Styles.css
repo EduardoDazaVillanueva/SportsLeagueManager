@@ -288,11 +288,29 @@ input[type=number] {
   opacity: 1;
 }
 
+.section2_header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 1rem;
+  color: #040738;
+}
+
 .section2_titulo {
   font-size: 3rem;
   letter-spacing: 1px;
-  margin-bottom: 1rem;
-  color: #040738;
+}
+
+.section2_button {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 250ms;
+}
+
+.section2_button:hover {
+  color: #C6CF25;
 }
 
 .filtro_titulo {
@@ -455,6 +473,15 @@ input[type=number] {
 
 .liga_crear {
   font-size: 8rem;
+}
+
+.details_verMas {
+  margin-bottom: 1rem;
+}
+
+.verMas {
+  font-size: 1.2rem;
+  color: #040738;
 }
 
 .main-login {
@@ -1768,6 +1795,40 @@ tbody {
   box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+}
+
+.pagination-links {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.pagination-link {
+  text-decoration: none;
+  color: #040738;
+  padding: 5px;
+}
+
+.pagination-link:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination-link i {
+  font-size: 2rem;
+}
+
+.pagination-numbers {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.current-page {
+  color: #C6CF25;
 }
 
 @media (max-width: 1150px) {

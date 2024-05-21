@@ -14,7 +14,6 @@
                     <div class="liga_info">
                         <h2 class="liga_nombre"> {{$liga["nombre"]}} </h2>
 
-                        {{-- Obtener el número de jugadores de la liga actual --}}
                         @php
                         $numeroJugadores = $jugadores->has($liga->id)
                         ? $jugadores->get($liga->id)->count()
@@ -42,25 +41,59 @@
             </div>
 
             <div class="pagination-links">
-                {{ $ligas->links() }}
+                <a href="{{ $ligas->previousPageUrl() }}" class="pagination-link">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+
+                <div class="pagination-numbers">
+                    @foreach ($ligas->getUrlRange(1, $ligas->lastPage()) as $page => $url)
+                    <a href="{{ $url }}" class="pagination-link @if ($ligas->currentPage() == $page) current-page @endif">{{ $page }}</a>
+                    @endforeach
+                </div>
+
+                <a href="{{ $ligas->nextPageUrl() }}" class="pagination-link">
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
 
         </section>
 
 
         <section class="main_section2">
-            <h2 class="section2_titulo">Filtro</h2>
+            <div class="section2_header">
+                <h2 class="section2_titulo">Filtro</h2>
+
+
+                <button class="section2_button" onclick="deseleccionarFiltros()">Borrar <i class="fa-solid fa-trash"></i></button>
+            </div>
 
             <h3 class="filtro_titulo">Localidades:</h3>
 
             <div class="container-filtro">
                 <form action="{{ route('liga.ligaDeporte', ['deporte' => $deporteID]) }}" method="GET" id="form-filtro">
+                    @php
+                    $contador = 0
+                    @endphp
                     @foreach ($localidades as $localidad)
-                    <div class="container-check">
-                        <input type="checkbox" name="localidades[]" id="{{ $localidad }}" class="filtro_check" value="{{ $localidad }}" @if(is_array(request('localidades')) && in_array($localidad, request('localidades'))) checked @endif onchange="this.form.submit()">
-                        <label for="{{ $localidad }}" class="filtro_label">{{ $localidad }}</label>
-                    </div>
-                    @endforeach
+
+                    @if ($contador == 6)
+                    <details class="details_verMas">
+                        <summary class="verMas">Ver más</summary>
+                        @endif
+
+                        <div class="container-check">
+                            <input type="checkbox" name="localidades[]" id="{{ $localidad }}" class="filtro_check" value="{{ $localidad }}" @if(is_array(request('localidades')) && in_array($localidad, request('localidades'))) checked @endif onchange="this.form.submit()">
+                            <label for="{{ $localidad }}" class="filtro_label">{{ $localidad }}</label>
+                        </div>
+                        @php
+                        $contador ++;
+                        @endphp
+
+                        @endforeach
+
+                        @if ($contador >= 6)
+                    </details>
+                    @endif
 
                     <div class="filtro-fecha_div">
                         <h3 class="filtro_titulo">Fecha inicio <i class="fa-solid fa-arrow-up"></i></h3>
