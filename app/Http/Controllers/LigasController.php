@@ -886,18 +886,21 @@ class LigasController extends Controller
         $diferenciaJuegosP2 = $juegosP2 - $juegosP1;
 
         if ($liga->deporte_id == 3 || $liga->deporte_id == 4) {
-            $this->comprobarResultadoRaquetas($sets, $liga, $puntosJuego, $diferenciaJuegosP1, $diferenciaJuegosP2, $enP1, $enP2, $puntosGanar, $puntosPerder, $set1P1, $set2P1, $set3P1,  $set1P2, $set2P2, $set3P2, $pareja1, $pareja2, $jugadoresPorPareja, $partido);
+            $res = $this->comprobarResultadoRaquetas($sets, $liga, $puntosJuego, $diferenciaJuegosP1, $diferenciaJuegosP2, $enP1, $enP2, $puntosGanar, $puntosPerder, $set1P1, $set2P1, $set3P1,  $set1P2, $set2P2, $set3P2, $pareja1, $pareja2, $jugadoresPorPareja, $partido);
         } else {
-            $this->comprobarResultadoEquipos($liga, $diferenciaJuegosP1, $diferenciaJuegosP2, $enP1, $enP2, $puntosGanar, $puntosPerder, $puntosEmpatar, $set1P1, $set1P2, $pareja1, $pareja2, $jugadoresPorPareja, $partido);
+            $res = $this->comprobarResultadoEquipos($liga, $diferenciaJuegosP1, $diferenciaJuegosP2, $enP1, $enP2, $puntosGanar, $puntosPerder, $puntosEmpatar, $set1P1, $set1P2, $pareja1, $pareja2, $jugadoresPorPareja, $partido);
         }
 
-        return redirect()->route('liga.partidos', ['liga' => $liga->id])->with('error', 'Error al actualizar la puntuación.');
+        if($res){
+            return redirect("/liga/{$liga->id}/Partidos")->with('success', 'Resultado actualizado con éxito');
+        }else{
+            return redirect("/liga/{$liga->id}/Partidos")->with('error', 'El resultado no es válido');
+        }
     }
 
 
     private function comprobarResultadoRaquetas(int $sets, Ligas $liga, int $puntosJuego, int $diferenciaJuegosP1, int $diferenciaJuegosP2, bool $enP1, bool $enP2, int $puntosGanar, int $puntosPerder, String $set1P1, String $set2P1, String $set3P1, String $set1P2, String $set2P2, String $set3P2, array $pareja1, array $pareja2, int $jugadoresPorPareja, Partidos $partido)
     {
-
         $contadorP1 = 0;
         $contadorP2 = 0;
 
@@ -917,14 +920,14 @@ class LigasController extends Controller
                 //pareja2 gana
                 $contadorP2++;
             } else {
-                return redirect()->back()->with('error', 'El resultado no es válido');
+                return false;
                 //El reultado no es válido
             }
 
             if ($contadorP1 == 2) {
                 // Pareja 1 gana
                 if ($contadorP2 != 1 && ($set3P1 > 0 || $set3P2 > 0)) {
-                    return redirect()->back()->with('error', 'El resultado no es válido');
+                    return false;
                 }
 
                 for ($j = 0; $j < $jugadoresPorPareja; $j++) {
@@ -986,7 +989,7 @@ class LigasController extends Controller
                     }
 
                     // Redirigir después de procesar todos los jugadores
-                    return redirect()->route('liga.partidos', ['liga' => $liga->id])->with('success', 'La puntuación ha sido actualizada.');
+                    return true;
                 }
             }
 
@@ -995,7 +998,7 @@ class LigasController extends Controller
                 // Pareja 2 gana
 
                 if ($contadorP1 != 1 && ($set3P1 > 0 || $set3P2 > 0)) {
-                    return redirect()->back()->with('error', 'El resultado no es válido');
+                    return false;
                 }
 
                 for ($j = 0; $j < $jugadoresPorPareja; $j++) {
@@ -1057,7 +1060,7 @@ class LigasController extends Controller
                 }
 
                 // Redirigir después de procesar todos los jugadores
-                return redirect()->route('liga.partidos', ['liga' => $liga->id])->with('success', 'La puntuación ha sido actualizada.');
+                return true;
             }
         }
     }
@@ -1114,7 +1117,7 @@ class LigasController extends Controller
                 }
             }
 
-            return redirect()->route('liga.partidos', ['liga' => $liga->id])->with('success', 'La puntuación ha sido actualizada.');
+            return true;
         } else if ($diferenciaJuegosP2 > $diferenciaJuegosP1) {
 
             for ($i = 0; $i < $jugadoresPorPareja; $i++) {
@@ -1165,7 +1168,7 @@ class LigasController extends Controller
                 }
             }
 
-            return redirect()->route('liga.partidos', ['liga' => $liga->id])->with('success', 'La puntuación ha sido actualizada.');
+            return true;
         } else {
             for ($i = 0; $i < $jugadoresPorPareja; $i++) {
                 $idJugadorP1 = $pareja1[$i];
@@ -1215,7 +1218,7 @@ class LigasController extends Controller
                 }
             }
 
-            return redirect()->route('liga.partidos', ['liga' => $liga->id])->with('success', 'La puntuación ha sido actualizada.');
+            return true;
         }
     }
 
