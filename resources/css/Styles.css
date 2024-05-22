@@ -91,7 +91,7 @@ input[type=number] {
   border-radius: 15px;
   background-color: #fff;
   font-size: 1.4rem;
-  color: #040738;
+  color: #f5f5f5;
   letter-spacing: 1px;
   box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
@@ -121,7 +121,7 @@ input[type=number] {
   font-weight: bold;
   color: #C6CF25;
   letter-spacing: 1px;
-  background-color: #040738;
+  background-color: #f5f5f5;
   box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
   -webkit-box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
   -moz-box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
@@ -295,7 +295,7 @@ input[type=number] {
   align-items: center;
   gap: 3rem;
   margin-bottom: 1rem;
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .section2_titulo {
@@ -315,7 +315,7 @@ input[type=number] {
 
 .filtro_titulo {
   font-size: 1.8rem;
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .container-check {
@@ -336,7 +336,7 @@ input[type=number] {
 #titulo-ver-mas {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #040738;
+  color: #f5f5f5;
   cursor: pointer;
 }
 
@@ -362,7 +362,7 @@ input[type=number] {
   text-align: center;
   font-size: 4rem;
   text-transform: uppercase;
-  color: #040738;
+  color: #f5f5f5;
   padding-top: 1rem;
 }
 
@@ -448,7 +448,7 @@ input[type=number] {
 
 .section1_liga-crear i {
   font-size: 5rem;
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .liga_img {
@@ -481,7 +481,7 @@ input[type=number] {
 
 .verMas {
   font-size: 1.2rem;
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .main-login {
@@ -501,7 +501,7 @@ input[type=number] {
 
 .login_titulo {
   font-size: 4rem;
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .form {
@@ -698,7 +698,7 @@ i {
   justify-content: space-between;
   align-items: center;
   gap: 3rem;
-  background-color: #040738;
+  background-color: #f5f5f5;
   font-size: 1.8rem;
   text-transform: uppercase;
   font-weight: bold;
@@ -712,7 +712,7 @@ i {
 .nav__menu {
   display: none;
   z-index: 100;
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .nav_list {
@@ -756,7 +756,7 @@ i {
 }
 
 .activo {
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .desplegable ul {
@@ -764,7 +764,7 @@ i {
   position: absolute;
   min-width: 140px;
   padding: 1.5rem;
-  background-color: #040738;
+  background-color: #f5f5f5;
   border-radius: 5px;
 }
 
@@ -823,7 +823,7 @@ i {
 .titulo-ver-mas {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #040738;
+  color: #f5f5f5;
   cursor: pointer;
 }
 
@@ -852,7 +852,7 @@ i {
 }
 
 .section_titulo {
-  color: #040738;
+  color: #f5f5f5;
   font-size: 4rem;
   margin-bottom: 1.1rem;
 }
@@ -872,7 +872,7 @@ i {
 }
 
 strong {
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .section_img-left {
@@ -925,7 +925,7 @@ strong {
 
 .numeros_info p {
   font-size: 2.5rem;
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .container-partidos {
@@ -1104,29 +1104,29 @@ strong {
 .divResultado_Btn button {
   padding: 0.5rem 3rem;
   color: #fafafa;
-  background-color: #040738;
+  background-color: #f5f5f5;
   border-radius: 5px;
-  border: 2px solid #040738;
+  border: 2px solid #f5f5f5;
   transition: all 250ms;
 }
 
 .divResultado_Btn button:hover {
   scale: 1.1;
   background-color: #eee;
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .main-jugadores {
   display: flex;
   align-items: center;
   flex-direction: column;
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .jugadores_titulo {
   font-size: 3rem;
   text-transform: uppercase;
-  color: #040738;
+  color: #f5f5f5;
   text-align: center;
   margin: 2rem;
 }
@@ -1160,7 +1160,7 @@ td {
   -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
   padding-top: 1rem;
-  background-color: #040738;
+  background-color: #f5f5f5;
   color: #C6CF25;
   border-radius: 0.5rem 0.5rem 0 0;
 }
@@ -1215,7 +1215,7 @@ tbody {
 }
 
 .container-img_infoLiga {
-  background-color: #040738;
+  background-color: #f5f5f5;
   border-radius: 50%;
   width: 100px;
   height: 100px;
@@ -1244,7 +1244,7 @@ tbody {
   box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
   -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
   -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
-  background-color: #040738;
+  background-color: #f5f5f5;
 }
 
 .container-infoLiga {
@@ -1272,7 +1272,7 @@ tbody {
   flex-direction: row;
   gap: 3rem;
   margin: 0.7rem;
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .div-info-liga-respnsabilidad {
@@ -1282,7 +1282,7 @@ tbody {
 
 .liena {
   width: 90%;
-  border: 1px solid #040738;
+  border: 1px solid #f5f5f5;
 }
 
 .btn-unirse {
@@ -1306,7 +1306,7 @@ tbody {
   top: 20px;
   right: 20px;
   font-size: 2rem;
-  color: #040738;
+  color: #f5f5f5;
   cursor: pointer;
   transition: color 200ms;
 }
@@ -1353,12 +1353,12 @@ tbody {
   box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
   -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
   -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
-  background-color: #040738;
+  background-color: #f5f5f5;
 }
 
 .nombre_miPerfil {
   color: #C6CF25;
-  background-color: #040738;
+  background-color: #f5f5f5;
   padding: 0.5rem;
   border-radius: 5px;
   font-size: 2rem;
@@ -1370,7 +1370,7 @@ tbody {
   align-items: center;
   flex-direction: row;
   gap: 3rem;
-  color: #040738;
+  color: #f5f5f5;
   font-size: 1.3rem;
   margin: 0.7rem;
   margin-bottom: 2rem;
@@ -1387,7 +1387,7 @@ tbody {
 }
 
 .div-info-partido {
-  color: #040738;
+  color: #f5f5f5;
   font-size: 1.3rem;
   margin: 0.7rem;
   margin-bottom: 2rem;
@@ -1452,12 +1452,12 @@ tbody {
 .perfil-titulo-liga {
   font-size: 3rem;
   text-transform: uppercase;
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .flecha {
   font-size: 5rem;
-  color: #040738;
+  color: #f5f5f5;
   cursor: pointer;
   transition: color 250ms;
 }
@@ -1486,7 +1486,7 @@ tbody {
   width: 100%;
   padding: 0 1rem;
   border-radius: 5px;
-  background-color: #040738;
+  background-color: #f5f5f5;
 }
 
 .container-pregunta summary {
@@ -1508,7 +1508,7 @@ tbody {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #040738;
+  background-color: #f5f5f5;
   color: #C6CF25;
   font-size: 3rem;
   border-radius: 10px;
@@ -1563,7 +1563,7 @@ tbody {
 }
 
 .alerta_btn {
-  color: #040738;
+  color: #f5f5f5;
   background-color: #C6CF25;
   text-transform: uppercase;
   font-weight: bold;
@@ -1630,7 +1630,7 @@ tbody {
 .button {
   padding: 0.8rem 2rem;
   border-radius: 5px;
-  background-color: #040738;
+  background-color: #f5f5f5;
   color: #eee;
   text-decoration: none;
   font-size: 2.5rem;
@@ -1706,16 +1706,16 @@ tbody {
 .btn_resultado button {
   padding: 0.5rem 3rem;
   color: #fafafa;
-  background-color: #040738;
+  background-color: #f5f5f5;
   border-radius: 5px;
-  border: 2px solid #040738;
+  border: 2px solid #f5f5f5;
   transition: all 250ms;
 }
 
 .btn_resultado button:hover {
   scale: 1.1;
   background-color: #eee;
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .partido_input {
@@ -1729,7 +1729,7 @@ tbody {
   justify-content: space-between;
   align-items: center;
   gap: 3rem;
-  background-color: #040738;
+  background-color: #f5f5f5;
   font-size: 1.8rem;
   text-transform: uppercase;
   font-weight: bold;
@@ -1790,7 +1790,7 @@ tbody {
   border-radius: 15px;
   background-color: #fff;
   font-size: 1.4rem;
-  color: #040738;
+  color: #f5f5f5;
   letter-spacing: 1px;
   box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
@@ -1805,7 +1805,7 @@ tbody {
 
 .pagination-link {
   text-decoration: none;
-  color: #040738;
+  color: #f5f5f5;
   padding: 5px;
 }
 
@@ -1923,7 +1923,7 @@ main {
 
 .select-partido {
   font-size: 1.7rem;
-  color: #040738;
+  color: #f5f5f5;
 }
 
 .main-jugadores {
