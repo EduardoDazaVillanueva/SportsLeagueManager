@@ -14,7 +14,7 @@
         'logo localidad sede dia_jornada'
         'numPistas primera_hora ultima_hora dia_jornada'
         'pnts_ganar pnts_perder pnts_empate pnts_juego'
-        'inscripcion premio txt_responsabilidad txt_responsabilidad'
+        'inscripcion txt_responsabilidad txt_responsabilidad txt_responsabilidad'
         '. btn btn .';
     gap: 2rem;
 
@@ -137,10 +137,6 @@
     grid-area: inscripcion;
 }
 
-#premios-div {
-    grid-area: premio;
-}
-
 #numPistas-div{
     grid-area: numPistas;
 }
@@ -167,28 +163,6 @@
 .txt_inscripcion {
     display: none;
     height: 33px;
-}
-
-.container-premios {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-}
-
-.premio-titulos {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.premio-input {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .dia-check {

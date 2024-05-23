@@ -27,12 +27,6 @@ body {
     font-size: 10px;
 }
 
-button {
-    background: none;
-    border: none;
-    box-shadow: none;
-}
-
 .hidden{
     visibility: hidden;
 }
@@ -47,23 +41,4 @@ main{
 
 .resalto{
     color: $colorSecundario;
-}
-
-
-//---------QUITAR---------//
-
-.flex{
-    display: flex;
-    gap: 3rem;
-    align-items: center;
-}
-
-.select-partido{
-    font-size: 1.7rem;
-    color: $colorPrincipal;
-}
-
-.main-jugadores{
-    background-color: $colorClaro;
-    height: 86vh;
 }

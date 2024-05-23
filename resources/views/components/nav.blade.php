@@ -42,5 +42,6 @@
 </nav>
 
 <nav class="movil">
+    <a href="/" class="option_link"><img src="{{asset('img/SportsLeagueManager-reverse.png')}}" alt="Logo de la web" class="logo"></a>
     <button onclick="menuMovilAbrir()"><i class="fas fa-bars menu_movil" id="menu_movil"></i></button>
 </nav>

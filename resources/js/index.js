@@ -96,3 +96,17 @@ export function menuMovilCerrar(){
 
     movilBtn.style.transform = 'translateX(100vw)';
 }
+
+export function filtroMovilAbrir(){
+    const movilFiltro = document.getElementById("main_section2");
+
+    movilFiltro.style.transform = 'translateX(0%)';
+
+    console.log("abrir");
+}
+
+export function filtroMovilCerrar(){
+    const movilFiltro = document.getElementById("main_section2");
+
+    movilFiltro.style.transform = 'translateX(100vw)';
+}

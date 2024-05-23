@@ -1143,6 +1143,8 @@ class LigasController extends Controller
                 $jugadorLigaP1 = ParticipaEnLiga::where('liga_id', $liga->id)
                     ->where('jugadores_id', $idJugadorP1)
                     ->first();
+                    
+                dd($liga->id);
 
                 $partidosJugadosP1 = $jugadorLigaP1->num_partidos + 1;
                 $partidosPerdidos = $jugadorLigaP1->num_partidos_perdidos + 1;

@@ -73,6 +73,12 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+button {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
 .main {
   display: flex;
   justify-content: center;
@@ -84,7 +90,7 @@ input[type=number] {
 
 .container-crear {
   display: grid;
-  grid-template-areas: "nombre fecha_inicio fecha_final fecha_fin_inscripcion" "logo localidad sede dia_jornada" "numPistas primera_hora ultima_hora dia_jornada" "pnts_ganar pnts_perder pnts_empate pnts_juego" "inscripcion premio txt_responsabilidad txt_responsabilidad" ". btn btn .";
+  grid-template-areas: "nombre fecha_inicio fecha_final fecha_fin_inscripcion" "logo localidad sede dia_jornada" "numPistas primera_hora ultima_hora dia_jornada" "pnts_ganar pnts_perder pnts_empate pnts_juego" "inscripcion txt_responsabilidad txt_responsabilidad txt_responsabilidad" ". btn btn .";
   gap: 2rem;
   padding: 2rem 1.8rem;
   margin-bottom: 5rem;
@@ -193,10 +199,6 @@ input[type=number] {
   grid-area: inscripcion;
 }
 
-#premios-div {
-  grid-area: premio;
-}
-
 #numPistas-div {
   grid-area: numPistas;
 }
@@ -223,28 +225,6 @@ input[type=number] {
 .txt_inscripcion {
   display: none;
   height: 33px;
-}
-
-.container-premios {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-
-.premio-titulos {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.premio-input {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .dia-check {
@@ -348,6 +328,11 @@ input[type=number] {
   font-size: 1.2rem;
 }
 
+.filtrosBtn,
+.filtro_cerrar {
+  display: none;
+}
+
 .main-grid {
   min-height: 87vh;
   padding: 0 5rem;
@@ -369,7 +354,6 @@ input[type=number] {
 .main_section2 {
   grid-area: filtro;
   position: relative;
-  min-width: 300px;
   padding: 2rem 1.8rem;
   margin-bottom: 5rem;
   border-radius: 15px;
@@ -948,6 +932,9 @@ strong {
   border-radius: 5px;
   overflow-y: scroll;
   scrollbar-color: #333 #eee;
+  box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
 }
 
 .header_partido {
@@ -1125,6 +1112,7 @@ strong {
   display: flex;
   align-items: center;
   flex-direction: column;
+  height: 70vh;
   color: #040738;
 }
 
@@ -1473,7 +1461,7 @@ tbody {
 
 .main-preguntas {
   background-color: #eee;
-  height: 87vh;
+  padding-bottom: 5rem;
 }
 
 .section-preguntas {
@@ -1489,21 +1477,28 @@ tbody {
 
 .container-pregunta {
   width: 100%;
-  padding: 0 1rem;
   border-radius: 5px;
-  background-color: #040738;
+  padding: 1rem;
+  background-color: #fafafa;
+  box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
 }
 
 .container-pregunta summary {
   font-size: 3rem;
   font-weight: bold;
+  color: #040738;
+  cursor: pointer;
+}
+
+.container-pregunta summary::marker {
   color: #C6CF25;
 }
 
 .container-pregunta p {
   font-size: 2rem;
-  padding-left: 5rem;
-  color: #fafafa;
+  color: #040738;
 }
 
 .alerta {
@@ -1601,11 +1596,11 @@ tbody {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 70vh;
 }
 
 .error-section {
   text-align: center;
-  margin-top: 6rem;
 }
 
 /* Títulos */
@@ -1862,6 +1857,17 @@ tbody {
   color: #C6CF25;
 }
 
+@media (max-width: 1200px) {
+  .main_section1 {
+    justify-content: center;
+  }
+  .section1_liga {
+    flex-basis: 100%;
+  }
+  .liga_img {
+    max-width: 50%;
+  }
+}
 @media (max-width: 1150px) {
   .section_left {
     font-size: 1.2rem;
@@ -1895,7 +1901,7 @@ tbody {
     font-size: 1.5rem;
   }
 }
-@media (max-width: 810px) {
+@media (max-width: 890px) {
   .nav_list {
     gap: 2rem;
   }
@@ -1905,6 +1911,53 @@ tbody {
   .inicio-sesion {
     min-width: -moz-fit-content;
     min-width: fit-content;
+  }
+  .main-grid {
+    grid-template-areas: "titulo titulo titulo titulo" ". . . filtros" "ligas ligas ligas ligas";
+    padding: 0 1rem;
+  }
+  .main_section2 {
+    padding: 5rem 3rem;
+    max-height: 100vh;
+    width: -moz-fit-content;
+    width: fit-content;
+    border-radius: 0;
+    align-self: end;
+    position: fixed;
+    right: 0;
+    top: 0;
+    font-size: 2rem;
+    transform: translateX(100vw);
+    transition: 250ms;
+    overflow: scroll;
+    z-index: 10000;
+    cursor: pointer;
+  }
+  .filtro_cerrar {
+    position: absolute;
+    top: 10px;
+    left: 30px;
+    display: block;
+  }
+  .filtro_cerrar i {
+    font-size: 3rem;
+    color: #040738;
+  }
+  .filtrosBtn {
+    grid-area: filtros;
+    font-size: 2rem;
+    color: #040738;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    background-color: #fafafa;
+    box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+    cursor: pointer;
   }
 }
 @media (max-width: 750px) {
@@ -1977,7 +2030,8 @@ tbody {
   }
   .movil {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    flex-direction: row-reverse;
     padding: 1rem;
     background-color: #040738;
   }
@@ -1999,6 +2053,27 @@ tbody {
     order: 3;
   }
 }
+@media (max-width: 650px) {
+  .container-pregunta summary {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #040738;
+    padding: 0 1rem;
+  }
+}
+@media (max-width: 500px) {
+  .section1_liga article {
+    flex-direction: column;
+  }
+  .liga_info {
+    font-size: 1.7rem;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .liga_img {
+    max-width: 80%;
+  }
+}
 @media (max-width: 430px) {
   .section_titulo {
     font-size: 3rem;
@@ -2007,15 +2082,14 @@ tbody {
     font-size: 2rem;
   }
 }
+@media (max-width: 300px) {
+  .nav {
+    width: 100%;
+  }
+}
 body {
   font-family: "Teko";
   font-size: 10px;
-}
-
-button {
-  background: none;
-  border: none;
-  box-shadow: none;
 }
 
 .hidden {
@@ -2033,20 +2107,4 @@ main {
 
 .resalto {
   color: #C6CF25;
-}
-
-.flex {
-  display: flex;
-  gap: 3rem;
-  align-items: center;
-}
-
-.select-partido {
-  font-size: 1.7rem;
-  color: #040738;
-}
-
-.main-jugadores {
-  background-color: #eee;
-  height: 86vh;
 }/*# sourceMappingURL=Styles.css.map */

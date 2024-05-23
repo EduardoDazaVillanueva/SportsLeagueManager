@@ -59,41 +59,49 @@
         </section>
 
 
-        <section class="main_section2">
+        <button class="filtrosBtn" onclick="filtroMovilAbrir()">Filtros<i class="fas fa-filter"></i></button>
+        <section class="main_section2" id="main_section2">
+
+            <button class="filtro_cerrar" onclick="filtroMovilCerrar()"><i class="fas fa-times"></i></button>
+
             <div class="section2_header">
                 <h2 class="section2_titulo">Filtro</h2>
-
 
                 <button class="section2_button" onclick="deseleccionarFiltros()">Borrar <i class="fa-solid fa-trash"></i></button>
             </div>
 
-            <h3 class="filtro_titulo">Localidades:</h3>
 
             <div class="container-filtro">
                 <form action="{{ route('liga.ligaDeporte', ['deporte' => $deporteID]) }}" method="GET" id="form-filtro">
                     @php
                     $contador = 0
                     @endphp
-                    @foreach ($localidades as $localidad)
+                    <div>
+                        <h3 class="filtro_titulo">Localidades:</h3>
 
-                    @if ($contador == 6)
-                    <details class="details_verMas">
-                        <summary class="verMas">Ver más</summary>
-                        @endif
+                        <div class="container_localidades">
+                            @foreach ($localidades as $localidad)
 
-                        <div class="container-check">
-                            <input type="checkbox" name="localidades[]" id="{{ $localidad }}" class="filtro_check" value="{{ $localidad }}" @if(is_array(request('localidades')) && in_array($localidad, request('localidades'))) checked @endif onchange="this.form.submit()">
-                            <label for="{{ $localidad }}" class="filtro_label">{{ $localidad }}</label>
+                            @if ($contador == 6)
+                            <details class="details_verMas">
+                                <summary class="verMas">Ver más</summary>
+                                @endif
+
+                                <div class="container-check">
+                                    <input type="checkbox" name="localidades[]" id="{{ $localidad }}" class="filtro_check" value="{{ $localidad }}" @if(is_array(request('localidades')) && in_array($localidad, request('localidades'))) checked @endif onchange="this.form.submit()">
+                                    <label for="{{ $localidad }}" class="filtro_label">{{ $localidad }}</label>
+                                </div>
+                                @php
+                                $contador ++;
+                                @endphp
+
+                                @endforeach
+
+                                @if ($contador >= 6)
+                            </details>
+                            @endif
                         </div>
-                        @php
-                        $contador ++;
-                        @endphp
-
-                        @endforeach
-
-                        @if ($contador >= 6)
-                    </details>
-                    @endif
+                    </div>
 
                     <div class="filtro-fecha_div">
                         <h3 class="filtro_titulo">Fecha inicio <i class="fa-solid fa-arrow-up"></i></h3>
@@ -105,25 +113,29 @@
                         <input type="date" class="filtro-fecha" name="fechaFinal" id="fechaFinal" min="{{ date('Y-m-d') }}" value="{{ request('fechaFinal') }}" onchange="this.form.submit()">
                     </div>
 
-                    <h3 class="filtro_titulo">Jugadores inscritos:</h3>
+                    <div>
+                        <h3 class="filtro_titulo">Jugadores inscritos:</h3>
 
-                    @php
-                    $rangoJugadores = [
-                    '-10',
-                    '-20',
-                    '-30',
-                    '-40',
-                    '-50',
-                    '+50',
-                    ];
-                    @endphp
+                        @php
+                        $rangoJugadores = [
+                        '-10',
+                        '-20',
+                        '-30',
+                        '-40',
+                        '-50',
+                        '+50',
+                        ];
+                        @endphp
 
-                    @foreach ($rangoJugadores as $rango)
-                    <div class="container-check">
-                        <input type="radio" name="rangoJugadores" id="{{ $rango }}" class="filtro_check" value="{{ $rango }}" @if(request('rangoJugadores')==$rango) checked @endif onchange="this.form.submit()">
-                        <label for="{{ $rango }}" class="filtro_label">{{ $rango }}</label>
+                        <div class="container_rangos">
+                            @foreach ($rangoJugadores as $rango)
+                            <div class="container-check">
+                                <input type="radio" name="rangoJugadores" id="{{ $rango }}" class="filtro_check" value="{{ $rango }}" @if(request('rangoJugadores')==$rango) checked @endif onchange="this.form.submit()">
+                                <label for="{{ $rango }}" class="filtro_label">{{ $rango }}</label>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
-                    @endforeach
                 </form>
             </div>
 

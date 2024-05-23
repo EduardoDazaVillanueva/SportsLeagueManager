@@ -1,7 +1,7 @@
 .main-preguntas{
     background-color: $colorClaro;
-    
-    height: 87vh;
+
+    padding-bottom: 5rem;
 }
 
 .section-preguntas{
@@ -19,20 +19,30 @@
 .container-pregunta{
     width: 100%;
 
-    padding: 0 1rem;
     border-radius: 5px;
 
-    background-color: $colorPrincipal;
+    padding: 1rem;
+    
+    background-color: $blanco;
+    
+    box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
 }
 
 .container-pregunta summary{
     font-size: 3rem;
     font-weight: bold;
+    color: $colorPrincipal;
+    cursor: pointer;
+}  
+
+.container-pregunta summary::marker{
     color: $colorSecundario;
-}
+}  
 
 .container-pregunta p{
     font-size: 2rem;
-    padding-left: 5rem;
-    color: $blanco;
+
+    color: $colorPrincipal;
 }
