@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/*040738*/
 * {
   margin: 0;
   padding: 0;
@@ -97,7 +98,7 @@ button {
   border-radius: 15px;
   background-color: #fff;
   font-size: 1.4rem;
-  color: #040738;
+  color: #fff;
   letter-spacing: 1px;
   box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
@@ -127,7 +128,7 @@ button {
   font-weight: bold;
   color: #C6CF25;
   letter-spacing: 1px;
-  background-color: #040738;
+  background-color: #fff;
   box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
   -webkit-box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
   -moz-box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
@@ -275,7 +276,7 @@ button {
   align-items: center;
   gap: 3rem;
   margin-bottom: 1rem;
-  color: #040738;
+  color: #fff;
 }
 
 .section2_titulo {
@@ -295,7 +296,7 @@ button {
 
 .filtro_titulo {
   font-size: 1.8rem;
-  color: #040738;
+  color: #fff;
 }
 
 .container-check {
@@ -316,7 +317,7 @@ button {
 #titulo-ver-mas {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #040738;
+  color: #fff;
   cursor: pointer;
 }
 
@@ -347,7 +348,7 @@ button {
   text-align: center;
   font-size: 4rem;
   text-transform: uppercase;
-  color: #040738;
+  color: #fff;
   padding-top: 1rem;
 }
 
@@ -432,7 +433,7 @@ button {
 
 .section1_liga-crear i {
   font-size: 5rem;
-  color: #040738;
+  color: #fff;
 }
 
 .liga_img {
@@ -465,7 +466,7 @@ button {
 
 .verMas {
   font-size: 1.2rem;
-  color: #040738;
+  color: #fff;
 }
 
 .main-login {
@@ -485,7 +486,7 @@ button {
 
 .login_titulo {
   font-size: 4rem;
-  color: #040738;
+  color: #fff;
 }
 
 .form {
@@ -682,7 +683,7 @@ i {
   justify-content: space-between;
   align-items: center;
   gap: 3rem;
-  background-color: #040738;
+  background-color: #fff;
   font-size: 1.8rem;
   text-transform: uppercase;
   font-weight: bold;
@@ -696,7 +697,7 @@ i {
 .nav__menu {
   display: none;
   z-index: 100;
-  color: #040738;
+  color: #fff;
 }
 
 .nav_list {
@@ -740,7 +741,7 @@ i {
 }
 
 .activo {
-  color: #040738;
+  color: #fff;
 }
 
 .desplegable ul {
@@ -748,7 +749,7 @@ i {
   position: absolute;
   min-width: 140px;
   padding: 1.5rem;
-  background-color: #040738;
+  background-color: #fff;
   border-radius: 5px;
 }
 
@@ -812,7 +813,7 @@ i {
 .titulo-ver-mas {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #040738;
+  color: #fff;
   cursor: pointer;
 }
 
@@ -841,7 +842,7 @@ i {
 }
 
 .section_titulo {
-  color: #040738;
+  color: #fff;
   font-size: 4rem;
   margin-bottom: 1.1rem;
 }
@@ -861,7 +862,7 @@ i {
 }
 
 strong {
-  color: #040738;
+  color: #fff;
 }
 
 .section_img-left {
@@ -914,7 +915,7 @@ strong {
 
 .numeros_info p {
   font-size: 2.5rem;
-  color: #040738;
+  color: #fff;
 }
 
 .container-partidos {
@@ -1096,16 +1097,16 @@ strong {
 .divResultado_Btn button {
   padding: 0.5rem 3rem;
   color: #fafafa;
-  background-color: #040738;
+  background-color: #fff;
   border-radius: 5px;
-  border: 2px solid #040738;
+  border: 2px solid #fff;
   transition: all 250ms;
 }
 
 .divResultado_Btn button:hover {
   scale: 1.1;
   background-color: #eee;
-  color: #040738;
+  color: #fff;
 }
 
 .main-jugadores {
@@ -1113,13 +1114,13 @@ strong {
   align-items: center;
   flex-direction: column;
   height: 70vh;
-  color: #040738;
+  color: #fff;
 }
 
 .jugadores_titulo {
   font-size: 3rem;
   text-transform: uppercase;
-  color: #040738;
+  color: #fff;
   text-align: center;
   margin: 2rem;
 }
@@ -1153,7 +1154,7 @@ td {
   -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
   padding-top: 1rem;
-  background-color: #040738;
+  background-color: #fff;
   color: #C6CF25;
   border-radius: 0.5rem 0.5rem 0 0;
 }
@@ -1208,7 +1209,7 @@ tbody {
 }
 
 .container-img_infoLiga {
-  background-color: #040738;
+  background-color: #fff;
   border-radius: 50%;
   width: 100px;
   height: 100px;
@@ -1237,7 +1238,7 @@ tbody {
   box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
   -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
   -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
-  background-color: #040738;
+  background-color: #fff;
 }
 
 .container-infoLiga {
@@ -1265,7 +1266,7 @@ tbody {
   flex-direction: row;
   gap: 3rem;
   margin: 0.7rem;
-  color: #040738;
+  color: #fff;
 }
 
 .div-info-liga-respnsabilidad {
@@ -1275,7 +1276,7 @@ tbody {
 
 .liena {
   width: 90%;
-  border: 1px solid #040738;
+  border: 1px solid #fff;
 }
 
 .btn-unirse {
@@ -1299,7 +1300,7 @@ tbody {
   top: 20px;
   right: 20px;
   font-size: 2rem;
-  color: #040738;
+  color: #fff;
   cursor: pointer;
   transition: color 200ms;
 }
@@ -1346,12 +1347,12 @@ tbody {
   box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
   -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
   -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
-  background-color: #040738;
+  background-color: #fff;
 }
 
 .nombre_miPerfil {
   color: #C6CF25;
-  background-color: #040738;
+  background-color: #fff;
   padding: 0.5rem;
   border-radius: 5px;
   font-size: 2rem;
@@ -1363,7 +1364,7 @@ tbody {
   align-items: center;
   flex-direction: row;
   gap: 3rem;
-  color: #040738;
+  color: #fff;
   font-size: 1.3rem;
   margin: 0.7rem;
   margin-bottom: 2rem;
@@ -1380,7 +1381,7 @@ tbody {
 }
 
 .div-info-partido {
-  color: #040738;
+  color: #fff;
   font-size: 1.3rem;
   margin: 0.7rem;
   margin-bottom: 2rem;
@@ -1445,12 +1446,12 @@ tbody {
 .perfil-titulo-liga {
   font-size: 3rem;
   text-transform: uppercase;
-  color: #040738;
+  color: #fff;
 }
 
 .flecha {
   font-size: 5rem;
-  color: #040738;
+  color: #fff;
   cursor: pointer;
   transition: color 250ms;
 }
@@ -1488,7 +1489,7 @@ tbody {
 .container-pregunta summary {
   font-size: 3rem;
   font-weight: bold;
-  color: #040738;
+  color: #fff;
   cursor: pointer;
 }
 
@@ -1498,7 +1499,7 @@ tbody {
 
 .container-pregunta p {
   font-size: 2rem;
-  color: #040738;
+  color: #fff;
 }
 
 .alerta {
@@ -1508,7 +1509,7 @@ tbody {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #040738;
+  background-color: #fff;
   color: #C6CF25;
   font-size: 3rem;
   border-radius: 10px;
@@ -1563,7 +1564,7 @@ tbody {
 }
 
 .alerta_btn {
-  color: #040738;
+  color: #fff;
   background-color: #C6CF25;
   text-transform: uppercase;
   font-weight: bold;
@@ -1630,7 +1631,7 @@ tbody {
 .button {
   padding: 0.8rem 2rem;
   border-radius: 5px;
-  background-color: #040738;
+  background-color: #fff;
   color: #eee;
   text-decoration: none;
   font-size: 2.5rem;
@@ -1706,16 +1707,16 @@ tbody {
 .btn_resultado button {
   padding: 0.5rem 3rem;
   color: #fafafa;
-  background-color: #040738;
+  background-color: #fff;
   border-radius: 5px;
-  border: 2px solid #040738;
+  border: 2px solid #fff;
   transition: all 250ms;
 }
 
 .btn_resultado button:hover {
   scale: 1.1;
   background-color: #eee;
-  color: #040738;
+  color: #fff;
 }
 
 .partido_input {
@@ -1729,7 +1730,7 @@ tbody {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  background-color: #040738;
+  background-color: #fff;
   font-size: 1.6rem;
   text-transform: uppercase;
   font-weight: bold;
@@ -1816,7 +1817,7 @@ tbody {
   border-radius: 15px;
   background-color: #fff;
   font-size: 1.4rem;
-  color: #040738;
+  color: #fff;
   letter-spacing: 1px;
   box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
@@ -1831,7 +1832,7 @@ tbody {
 
 .pagination-link {
   text-decoration: none;
-  color: #040738;
+  color: #fff;
   padding: 5px;
 }
 
@@ -1941,12 +1942,12 @@ tbody {
   }
   .filtro_cerrar i {
     font-size: 3rem;
-    color: #040738;
+    color: #fff;
   }
   .filtrosBtn {
     grid-area: filtros;
     font-size: 2rem;
-    color: #040738;
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: end;
@@ -2033,7 +2034,7 @@ tbody {
     justify-content: space-between;
     flex-direction: row-reverse;
     padding: 1rem;
-    background-color: #040738;
+    background-color: #fff;
   }
   .menu_movil {
     font-size: 2rem;
@@ -2057,7 +2058,7 @@ tbody {
   .container-pregunta summary {
     font-size: 2rem;
     font-weight: bold;
-    color: #040738;
+    color: #fff;
     padding: 0 1rem;
   }
 }
