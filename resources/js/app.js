@@ -8,6 +8,8 @@ import {cerrar} from './index.js';
 import {checkInput} from './index.js';
 import {carrusel} from './index.js';
 import {deseleccionarFiltros} from './index.js';
+import {menuMovilAbrir} from './index.js';
+import {menuMovilCerrar} from './index.js';
 
 window.acticonstInput = acticonstInput;
 window.checkFile = checkFile;
@@ -16,3 +18,5 @@ window.cerrar = cerrar;
 window.checkInput = checkInput;
 window.carrusel = carrusel;
 window.deseleccionarFiltros = deseleccionarFiltros;
+window.menuMovilAbrir = menuMovilAbrir;
+window.menuMovilCerrar = menuMovilCerrar;

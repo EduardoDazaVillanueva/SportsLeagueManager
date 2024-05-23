@@ -65,7 +65,7 @@
         </section>
 
         <section class="section blanco section_numeros">
-            <h2 class="section_titulo">SportsLeagueManager</h2>
+            <h2 class="section_titulo mapa_titulo">SportsLeagueManager</h2>
             <div class="container_numeros">
 
                 <div class="numeros_info">

@@ -1,8 +1,11 @@
 @props(['deportes', 'user'])
-<nav class="nav">
+<nav class="nav" id="nav">
+
+    <button class="menu_cerrar" onclick="menuMovilCerrar()"><i class="fas fa-times"></i></button>
+
     <a href="/" class="option_link"><img src="{{asset('img/SportsLeagueManager-reverse.png')}}" alt="Logo de la web" class="logo"></a>
 
-    <ul class="nav_list">
+    <ul class="nav_list menu_lista">
         <li><a href="/">Inicio</a></li>
         <li class="desplegable">deportes
             <ul class="nav_list">
@@ -36,4 +39,8 @@
     @else
     <a href="/login" class="list_option inicio-sesion-login">Iniciar sesión</a>
     @endauth
+</nav>
+
+<nav class="movil">
+    <button onclick="menuMovilAbrir()"><i class="fas fa-bars menu_movil" id="menu_movil"></i></button>
 </nav>

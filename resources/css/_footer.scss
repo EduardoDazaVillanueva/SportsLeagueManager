@@ -3,14 +3,15 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    gap: 3rem;
+    gap: 1rem;
     
     background-color: $colorPrincipal;
     
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     text-transform: uppercase;
     font-weight: bold;
     color: $blanco;
+    text-align: center;
     
     padding: 1rem 3rem;
     
@@ -19,14 +20,40 @@
     -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
+.footer_list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: first;
+    gap: 1rem;
+
+    z-index: 100;
+}
+
+.footer_list li{
+    transition: all 350ms;
+}
+
+.footer_list li:hover {
+    color: $colorSecundario;
+    scale: 1.1;
+}
+
 .div-footer{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 7rem;
+    gap: 2rem;
     
     width: 100%;
+}
+
+.rrss{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
 }
 
 .rrss-icon{

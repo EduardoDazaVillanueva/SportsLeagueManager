@@ -66,7 +66,7 @@ export function carrusel(elemeto, direccion){
 
 export function deseleccionarFiltros() {
     // Deseleccionar los checkboxes de localidades
-    var checkboxesLocalidades = document.querySelectorAll('input[name="localidades[]"]');
+    const checkboxesLocalidades = document.querySelectorAll('input[name="localidades[]"]');
     checkboxesLocalidades.forEach(function(checkbox) {
         checkbox.checked = false;
     });
@@ -76,11 +76,23 @@ export function deseleccionarFiltros() {
     document.getElementById('fechaFinal').value = '';
 
     // Deseleccionar los radios de rango de jugadores
-    var radiosRangoJugadores = document.querySelectorAll('input[name="rangoJugadores"]');
+    const radiosRangoJugadores = document.querySelectorAll('input[name="rangoJugadores"]');
     radiosRangoJugadores.forEach(function(radio) {
         radio.checked = false;
     });
 
     // Enviar el formulario para aplicar los cambios
     document.getElementById('form-filtro').submit();
+}
+
+export function menuMovilAbrir(){
+    const movilBtn = document.getElementById("nav");
+
+    movilBtn.style.transform = 'translateX(0%)';
+}
+
+export function menuMovilCerrar(){
+    const movilBtn = document.getElementById("nav");
+
+    movilBtn.style.transform = 'translateX(100vw)';
 }
