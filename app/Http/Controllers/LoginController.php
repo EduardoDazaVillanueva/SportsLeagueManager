@@ -38,8 +38,7 @@ class LoginController extends Controller
             ],
             'logo' => [
                 'image',
-                'mimes:jpeg,jpg,png,gif',
-                'max:2048'
+                'mimes:jpeg,jpg,png,gif'
             ],
             'telefono' => [
                 'required',
@@ -62,6 +61,8 @@ class LoginController extends Controller
             if ($request->hasFile('logo')) {
                 $path = Storage::disk('public')->putFile('imagenes', $request->file('logo'));
                 $user['logo'] = basename($path);
+            }else{
+                $user['logo'] = 'perfil.webp';
             }
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);
