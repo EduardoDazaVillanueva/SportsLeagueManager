@@ -157,7 +157,7 @@ class LigasController extends Controller
                 $path = Storage::disk('public')->putFile('imagenes', $request->file('logo'));
                 $validatedData['logo'] = basename($path);
             } else {
-                $validatedData['logo'] = 'liga.jpg';
+                $validatedData['logo'] = 'imagenes/liga.jpg';
             }
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);
