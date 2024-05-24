@@ -8,15 +8,15 @@
 
             <article class="container-pregunta">
                 <details>
-                    <summary>¿Qué es nuestra plataforma de ligas deportivas?</summary>
-                    <p>Nuestra plataforma te permite organizar y gestionar ligas deportivas de cualquier disciplina. Ofrecemos herramientas para facilitar la administración de equipos, partidos y estadísticas.</p>
+                    <summary>¿Qué es SportsLeagueManager?</summary>
+                    <p>Nuestra plataforma te permite organizar, gestionar y participar en ligas deportivas de cualquier disciplina. Ofrecemos herramientas para facilitar la administración de equipos, partidos y estadísticas.</p>
                 </details>
             </article>
 
             <article class="container-pregunta">
                 <details>
                     <summary>¿Hay un límite en la cantidad de ligas que puedo crear?</summary>
-                    <p>No, puedes crear tantas ligas como desees con tu suscripción mensual de $15.</p>
+                    <p>No, puedes crear tantas ligas como desees con tu suscripción mensual de 15€.</p>
                 </details>
             </article>
 

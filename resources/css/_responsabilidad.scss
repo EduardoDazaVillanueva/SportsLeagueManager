@@ -1,24 +1,40 @@
 .main-responsabilidad {
     background-color: $colorClaro;
 
-    height: 87vh;
-
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
-.main-responsabilidad p{
-    font-size: 1.5rem;
+.titulo_responsabilidad{
+    font-size: 4rem;
 }
 
-.main-responsabilidad ul{
-    font-size: 1.5rem;
-    text-align: center;
+.main-responsabilidad div{
+    max-width: 1024px;
+    margin: 0 auto;
+
+    padding: 2rem 6rem;
+
+    text-align: left;
+
+    color: $colorPrincipal;
 }
 
-.main-responsabilidad h3{
+.main-responsabilidad div p{
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.main-responsabilidad div ul{
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+
+    list-style-type: disc;
+    padding-left: 3rem;
+}
+
+.main-responsabilidad div h3{
     font-size: 2rem;
     font-weight: bold;
-    text-align: center;
 }

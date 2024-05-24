@@ -61,12 +61,14 @@ class LoginController extends Controller
             if ($request->hasFile('logo')) {
                 $path = Storage::disk('public')->putFile('imagenes', $request->file('logo'));
                 $user['logo'] = basename($path);
-            }else{
+            } else {
                 $user['logo'] = 'perfil.webp';
             }
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);
         }
+
+        $user['verificar_token'] = bin2hex(random_bytes(16));
 
         $user = User::create($user);
 

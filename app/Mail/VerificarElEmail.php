@@ -22,7 +22,7 @@ class VerificarElEmail extends Mailable
 
     public function build()
     {
-        $verificationLink = url("/verify-email/{$this->user->id}");
+        $verificationLink = url("/verify-email/{$this->user->id}/{$this->user->verificar_token}");
         return $this->view('emails.verificar')
             ->with(['verificationLink' => $verificationLink]);
     }

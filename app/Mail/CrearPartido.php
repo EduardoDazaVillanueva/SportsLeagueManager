@@ -14,14 +14,16 @@ class CrearPartido extends Mailable
     use Queueable, SerializesModels;
 
     public $user;
+    public $liga;
 
-    public function __construct($user)
+    public function __construct($user, $liga)
     {
         $this->user = $user;
+        $this->liga = $liga;
     }
 
     public function build()
     {
-        return $this->view('emails.recordatorioPartido');
+        return $this->view('emails.recordatorioPartido')->with('liga', $this->liga);;
     }
 }

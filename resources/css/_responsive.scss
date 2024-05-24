@@ -76,6 +76,7 @@
 
     .main_section2 {
         padding: 5rem 3rem;
+        min-height: 100vh;
         max-height: 100vh;
         width: fit-content;
 
@@ -92,7 +93,7 @@
         transform: translateX(100vw);
         transition: 250ms;
 
-        overflow: scroll;
+        overflow-y: scroll;
 
         z-index: 10000;
         cursor: pointer;
@@ -134,82 +135,14 @@
 
         cursor: pointer;
     }
-
-    // .section2_header{
-    //     display: flex;
-    //     flex-direction: row;
-    //     justify-content: space-between;
-    //     align-items: center;
-    //     gap: 3rem;
-
-    //     margin-bottom: 1rem;
-
-    //     color: $colorPrincipal;
-    // }
-
-    // .section2_titulo {
-    //     font-size: 3rem;
-    //     letter-spacing: 1px;
-    // }
-
-    // .section2_button{
-    //     font-size: 1.5rem;
-
-    //     cursor: pointer;
-
-    //     transition: color 250ms;
-    // }
-
-    // .section2_button:hover{
-    //     color: $colorSecundario;
-    // }
-
-    // .filtro_titulo {
-    //     font-size: 1.8rem;
-
-    //     color: $colorPrincipal;
-    // }
-
-    // .container-check {
-    //     display: flex;
-    //     align-items: center;
-    //     gap: .4rem;
-    // }
-
-    // .filtro_label {
-    //     font-size: 1.4rem;
-
-    //     cursor: pointer;
-    // }
-
-    // .filtro_check{
-    //     cursor: pointer;
-    // }
-
-    // #titulo-ver-mas{
-    //     font-size: 1.4rem;
-    //     font-weight: 600;
-    //     color: $colorPrincipal;
-
-    //     cursor: pointer;
-    // }
-
-    // .filtro-fecha_div{
-    //     margin-bottom: 1rem;
-
-    // }
-
-    // .filtro-fecha{
-    //     font-size: 1.2rem;
-
-    // }
-
-    // .filtrosBtn{
-    //     display: none;
-    // }
 }
 
 @media (max-width: 750px) {
+
+    .container-infoLiga {
+        width: 80vw;
+    }
+
     .container_numeros {
         flex-direction: column;
     }
@@ -220,6 +153,14 @@
 
     .hidden-section {
         display: none;
+    }
+
+    .header_partido {
+        padding: 1rem 1rem;
+    }
+
+    .sin-partidos{
+        font-size: 2rem;
     }
 
     //menu movil
@@ -340,6 +281,30 @@
 
         padding: 0 1rem;
     }
+
+    .tabla_datos {
+        font-size: 1rem;
+    }
+
+    .tabla_titulo{
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 570px){
+    .header_partido{
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .header_partido-fecha{
+        font-size: 1.3rem;
+    }
+
+    .partido_select {
+        font-size: 1.3rem;
+    }
 }
 
 @media (max-width: 500px) {
@@ -347,14 +312,38 @@
         flex-direction: column;
     }
 
-    .liga_info{
+    .liga_info {
         font-size: 1.7rem;
         text-align: center;
         letter-spacing: 1px;
     }
 
-    .liga_img{
+    .liga_img {
         max-width: 80%;
+    }
+
+    .share{
+        right: 50%;
+    }
+
+    .edit {
+        right: 30%;
+    }
+
+    .container-pnt,
+    .div-info-liga
+    {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .titulo_infoLiga{
+        font-size: 1.5rem;
+    }
+
+    .img_infoLiga {
+        max-width: 100px;
+        max-height: 100px;
     }
 }
 
@@ -366,10 +355,26 @@
     .mapa_titulo {
         font-size: 2rem;
     }
+
+    .share{
+        right: 20%;
+    }
+
+    .edit {
+        right: 60%;
+    }
 }
 
 @media (max-width: 300px) {
-    .nav{
+    .nav {
         width: 100%;
+    }
+
+    .logo {
+        max-width: 7rem;
+    }
+
+    .foto-nav {
+        max-width: 20%;
     }
 }

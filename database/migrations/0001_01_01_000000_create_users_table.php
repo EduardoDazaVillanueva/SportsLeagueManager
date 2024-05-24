@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('telefono');
             $table->string('logo');
+            $table->string('verificar_token');
             
             $table->rememberToken();
             $table->timestamps();

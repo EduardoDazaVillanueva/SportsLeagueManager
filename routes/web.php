@@ -42,14 +42,14 @@ Route::controller(LigasController::class)->group(function () {
 });
 
 Route::controller(LoginController::class)->group(function () {
+    Route::get('login', 'getLogin')->middleware('guest')->name('login');
+    Route::get('registro', 'register')->name('registro')->middleware('guest');
+
     Route::post('validar-register', 'store')->name('validar-register');
     Route::post('login',  'login')->name('login');
     Route::post('logout', 'logout')->name('logout')->middleware('auth')->withoutMiddleware('guest');
     Route::post('getUser', 'getUser')->name('getUser');
     Route::post('reenviarCorreo', 'reenviarCorreo')->name('reenviarCorreo');
-
-    Route::get('login', 'getLogin')->middleware('guest')->name('login');
-    Route::get('registro', 'register')->name('registro')->middleware('guest');
 });
 
 Route::fallback([ViewController::class, 'get404']);
@@ -64,9 +64,12 @@ Route::get('/cancel', function () {
     return view('cancel');
 })->name('cancel');
 
-
-Route::get('/verify-email/{user}', function (App\Models\User $user) {
-    $user->email_verified_at = now();
-    $user->save();
-    return redirect('/login')->with('success', 'Tu correo ha sido verificado. Ahora puedes iniciar sesión.');
-})->middleware('auth');
+Route::get('/verify-email/{user}/{token}', function (App\Models\User $user, $token) {
+    if ($user->verificar_token === $token) {
+        $user->email_verified_at = now();
+        $user->save();
+        return redirect('/login')->with('success', 'Tu correo ha sido verificado. Ahora puedes iniciar sesión.');
+    } else {
+        return redirect('/login')->with('error', 'El enlace de verificación no es válido.');
+    }
+});

@@ -1,17 +1,18 @@
 <x-layout :deportes="$deportes" :user="$user">
     <main class="main-responsabilidad">
         <div>
-            <div class="section_left">
-                <h1 class="main_titulo">Política para Organizadores y Jugadores</h1>
-            </div>
+            <h1 class="titulo_responsabilidad">Política para Organizadores y Jugadores</h1>
 
-            <p>El organizador deberá tener un acuerdo con la sede para que siempre los jugadores tengan pistas disponibles.</p>
+            <ul>
+                <li>El organizador deberá tener un acuerdo con la sede para que siempre los jugadores tengan pistas disponibles.</li>
 
-            <p>El pago de la inscripción al organizador se hará cuando la liga lleve algunas jornadas.</p>
+                <li>El pago de la inscripción al organizador se hará cuando la liga lleve algunas jornadas.</li>
 
-            <p>A los jugadores se les cobrará el dinero, pero ese dinero no se dará al organizador hasta que no se vea un compromiso.</p>
+                <li>A los jugadores se les cobrará el dinero, pero ese dinero no se dará al organizador hasta que no se vea un compromiso.</li>
 
-            <p>Si hay algún problema con el organizador, se le devolverá el dinero a todos los jugadores y el organizador será sancionado con la eliminación de la cuenta.</p>
+                <li>Si hay algún problema con el organizador, se le devolverá el dinero a todos los jugadores y el organizador será sancionado con la eliminación de la cuenta.</li>
+            </ul>
+
 
             <h3>Responsabilidades del Organizador:</h3>
             <ul>

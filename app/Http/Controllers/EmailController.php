@@ -27,10 +27,10 @@ class EmailController extends Controller
         Mail::to($user->email)->send(new ResultadoPartido($user, $liga));
     }
 
-    public function enviarCorreoPartido(User $user)
+    public function enviarCorreoPartido(User $user, Ligas $liga)
     {
         // Envía el correo electrónico al usuario especificado
-        Mail::to($user->email)->send(new CrearPartido($user));
+        Mail::to($user->email)->send(new CrearPartido($user, $liga));
     }
 
     public function enviarCorreoVerificacion(User $user)

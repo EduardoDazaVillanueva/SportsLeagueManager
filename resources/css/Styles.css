@@ -750,6 +750,7 @@ i {
   padding: 1.5rem;
   background-color: #040738;
   border-radius: 5px;
+  transition: all 300ms;
 }
 
 .mover {
@@ -765,7 +766,7 @@ i {
   color: #C6CF25;
 }
 
-.desplegable:hover > ul {
+.desplegable:hover ul {
   display: block;
 }
 
@@ -784,8 +785,10 @@ i {
 }
 
 .foto-nav {
+  max-width: 100px;
+  max-height: 100px;
   border-radius: 50%;
-  max-width: 30%;
+  aspect-ratio: 1/1;
 }
 
 .nombre-user {
@@ -919,8 +922,8 @@ strong {
 
 .container-partidos {
   width: 70%;
-  max-height: 60%;
-  min-height: 60%;
+  max-height: 45vh;
+  min-height: 45vh;
   padding: 2rem;
   display: flex;
   flex-direction: row;
@@ -942,6 +945,7 @@ strong {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   padding: 1rem 5rem;
   width: 70%;
 }
@@ -1112,7 +1116,8 @@ strong {
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 70vh;
+  min-height: 70vh;
+  margin-bottom: 2rem;
   color: #040738;
 }
 
@@ -1144,24 +1149,14 @@ strong {
 th,
 td {
   width: 300px;
-}
-
-.tabla_cabecera {
-  position: relative;
-  display: inline-block;
-  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
-  -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
-  padding-top: 1rem;
-  background-color: #040738;
-  color: #C6CF25;
-  border-radius: 0.5rem 0.5rem 0 0;
+  vertical-align: middle;
 }
 
 .tabla_titulo {
-  padding-bottom: 1rem;
-  font-size: 1.6rem;
+  padding: 1rem;
+  font-size: 1.3rem;
   text-transform: uppercase;
+  text-align: center;
 }
 
 tbody {
@@ -1169,7 +1164,6 @@ tbody {
   height: -moz-fit-content;
   height: fit-content;
   min-height: 30vh;
-  overflow: auto;
   scrollbar-color: #333 #eee;
   background-color: #fff;
   font-weight: bold;
@@ -1182,7 +1176,15 @@ tbody {
 }
 
 .tabla_dato {
-  padding: 0.5rem 0;
+  padding: 0.5rem;
+}
+
+.tabla_cabecera {
+  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
+  background-color: #040738;
+  color: #C6CF25;
 }
 
 .tabla_img {
@@ -1209,21 +1211,20 @@ tbody {
 
 .container-img_infoLiga {
   background-color: #040738;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .img_infoLiga {
-  max-width: 20%;
-  z-index: 100;
+  max-width: 150px;
+  max-height: 150px;
   border-radius: 50%;
+  aspect-ratio: 1/1;
   box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  z-index: 100;
 }
 
 .titulo_infoLiga {
@@ -1245,7 +1246,7 @@ tbody {
   text-align: center;
   font-size: 1.5rem;
   width: 70vw;
-  padding: 1rem;
+  padding: 3rem 1rem;
   margin-bottom: 5rem;
   border-radius: 0.5rem;
   box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
@@ -1292,25 +1293,29 @@ tbody {
   gap: 3rem;
 }
 
-.edit,
 .share,
-.share-own {
+.edit {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: -20px;
+  right: -40px;
+  background-color: #eee;
+  padding: 1rem;
+  border-radius: 50%;
   font-size: 2rem;
   color: #040738;
   cursor: pointer;
+  box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
+  -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
   transition: color 200ms;
 }
 
-.share-own {
-  right: 80px;
+.edit {
+  right: 30px;
 }
 
 .edit:hover,
-.share:hover,
-.share-own:hover {
+.share:hover {
   color: #C6CF25;
 }
 
@@ -1373,90 +1378,6 @@ tbody {
   box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
   -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
   -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
-}
-
-.partidos-titulo {
-  margin-top: 1rem;
-}
-
-.div-info-partido {
-  color: #040738;
-  font-size: 1.3rem;
-  margin: 0.7rem;
-  margin-bottom: 2rem;
-  background-color: #eee;
-  padding: 1rem;
-  border-radius: 5px;
-  box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
-  -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
-  -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
-}
-
-.partido_info {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.fecha_partido {
-  font-size: 2rem;
-}
-
-.resultado_partido {
-  font-size: 2rem;
-}
-
-.resultado {
-  margin: 0 1rem;
-}
-
-.container-carrusel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4rem;
-}
-
-.carrusel {
-  width: 50%;
-  overflow: hidden;
-}
-
-.perfil-ligas {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 200%;
-  transition: transform 300ms;
-  transform: translateX(0);
-}
-
-.div_mis-ligas {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  width: 50%;
-  margin-bottom: 4rem;
-}
-
-.perfil-titulo-liga {
-  font-size: 3rem;
-  text-transform: uppercase;
-  color: #040738;
-}
-
-.flecha {
-  font-size: 5rem;
-  color: #040738;
-  cursor: pointer;
-  transition: color 250ms;
-}
-
-.flecha:hover {
-  color: #C6CF25;
 }
 
 .main-preguntas {
@@ -1775,6 +1696,15 @@ tbody {
   gap: 2rem;
 }
 
+.rrss li {
+  transition: all 350ms;
+}
+
+.rrss li:hover {
+  color: #C6CF25;
+  scale: 1.1;
+}
+
 .rrss-icon {
   font-size: 2rem;
 }
@@ -1786,25 +1716,38 @@ tbody {
 
 .main-responsabilidad {
   background-color: #eee;
-  height: 87vh;
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
-.main-responsabilidad p {
-  font-size: 1.5rem;
+.titulo_responsabilidad {
+  font-size: 4rem;
 }
 
-.main-responsabilidad ul {
-  font-size: 1.5rem;
-  text-align: center;
+.main-responsabilidad div {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 2rem 6rem;
+  text-align: left;
+  color: #040738;
 }
 
-.main-responsabilidad h3 {
+.main-responsabilidad div p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.main-responsabilidad div ul {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  list-style-type: disc;
+  padding-left: 3rem;
+}
+
+.main-responsabilidad div h3 {
   font-size: 2rem;
   font-weight: bold;
-  text-align: center;
 }
 
 .container-edit {
@@ -1918,6 +1861,7 @@ tbody {
   }
   .main_section2 {
     padding: 5rem 3rem;
+    min-height: 100vh;
     max-height: 100vh;
     width: -moz-fit-content;
     width: fit-content;
@@ -1929,7 +1873,7 @@ tbody {
     font-size: 2rem;
     transform: translateX(100vw);
     transition: 250ms;
-    overflow: scroll;
+    overflow-y: scroll;
     z-index: 10000;
     cursor: pointer;
   }
@@ -1961,6 +1905,9 @@ tbody {
   }
 }
 @media (max-width: 750px) {
+  .container-infoLiga {
+    width: 80vw;
+  }
   .container_numeros {
     flex-direction: column;
   }
@@ -1969,6 +1916,12 @@ tbody {
   }
   .hidden-section {
     display: none;
+  }
+  .header_partido {
+    padding: 1rem 1rem;
+  }
+  .sin-partidos {
+    font-size: 2rem;
   }
   .nav {
     flex-direction: column;
@@ -2060,6 +2013,25 @@ tbody {
     color: #040738;
     padding: 0 1rem;
   }
+  .tabla_datos {
+    font-size: 1rem;
+  }
+  .tabla_titulo {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 570px) {
+  .header_partido {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+  .header_partido-fecha {
+    font-size: 1.3rem;
+  }
+  .partido_select {
+    font-size: 1.3rem;
+  }
 }
 @media (max-width: 500px) {
   .section1_liga article {
@@ -2073,6 +2045,24 @@ tbody {
   .liga_img {
     max-width: 80%;
   }
+  .share {
+    right: 50%;
+  }
+  .edit {
+    right: 30%;
+  }
+  .container-pnt,
+  .div-info-liga {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .titulo_infoLiga {
+    font-size: 1.5rem;
+  }
+  .img_infoLiga {
+    max-width: 100px;
+    max-height: 100px;
+  }
 }
 @media (max-width: 430px) {
   .section_titulo {
@@ -2081,10 +2071,22 @@ tbody {
   .mapa_titulo {
     font-size: 2rem;
   }
+  .share {
+    right: 20%;
+  }
+  .edit {
+    right: 60%;
+  }
 }
 @media (max-width: 300px) {
   .nav {
     width: 100%;
+  }
+  .logo {
+    max-width: 7rem;
+  }
+  .foto-nav {
+    max-width: 20%;
   }
 }
 body {

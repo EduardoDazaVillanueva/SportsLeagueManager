@@ -4,8 +4,7 @@
 
         <section class="jugadores">
             <table class="jugadores_tabla">
-                <thead>
-                    <tr class="tabla_cabecera">
+                    <tr class="tabla_datos tabla_cabecera">
                         <th class="tabla_titulo">Nombre</th>
                         <th class="tabla_titulo">Partidos jugados</th>
                         <th class="tabla_titulo">Partidos ganados</th>
@@ -13,10 +12,7 @@
                         <th class="tabla_titulo">Partidos perdidos</th>
                         <th class="tabla_titulo">Puntos</th>
                     </tr>
-                </thead>
-
-                
-                <tbody>
+ 
                     @foreach ($jugadores as $index => $jugador)
                     <tr class="tabla_datos {{$index % 2 ? 'gris' : ''}}">
                         <td class="tabla_dato"><a href="/perfil/{{$jugador->user_id}}">{{$jugador["user_name"]}}</a></td>
@@ -27,7 +23,6 @@
                         <td class="tabla_dato">{{$jugador["puntos"]}}</td>
                     </tr>
                     @endforeach
-                </tbody>
             </table>
         </section>
     </main>

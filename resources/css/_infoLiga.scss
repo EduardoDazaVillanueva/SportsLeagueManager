@@ -18,25 +18,26 @@
 
 .container-img_infoLiga {
     background-color: $colorPrincipal;
-    border-radius: 50%;
 
-    width: 100px;
-    height: 100px;
-
+    
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .img_infoLiga {
-    max-width: 20%;
-    z-index: 100;
-
+    max-width: 150px;
+    max-height: 150px;
+    
     border-radius: 50%;
-
+    
+    aspect-ratio: 1/1;
+    
     box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
     -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
     -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+
+    z-index: 100;
 }
 
 .titulo_infoLiga {
@@ -64,7 +65,7 @@
     font-size: 1.5rem;
 
     width: 70vw;
-    padding: 1rem;
+    padding: 3rem 1rem;
     margin-bottom: 5rem;
 
     border-radius: .5rem;
@@ -118,28 +119,35 @@
     gap: 3rem;
 }
 
-.edit,
 .share,
-.share-own {
+.edit{
     position: absolute;
-    top: 20px;
-    right: 20px;
-
+    top: -20px;
+    right: -40px;
+    
+    background-color: $colorClaro;
+    
+    padding: 1rem;
+    border-radius: 50%;
+    
     font-size: 2rem;
     color: $colorPrincipal;
-
+    
     cursor: pointer;
-
+    
+    box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
+    -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
+    
     transition: color 200ms;
 }
 
-.share-own {
-    right: 80px;
+.edit {
+    right: 30px;
 }
 
 .edit:hover,
-.share:hover,
-.share-own:hover {
+.share:hover{
     color: $colorSecundario;
 }
 

@@ -152,13 +152,15 @@ class LigasController extends Controller
         $validatedData['organizadores_id'] = $organizador->id;
 
         // Manejo de carga de archivos
-        if ($request->hasFile('logo')) {
-            try {
+        try {
+            if ($request->hasFile('logo')) {
                 $path = Storage::disk('public')->putFile('imagenes', $request->file('logo'));
                 $validatedData['logo'] = basename($path);
-            } catch (Exception $e) {
-                return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);
+            } else {
+                $validatedData['logo'] = 'liga.jpg';
             }
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);
         }
 
         // Crear la nueva liga
@@ -798,7 +800,7 @@ class LigasController extends Controller
 
                                 if ($user) {
                                     $emailController = new EmailController();
-                                    $emailController->enviarCorreoPartido($user);
+                                    $emailController->enviarCorreoPartido($user, $liga);
                                 }
                             }
                         }
@@ -891,9 +893,9 @@ class LigasController extends Controller
             $res = $this->comprobarResultadoEquipos($liga, $diferenciaJuegosP1, $diferenciaJuegosP2, $enP1, $enP2, $puntosGanar, $puntosPerder, $puntosEmpatar, $set1P1, $set1P2, $pareja1, $pareja2, $jugadoresPorPareja, $partido);
         }
 
-        if($res){
+        if ($res) {
             return redirect("/liga/{$liga->id}/Partidos")->with('success', 'Resultado actualizado con éxito');
-        }else{
+        } else {
             return redirect("/liga/{$liga->id}/Partidos")->with('error', 'El resultado no es válido');
         }
     }
@@ -1143,7 +1145,7 @@ class LigasController extends Controller
                 $jugadorLigaP1 = ParticipaEnLiga::where('liga_id', $liga->id)
                     ->where('jugadores_id', $idJugadorP1)
                     ->first();
-                    
+
                 dd($liga->id);
 
                 $partidosJugadosP1 = $jugadorLigaP1->num_partidos + 1;

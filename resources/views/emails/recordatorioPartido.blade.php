@@ -53,7 +53,7 @@
             ¡Prepárate para el próximo encuentro! Visita nuestra plataforma para conocer todos los detalles de tu próximo partido, incluyendo la hora y tus compañeros de equipo.
         </p>
 
-        <a href="{{ route('welcome') }}" class="email-button">Ver tu partido</a>
+        <a href="{{ route('liga.partidos', ['liga' => $liga->id]) }} class="email-button">Ver tu partido</a>
 
         <div class="email-footer">
             <p>¿Tienes preguntas? Echa un vistazo a nuestra <strong><a href="{{ route('faq') }}" style="text-decoration: none; color: #3498db;">sección de preguntas frecuentes</a></strong> o contáctanos a través de nuestro <strong><a href="{{ route('welcome') }}" style="text-decoration: none; color: #3498db;">formulario de contacto</a></strong>.</p>

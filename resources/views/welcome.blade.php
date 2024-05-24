@@ -69,17 +69,17 @@
             <div class="container_numeros">
 
                 <div class="numeros_info">
-                    <h3 class="num">1.200+</h3>
+                    <h3 class="num">+200</h3>
                     <p>Ligas</p>
                 </div>
 
                 <div class="numeros_info">
-                    <h3 class="num">1.200+</h3>
+                    <h3 class="num">+1.000</h3>
                     <p>Equipos</p>
                 </div>
 
                 <div class="numeros_info">
-                    <h3 class="num">1.200+</h3>
+                    <h3 class="num">+10.000</h3>
                     <p>Partidos realizados</p>
                 </div>
 

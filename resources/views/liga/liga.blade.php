@@ -10,7 +10,7 @@
 
             @if ($organizador->id == $user->id)
             <a href="/liga/editar/{{$liga->id}}"><i class="fa-solid fa-pen-to-square edit"></i></a>
-            <a href="/liga/invitar/{{$liga->id}}"><i class="fa-solid fa-share-nodes share-own"></i></a>
+            <a href="/liga/invitar/{{$liga->id}}"><i class="fa-solid fa-share-nodes share"></i></a>
             @else
             <a href="/liga/invitar/{{$liga->id}}"><i class="fa-solid fa-share-nodes share"></i></a>
             @endif

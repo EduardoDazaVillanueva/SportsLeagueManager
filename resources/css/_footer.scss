@@ -56,6 +56,15 @@
     gap: 2rem;
 }
 
+.rrss li{
+    transition: all 350ms;
+}
+
+.rrss li:hover {
+    color: $colorSecundario;
+    scale: 1.1;
+}
+
 .rrss-icon{
     font-size: 2rem;
 }
