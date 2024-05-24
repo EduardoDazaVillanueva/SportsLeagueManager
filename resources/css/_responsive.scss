@@ -74,7 +74,12 @@
         padding: 0 1rem;
     }
 
-    .main_section2 {
+    .main_section2{
+        display: none;
+    }
+
+    .main_section2-movil {
+        display: block;
         padding: 5rem 3rem;
         min-height: 100vh;
         max-height: 100vh;
@@ -164,7 +169,12 @@
     }
 
     //menu movil
-    .nav {
+    .nav{
+        display: none;
+    }
+
+    .nav-movil {
+        display: flex;
         flex-direction: column;
         gap: 2rem;
         align-items: center;
@@ -253,6 +263,8 @@
     .menu_movil {
         font-size: 2rem;
         color: $colorSecundario;
+
+        cursor: pointer;
     }
 
     .menu_cerrar {
@@ -266,6 +278,8 @@
     .menu_cerrar i {
         font-size: 3rem;
         color: $colorSecundario;
+
+        cursor: pointer;
     }
 
     .menu_lista {
@@ -304,6 +318,10 @@
 
     .partido_select {
         font-size: 1.3rem;
+    }
+
+    .form{
+        width: 300px;
     }
 }
 
@@ -365,8 +383,14 @@
     }
 }
 
+@media (max-width: 350px){
+    .form{
+        width: 250px;
+    }
+}
+
 @media (max-width: 300px) {
-    .nav {
+    .nav-movil {
         width: 100%;
     }
 

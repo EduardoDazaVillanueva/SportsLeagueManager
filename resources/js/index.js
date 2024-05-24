@@ -86,19 +86,19 @@ export function deseleccionarFiltros() {
 }
 
 export function menuMovilAbrir(){
-    const movilBtn = document.getElementById("nav");
+    const movilBtn = document.getElementById("nav-movil");
 
     movilBtn.style.transform = 'translateX(0%)';
 }
 
 export function menuMovilCerrar(){
-    const movilBtn = document.getElementById("nav");
+    const movilBtn = document.getElementById("nav-movil");
 
     movilBtn.style.transform = 'translateX(100vw)';
 }
 
 export function filtroMovilAbrir(){
-    const movilFiltro = document.getElementById("main_section2");
+    const movilFiltro = document.getElementById("main_section2-movil");
 
     movilFiltro.style.transform = 'translateX(0%)';
 
@@ -106,7 +106,7 @@ export function filtroMovilAbrir(){
 }
 
 export function filtroMovilCerrar(){
-    const movilFiltro = document.getElementById("main_section2");
+    const movilFiltro = document.getElementById("main_section2-movil");
 
     movilFiltro.style.transform = 'translateX(100vw)';
 }

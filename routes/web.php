@@ -11,12 +11,13 @@ use App\Http\Controllers\VerificationController;
 use App\Http\Middleware\ParticipaPartido;
 
 Route::controller(ViewController::class)->group(function () {
-
     Route::get('/', 'getWelcome')->name('welcome');
     Route::get('faq', 'getFAQ')->name('faq');
     Route::get('cookies', 'getCookies')->name('cookies');
     Route::get('perfil/{user}', 'getPerfil')->name('perfil');
     Route::get('/resposabilidad', 'getResponsabilidad');
+    Route::get('/sobreNosotros', 'getSobreNosotros');
+    
 });
 
 Route::controller(LigasController::class)->group(function () {
