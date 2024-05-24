@@ -9,7 +9,7 @@
                 @csrf
 
                 <div id="nombre-div">
-                    <label for="nombre" class="crear-label">Nombre *</label>
+                    <label for="nombre" class="crear-label">Nombre*</label>
                     <input type="text" name="nombre" id="nombre" class="crear-input" placeholder="Nombre de la liga">
                     @error('nombre')
                     <div class="error">
@@ -29,7 +29,7 @@
                 </div>
 
                 <div id="fecha_inicio-div">
-                    <label for="fecha_inicio" class="crear-label">Fecha inicio de la liga *</label>
+                    <label for="fecha_inicio" class="crear-label">Fecha inicio de la liga*</label>
                     <input type="date" name="fecha_inicio" id="fecha_inicio" class="crear-input" min="<?= date('Y-m-d') ?>">
                     @error('fecha_inicio')
                     <div class="error">
@@ -39,12 +39,12 @@
                 </div>
 
                 <div id="fecha_final-div">
-                    <label for="fecha_final" class="crear-label">Fecha final de la liga *</label>
+                    <label for="fecha_final" class="crear-label">Fecha final de la liga*</label>
                     <input type="date" name="fecha_final" id="fecha_final" class="crear-input" min="<?= date('Y-m-d') ?>">
                 </div>
 
                 <div id="fecha_fin_inscripcion-div">
-                    <label for="fecha_fin_inscripcion" class="crear-label">Fecha final de la inscripcion *</label>
+                    <label for="fecha_fin_inscripcion" class="crear-label">Fecha final de la inscripcion*</label>
                     <input type="date" name="fecha_fin_inscripcion" id="fecha_fin_inscripcion" class="crear-input" min="<?= date('Y-m-d') ?>">
                     @error('fecha_fin_inscripcion')
                     <div class="error">
@@ -54,7 +54,7 @@
                 </div>
 
                 <div id="localidad-div">
-                    <label for="localidad" class="crear-label">Localidad *</label>
+                    <label for="localidad" class="crear-label">Localidad*</label>
                     <input type="text" name="localidad" id="localidad" class="crear-input" placeholder="Localidad">
                     @error('localidad')
                     <div class="error">
@@ -64,7 +64,7 @@
                 </div>
 
                 <div id="sede-div">
-                    <label for="sede" class="crear-label">Sede *</label>
+                    <label for="sede" class="crear-label">Sede*</label>
                     <input type="text" name="sede" id="sede" class="crear-input" placeholder="donde se realiza la liga">
                     @error('sede')
                     <div class="error">
@@ -74,7 +74,7 @@
                 </div>
 
                 <div id="dia_jornada-div">
-                    <label class="crear-label">Dia de la jornada *</label>
+                    <label class="crear-label">Dia de la jornada*</label>
 
                     <div class="dia-check">
                         <label for="Lunes">Lunes</label>
@@ -118,7 +118,7 @@
                 </div>
 
                 <div id="numPistas-div">
-                    <label for="numPistas" class="crear-label">Pistas disponibles por turno *</label>
+                    <label for="numPistas" class="crear-label">Pistas disponibles por turno*</label>
                     <input type="number" name="numPistas" id="numPistas" class="crear-input" min="1" placeholder="Pistas disponibles por turno">
                     @error('numPistas')
                     <div class="error">
@@ -128,7 +128,7 @@
                 </div>
 
                 <div id="primera_hora-div">
-                    <label for="primera_hora" class="crear-label">El primer turno de pistas se reserva a las... *</label>
+                    <label for="primera_hora" class="crear-label">El primer turno de pistas se reserva a las...*</label>
                     <input type="time" name="primera_hora" id="primera_hora" class="crear-input">
                     @error('primera_hora')
                     <div class="error">
@@ -138,7 +138,7 @@
                 </div>
 
                 <div id="ultima_hora-div">
-                    <label for="ultima_hora" class="crear-label">El último turno de pistas se reserva a las... *</label>
+                    <label for="ultima_hora" class="crear-label">El último turno de pistas se reserva a las...*</label>
                     <input type="time" name="ultima_hora" id="ultima_hora" class="crear-input">
                     @error('ultima_hora')
                     <div class="error">
@@ -148,7 +148,7 @@
                 </div>
 
                 <div id="pnts_ganar-div">
-                    <label for="pnts_ganar" class="crear-label">Puntos por ganar *</label>
+                    <label for="pnts_ganar" class="crear-label">Puntos por ganar*</label>
                     <input type="number" name="pnts_ganar" id="pnts_ganar" class="crear-input" min="0" placeholder="3">
                     @error('pnts_ganar')
                     <div class="error">
@@ -158,7 +158,7 @@
                 </div>
 
                 <div id="pnts_perder-div">
-                    <label for="pnts_perder" class="crear-label">Puntos por perder *</label>
+                    <label for="pnts_perder" class="crear-label">Puntos por perder*</label>
                     <input type="number" name="pnts_perder" id="pnts_perder" class="crear-input" min="0" placeholder="0">
                     @error('pnts_perder')
                     <div class="error">
@@ -180,7 +180,7 @@
                 @endif
 
                 <div id="inscripcion-div">
-                    <label for="inscripcion" class="crear-label">Precio inscripción *</label>
+                    <label for="inscripcion" class="crear-label">Precio inscripción*</label>
 
                     <div id="container_checks">
                         <div class="div_check">

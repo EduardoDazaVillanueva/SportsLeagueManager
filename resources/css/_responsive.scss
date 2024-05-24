@@ -74,7 +74,7 @@
         padding: 0 1rem;
     }
 
-    .main_section2{
+    .main_section2 {
         display: none;
     }
 
@@ -144,6 +144,20 @@
 
 @media (max-width: 750px) {
 
+    .container-crear {
+        grid-template-areas:
+            "nombre fecha_inicio"
+            "fecha_final fecha_fin_inscripcion"
+            "logo localidad"
+            "sede dia_jornada"
+            "numPistas dia_jornada"
+            " primera_hora ultima_hora "
+            "pnts_ganar pnts_perder"
+            " pnts_empate pnts_juego"
+            "inscripcion txt_responsabilidad "
+            "btn btn";
+    }
+
     .container-infoLiga {
         width: 80vw;
     }
@@ -164,12 +178,12 @@
         padding: 1rem 1rem;
     }
 
-    .sin-partidos{
+    .sin-partidos {
         font-size: 2rem;
     }
 
     //menu movil
-    .nav{
+    .nav {
         display: none;
     }
 
@@ -300,19 +314,19 @@
         font-size: 1rem;
     }
 
-    .tabla_titulo{
+    .tabla_titulo {
         font-size: 1rem;
     }
 }
 
-@media (max-width: 570px){
-    .header_partido{
+@media (max-width: 570px) {
+    .header_partido {
         flex-wrap: wrap;
         justify-content: center;
         text-align: center;
     }
-    
-    .header_partido-fecha{
+
+    .header_partido-fecha {
         font-size: 1.3rem;
     }
 
@@ -320,7 +334,7 @@
         font-size: 1.3rem;
     }
 
-    .form{
+    .form {
         width: 300px;
     }
 }
@@ -340,7 +354,7 @@
         max-width: 80%;
     }
 
-    .share{
+    .share {
         right: 50%;
     }
 
@@ -349,13 +363,12 @@
     }
 
     .container-pnt,
-    .div-info-liga
-    {
+    .div-info-liga {
         flex-wrap: wrap;
         justify-content: center;
     }
-    
-    .titulo_infoLiga{
+
+    .titulo_infoLiga {
         font-size: 1.5rem;
     }
 
@@ -374,17 +387,40 @@
         font-size: 2rem;
     }
 
-    .share{
+    .share {
         right: 20%;
     }
 
     .edit {
         right: 60%;
     }
+
+    .container-crear {
+        grid-template-areas:
+        "nombre" 
+        "fecha_inicio"
+        "fecha_final" 
+        "fecha_fin_inscripcion"
+        "logo"
+        "localidad"
+        "sede" 
+        "dia_jornada"
+        "dia_jornada"
+        "numPistas" 
+        "primera_hora" 
+        "ultima_hora "
+        "pnts_ganar" 
+        "pnts_perder"
+        "pnts_empate" 
+        "pnts_juego"
+        "inscripcion"
+        "txt_responsabilidad "
+        "btn";
+    }
 }
 
-@media (max-width: 350px){
-    .form{
+@media (max-width: 350px) {
+    .form {
         width: 250px;
     }
 }

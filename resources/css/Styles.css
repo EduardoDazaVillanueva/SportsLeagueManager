@@ -93,6 +93,7 @@ button {
   grid-template-areas: "nombre fecha_inicio fecha_final fecha_fin_inscripcion" "logo localidad sede dia_jornada" "numPistas primera_hora ultima_hora dia_jornada" "pnts_ganar pnts_perder pnts_empate pnts_juego" "inscripcion txt_responsabilidad txt_responsabilidad txt_responsabilidad" ". btn btn .";
   gap: 2rem;
   padding: 2rem 1.8rem;
+  margin: 3rem;
   margin-bottom: 5rem;
   border-radius: 15px;
   background-color: #fff;
@@ -1939,6 +1940,9 @@ tbody {
   }
 }
 @media (max-width: 750px) {
+  .container-crear {
+    grid-template-areas: "nombre fecha_inicio" "fecha_final fecha_fin_inscripcion" "logo localidad" "sede dia_jornada" "numPistas dia_jornada" " primera_hora ultima_hora " "pnts_ganar pnts_perder" " pnts_empate pnts_juego" "inscripcion txt_responsabilidad " "btn btn";
+  }
   .container-infoLiga {
     width: 80vw;
   }
@@ -2120,6 +2124,9 @@ tbody {
   .edit {
     right: 60%;
   }
+  .container-crear {
+    grid-template-areas: "nombre" "fecha_inicio" "fecha_final" "fecha_fin_inscripcion" "logo" "localidad" "sede" "dia_jornada" "dia_jornada" "numPistas" "primera_hora" "ultima_hora " "pnts_ganar" "pnts_perder" "pnts_empate" "pnts_juego" "inscripcion" "txt_responsabilidad " "btn";
+  }
 }
 @media (max-width: 350px) {
   .form {
@@ -2138,7 +2145,8 @@ tbody {
   }
 }
 body {
-  font-family: "Teko";
+  font-family: "Teko", sans-serif;
+  font-weight: 500;
   font-size: 10px;
 }
 

@@ -235,6 +235,31 @@ class LigasController extends Controller
             $juegaJornada = false;
         }
 
+        $fecha2Dias = $this->comprobarFecha($fechaJornada);
+
+        $hayPartidos = Partidos::where('jornada_id', $jornada->id)
+            ->exists();
+
+        if ($fecha2Dias && !$hayPartidos) {
+            switch ($liga->deporte_id) {
+                case '1':
+                    $this->crearPartidosPorDia($liga->id, 2);
+                    break;
+
+                case '2':
+                    $this->crearPartidosPorDia($liga->id, 10);
+                    break;
+
+                case '3':
+                    $this->crearPartidosPorDia($liga->id, 2);
+                    break;
+
+                case '4':
+                    $this->crearPartidosPorDia($liga->id, 4);
+                    break;
+            }
+        }
+
         // Devolver la vista con todos los datos
         return view('liga.liga', [
             'liga' => $liga,
