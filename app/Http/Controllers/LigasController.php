@@ -113,10 +113,9 @@ class LigasController extends Controller
             'logo' => ['nullable', 'file', 'mimes:jpg,png,gif,jpeg', 'max:2048'],
             'precio' => ['required', 'integer', 'min:0'],
             'numPistas' => ['required', 'integer', 'min:1'],
-            'primera_hora' => ['required', 'date_format:H:i'],
+            'primera_hora' => ['required'],
             'ultima_hora' => [
                 'required',
-                'date_format:H:i',
                 function ($attribute, $value, $fail) use ($request) {
                     if ($value <= $request->primera_hora) {
                         $fail("La última hora debe ser posterior a la primera hora.");
