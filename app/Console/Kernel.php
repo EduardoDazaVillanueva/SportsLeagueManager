@@ -15,7 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('partidos:comprobar')->hourly(); // Ajusta el intervalo según sea necesario
     }
+
 
 
     /**

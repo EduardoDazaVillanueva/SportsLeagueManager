@@ -58,6 +58,7 @@ Route::fallback([ViewController::class, 'get404']);
 Route::get('/create-checkout-session', [StripeController::class, 'createCheckoutSession'])->name('checkout.session');
 
 Route::get('/success', function () {
+    
     return view('success');
 })->name('success');
 
