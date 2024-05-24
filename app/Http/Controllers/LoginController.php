@@ -60,7 +60,6 @@ class LoginController extends Controller
         try {
             if ($request->hasFile('logo')) {
                 $path = Storage::disk('public')->putFile('imagenes', $request->file('logo'));
-                dd($path);
                 $user['logo'] = basename($path);
             } else {
                 $user['logo'] = 'imagenes/perfil.webp';
