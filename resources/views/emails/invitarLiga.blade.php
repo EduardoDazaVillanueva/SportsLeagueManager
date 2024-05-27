@@ -46,17 +46,31 @@
             margin-top: 20px;
         }
 
-        .lista{
+        .lista {
             list-style: none;
             font-size: 16px;
 
             padding: 0;
+        }
+
+        .container_img {
+            width: 100%;
+            height: fit-content;
+        }
+
+        .imagen {
+            aspect-ratio: 1 / 1;
+            max-width: 100px;
+            max-height: 100px;
         }
     </style>
 </head>
 
 <body>
     <div class="email-container">
+        <div class="container_img">
+            <img class="imagen" src="https://i.imgur.com/FlqZucQ.png" alt="Logo de la web">
+        </div>
         <h1 class="email-title">¡Te invitamos a unirte a nuestra liga!</h1>
 
         <p class="email-content">Espero que estés bien. Quería aprovechar esta oportunidad para invitarte a unirte a nuestra liga.</p>

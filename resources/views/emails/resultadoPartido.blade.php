@@ -43,11 +43,25 @@
             font-size: 14px;
             margin-top: 20px;
         }
+
+        .container_img {
+            width: 100%;
+            height: fit-content;
+        }
+
+        .imagen {
+            aspect-ratio: 1 / 1;
+            max-width: 100px;
+            max-height: 100px;
+        }
     </style>
 </head>
 
 <body>
     <div class="email-container">
+        <div class="container_img">
+            <img class="imagen" src="https://i.imgur.com/FlqZucQ.png" alt="Logo de la web">
+        </div>
         <h1 class="email-title">¡El resultado de tu anterior partido ha sido añadido!</h1>
         <p class="email-content">
             Revisa el resultado y confirma que está correcto.

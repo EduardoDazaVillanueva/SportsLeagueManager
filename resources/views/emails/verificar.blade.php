@@ -57,11 +57,25 @@
             color: #040738;
             text-decoration: none;
         }
+
+        .container_img {
+            width: 100%;
+            height: fit-content;
+        }
+
+        .imagen {
+            aspect-ratio: 1 / 1;
+            max-width: 100px;
+            max-height: 100px;
+        }
     </style>
 </head>
 
 <body>
     <div class="email-container">
+        <div class="container_img">
+            <img class="imagen" src="https://i.imgur.com/FlqZucQ.png" alt="Logo de la web">
+        </div>
         <h1 class="email-title">¡Gracias por registrarte!</h1>
         <p class="email-content">
             Bienvenido a nuestra plataforma. Por favor, haz clic en el siguiente enlace para verificar tu correo electrónico y activar tu cuenta.

@@ -25,12 +25,6 @@
                             generación de
                             clasificaciones. SportsLeagueManager se encarga de todo de manera totalmente automática.
                         </li>
-
-                        <li class="section_option">
-                            <strong>Gratuito:</strong> Lo mejor de todo es que SportsLeagueManager es completamente
-                            gratuito. No hay costos
-                            ocultos ni suscripciones. Puedes crear tantas ligas como desees sin preocuparte por el precio.
-                        </li>
                     </ul>
 
                     <summary class="titulo-ver-mas">Ver más</summary>
@@ -48,12 +42,6 @@
                         <strong>Automatización:</strong> Olvídate de los complicados sorteos de calendario y la
                         generación de
                         clasificaciones. SportsLeagueManager se encarga de todo de manera totalmente automática.
-                    </li>
-
-                    <li class="section_option">
-                        <strong>Gratuito:</strong> Lo mejor de todo es que SportsLeagueManager es completamente
-                        gratuito. No hay costos
-                        ocultos ni suscripciones. Puedes crear tantas ligas como desees sin preocuparte por el precio.
                     </li>
                 </ul>
             </div>

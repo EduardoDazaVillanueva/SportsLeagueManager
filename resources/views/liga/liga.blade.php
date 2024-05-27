@@ -86,9 +86,15 @@
             <div class="{{$mostrarBotonInscribirse ? 'div-info-liga' : 'hidden'}}">
 
                 @if ($liga->deporte_id == 3 || $liga->deporte_id == 4)
-                <a class="crear-boton btn-unirse" href="{{ route('checkout.session') }}">INSCRIBIRSE</a>
+                <form action="{{ route('liga.inscribirse', ['liga' => $liga->id, 'userId' => $user->id]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="crear-boton btn-unirse">INSCRIBIRSE</button>
+                </form>
                 @else
-                <a class="crear-boton btn-unirse" href="{{route('liga.crearEquipo', ['liga' => $liga->id])}}">INSCRIBIRSE</a>
+                <form action="{{ route('liga.inscribirse', ['liga' => $liga->id, 'userId' => $user->id]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="crear-boton btn-unirse">INSCRIBIRSE</button>
+                </form>
                 @endif
 
             </div>

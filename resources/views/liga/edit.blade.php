@@ -20,7 +20,7 @@
                 @method('PUT')
 
                 <div id="nombre-div">
-                    <label for="nombre" class="crear-label">Nombre *</label>
+                    <label for="nombre" class="crear-label">Nombre</label>
                     <input type="text" name="nombre" id="nombre" class="crear-input" placeholder="Nombre de la liga" value="{{$liga->nombre}}">
                 </div>
 
@@ -35,7 +35,7 @@
                 </div>
 
                 <div id="numPistas-div">
-                    <label for="numPistas" class="crear-label">Pistas disponibles por turno *</label>
+                    <label for="numPistas" class="crear-label">Pistas disponibles por turno</label>
                     <input type="number" name="numPistas" id="numPistas" class="crear-input" min="1" placeholder="Pistas disponibles por turno" value="{{$liga->numPistas}}">
                     @error('numPistas')
                     <div class="error">
@@ -45,12 +45,12 @@
                 </div>
 
                 <div id="pnts_ganar-div">
-                    <label for="pnts_ganar" class="crear-label">Puntos por ganar *</label>
+                    <label for="pnts_ganar" class="crear-label">Puntos por ganar</label>
                     <input type="number" name="pnts_ganar" id="pnts_ganar" class="crear-input" min="0" placeholder="3" value="{{$liga->pnts_ganar}}">
                 </div>
 
                 <div id="pnts_perder-div">
-                    <label for="pnts_perder" class="crear-label">Puntos por perder *</label>
+                    <label for="pnts_perder" class="crear-label">Puntos por perder</label>
                     <input type="number" name="pnts_perder" id="pnts_perder" class="crear-input" min="0" placeholder="0" value="{{$liga->pnts_perder}}">
                 </div>
 

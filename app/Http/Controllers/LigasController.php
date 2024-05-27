@@ -301,7 +301,7 @@ class LigasController extends Controller
     {
         $fechaJornada = Carbon::create($fechaJornada);
         $dateDiff = abs($fechaJornada->diffInDays(Carbon::now()));
-        return $dateDiff < 5 && $dateDiff > 2;
+        return $dateDiff < 5 && $dateDiff > 1;
     }
 
     /**
@@ -334,14 +334,14 @@ class LigasController extends Controller
     {
         // Validar solo los campos que están presentes en la solicitud
         $validatedData = $request->validate([
-            'nombre' => ['sometimes', 'required', 'string', 'max:255'],
-            'numPistas' => ['sometimes', 'required', 'integer', 'min:0'],
-            'pnts_ganar' => ['sometimes', 'required', 'integer', 'min:0'],
-            'pnts_perder' => ['sometimes', 'required', 'integer', 'min:0'],
-            'pnts_empate' => ['sometimes', 'required', 'integer', 'min:0'],
-            'pnts_juego' => ['sometimes', 'required', 'integer', 'min:0'],
-            'txt_responsabilidad' => ['sometimes', 'required', 'string', 'max:1000'],
-            'logo' => ['sometimes', 'required', 'file', 'mimes:jpg,png,gif,jpeg'],
+            'nombre' => ['sometimes', 'string', 'max:255'],
+            'numPistas' => ['sometimes', 'integer', 'min:0'],
+            'pnts_ganar' => ['sometimes',  'integer', 'min:0'],
+            'pnts_perder' => ['sometimes',  'integer', 'min:0'],
+            'pnts_empate' => ['sometimes',  'integer', 'min:0'],
+            'pnts_juego' => ['sometimes',  'integer', 'min:0'],
+            'txt_responsabilidad' => ['sometimes',  'string', 'max:1000'],
+            'logo' => ['sometimes', 'file', 'mimes:jpg,png,gif,jpeg'],
         ]);
 
         if ($request->hasFile('logo')) {
@@ -933,6 +933,8 @@ class LigasController extends Controller
                     $idJugadorP1 = $pareja1[$j];
                     $idJugadorP2 = $pareja2[$j];
 
+                    
+
                     // Actualizar información de la pareja 1 (ganadora)
                     $jugadorLigaP1 = ParticipaEnLiga::where('liga_id', $liga->id)
                         ->where('jugadores_id', $idJugadorP1)
@@ -1143,8 +1145,6 @@ class LigasController extends Controller
                     ->where('jugadores_id', $idJugadorP1)
                     ->first();
 
-                dd($liga->id);
-
                 $partidosJugadosP1 = $jugadorLigaP1->num_partidos + 1;
                 $partidosPerdidos = $jugadorLigaP1->num_partidos_perdidos + 1;
 
@@ -1279,6 +1279,7 @@ class LigasController extends Controller
     {
         dd($request);
 
+        //No funciona
         $validatedData = $request->validate([
             'jugador1_nombre' => ['required', 'string', 'max:255'],
             'numPistas' => ['required', 'integer', 'min:0'],
@@ -1288,22 +1289,6 @@ class LigasController extends Controller
             'pnts_juego' => ['required', 'integer', 'min:0'],
             'txt_responsabilidad' => ['required', 'string', 'max:1000'],
             'logo' => ['required', 'file', 'mimes:jpg,png,gif,jpeg'],
-        ]);
-
-
-        return view('liga.pagar', [
-            'liga' => $liga,
-            'deportes' => Deportes::all(),
-            'user' => Auth::user()
-        ]);
-    }
-
-    public function pagar(Ligas $liga)
-    {
-        return view('liga.pagar', [
-            'liga' => $liga,
-            'deportes' => Deportes::all(),
-            'user' => Auth::user()
         ]);
     }
 
