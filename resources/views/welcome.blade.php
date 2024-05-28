@@ -139,7 +139,8 @@
             </div>
         </section>
 
-        <section class="section blanco">
+        <section class="section blanco section-cards">
+            <h2 class="section-cards_titulo">Suscripciones</h2>
             <div class="cards">
                 @foreach ($productos as $index => $producto)
                 <article class="card_suscripcion @if ($index == 2) resaltar @endif">

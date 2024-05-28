@@ -1,3 +1,18 @@
+.section-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 1rem;
+}
+
+.section-cards_titulo {
+    color: $colorPrincipal;
+    font-size: 4rem;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
 .cards {
     display: flex;
     flex-direction: row;
@@ -9,74 +24,69 @@
 .card_suscripcion {
     position: relative;
     width: 300px;
-    height: 450px;
-
+    height: 500px;
     padding: 2rem;
-
-    border-radius: 5px;
-
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4), 0px 7px 13px -3px rgba(0, 0, 0, 0.3), inset 0px -3px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: $blanco;
+    box-shadow: 0px 0px 0px 5px rgba(4, 7, 56, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .resaltar {
     height: 550px;
-    box-shadow: 0px 0px 0px 5px rgba(4, 7, 56, 0.2);
+    box-shadow: 0px 0px 0px 5px rgba(198, 207, 37, 1);
 }
 
 .suscripcion_info {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    margin-bottom: 5rem;
-
     color: $colorPrincipal;
 }
 
 .suscripcion_nombre {
-    font-size: 2rem;
+    font-size: 2.3rem;
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
+
+    white-space: nowrap;
 }
 
 .suscripcion_precio {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: $colorSecundario;
+    margin: 1rem 0;
 }
 
 .suscripcion_descripcion {
     font-size: 1.5rem;
     font-weight: 300;
     text-align: center;
+
+    margin-bottom: 2rem;
 }
 
 .suscripcion_btn {
     position: absolute;
     bottom: 25px;
-
     text-align: center;
     font-weight: 500;
     font-size: 1.5rem;
-
-    background-color: $blanco;
-    border: 2px solid $colorPrincipal;
-    color: $colorPrincipal;
-
+    background-color: $colorPrincipal;
+    color: $blanco;
     border-radius: 5px;
-
-    padding: .5rem 2rem;
-
+    padding: 1rem 3rem;
     transition: all 300ms;
 }
 
-.resaltar-btn{
-    background-color: $colorPrincipal;
-    color: $blanco;
+.suscripcion_btn:hover {
+    background-color: $colorSecundario;
+    color: $colorPrincipal;
+    scale: 1.1;
 }
 
-.suscripcion_btn:hover {
-    scale: 1.1;
-    background-color: $colorPrincipal;
-    color: $colorSecundario
+.resaltar-btn {
+    background-color: $colorSecundario;
+    color: $colorPrincipal;
 }
