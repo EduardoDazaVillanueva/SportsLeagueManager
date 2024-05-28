@@ -147,8 +147,7 @@ class LigasController extends Controller
         $deporteID = $validatedData["deporte_id"];
         $userId = Auth::id();
 
-        // Verificar si el organizador ya existe y crear si no
-        $organizador = Organizadores::where('user_id', $userId)->first() ?? Organizadores::create(['user_id' => $userId]);
+        $organizador = Organizadores::where('user_id', $userId)->first();
         $validatedData['organizadores_id'] = $organizador->id;
 
         // Manejo de carga de archivos
@@ -157,7 +156,7 @@ class LigasController extends Controller
                 $path = Storage::disk('public')->putFile('imagenes', $request->file('logo'));
                 $validatedData['logo'] = basename($path);
             } else {
-                $validatedData['logo'] = 'imagenes/liga.jpg';
+                $validatedData['logo'] = 'liga.jpg';
             }
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);
@@ -1277,8 +1276,6 @@ class LigasController extends Controller
 
     public function StoreEquipo(Request $request, Ligas $liga)
     {
-        dd($request);
-
         //No funciona
         $validatedData = $request->validate([
             'jugador1_nombre' => ['required', 'string', 'max:255'],

@@ -9,6 +9,7 @@ use App\Models\Jugadores;
 use App\Models\Ligas;
 use App\Models\Organizadores;
 use App\Models\ParticipaEnLiga;
+use App\Models\Productos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +20,7 @@ class ViewController extends Controller
         return view('welcome', [
             'deportes' => Deportes::all(),
             'user' => Auth::user(),
+            'productos' => Productos::all()
         ]);
     }
 
@@ -54,7 +56,8 @@ class ViewController extends Controller
         ]);
     }
 
-    public function getSobreNosotros(){
+    public function getSobreNosotros()
+    {
         return view('sobreNosotros', [
             'deportes' => Deportes::all(),
             'user' => Auth::user(),
@@ -65,44 +68,66 @@ class ViewController extends Controller
     {
         // Unir 'users' con 'jugadores' para obtener 'jugador_id'
         $jugador = Jugadores::where('user_id', $user->id)->first();
+        $organizador = Organizadores::where('user_id', $user->id)->first();
 
-        if ($jugador) {
-            // Unir con 'participa_en_ligas' para obtener las ligas donde el jugador participa
-            $ligas = null;
-            $ligasPropias = null;
+        $ligas = collect();
+        $ligasPropias = collect();
+        $jugadoresPorLigaAgrupados = collect();
 
-            
-            $ligas = ParticipaEnLiga::where('jugadores_id', $jugador->id)
-                ->join('ligas', 'participa_en_ligas.liga_id', '=', 'ligas.id')
-                ->select(
-                    'ligas.*'
-                )
-                ->get();
+        if ($jugador || $organizador) {
+            if ($jugador) {
+                $ligas = ParticipaEnLiga::where('jugadores_id', $jugador->id)
+                    ->join('ligas', 'participa_en_ligas.liga_id', '=', 'ligas.id')
+                    ->select('ligas.*')
+                    ->paginate(5);
 
-            $idPropietario = Organizadores::where('user_id', $user->id)
-                ->select('id')
-                ->first(); // Obtener solo el primer resultado
+                $ligaIds = $ligas->pluck('id');
 
-            if ($idPropietario) {
-                $ligasPropias = Ligas::where('organizadores_id', $idPropietario->id)
+                // Obtener todos los jugadores de las ligas en las que participa
+                $jugadoresPorLiga = ParticipaEnLiga::whereIn('liga_id', $ligaIds)
+                    ->join('jugadores', 'participa_en_ligas.jugadores_id', '=', 'jugadores.id')
+                    ->join('users', 'jugadores.user_id', '=', 'users.id')
+                    ->select('participa_en_ligas.liga_id', 'jugadores.*', 'users.name as user_name')
                     ->get();
+
+                // Agrupar jugadores por liga_id para facilitar la consulta en la vista
+                $jugadoresPorLigaAgrupados = $jugadoresPorLigaAgrupados->merge($jugadoresPorLiga->groupBy('liga_id'));
+            }
+
+            if ($organizador) {
+                $ligasPropias = Ligas::where('organizadores_id', $organizador->id)->paginate(5);
+
+                $ligaIds = $ligasPropias->pluck('id');
+
+                // Obtener todos los jugadores de las ligas que organiza
+                $jugadoresPorLiga = ParticipaEnLiga::whereIn('liga_id', $ligaIds)
+                    ->join('jugadores', 'participa_en_ligas.jugadores_id', '=', 'jugadores.id')
+                    ->join('users', 'jugadores.user_id', '=', 'users.id')
+                    ->select('participa_en_ligas.liga_id', 'jugadores.*', 'users.name as user_name')
+                    ->get();
+
+                // Agrupar jugadores por liga_id para facilitar la consulta en la vista
+                $jugadoresPorLigaAgrupados = $jugadoresPorLigaAgrupados->merge($jugadoresPorLiga->groupBy('liga_id'));
             }
 
             return view('user.perfil', [
                 'deportes' => Deportes::all(),
                 'user' => $user,
                 'ligas' => $ligas,
-                'ligasPropias' => $ligasPropias
+                'ligasPropias' => $ligasPropias,
+                'jugadores' => $jugadoresPorLigaAgrupados
             ]);
         } else {
             return view('user.perfil', [
                 'deportes' => Deportes::all(),
                 'user' => $user,
                 'ligas' => null,
-                'ligasPropias' => null
+                'ligasPropias' => null,
+                'jugadoresPorLigaAgrupados' => null
             ]);
         }
     }
+
 
     public function get404()
     {

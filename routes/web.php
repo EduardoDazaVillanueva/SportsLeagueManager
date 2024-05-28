@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompraController;
 use App\Http\Controllers\LigasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -17,7 +18,7 @@ Route::controller(ViewController::class)->group(function () {
     Route::get('perfil/{user}', 'getPerfil')->name('perfil');
     Route::get('/resposabilidad', 'getResponsabilidad');
     Route::get('/sobreNosotros', 'getSobreNosotros');
-    
+    Route::fallback('get404');    
 });
 
 Route::controller(LigasController::class)->group(function () {
@@ -26,8 +27,8 @@ Route::controller(LigasController::class)->group(function () {
     Route::get('liga/{liga}/Jugadores', 'ligaJugadores')->middleware('auth', 'verified');
     Route::get('liga/{liga}/Partidos', 'ligaPartidos')->name('liga.partidos')->middleware('auth', 'verified');
     Route::get('liga/{liga}', 'show')->middleware('auth', 'verified')->whereNumber('liga')->name('liga.show');
-    Route::get('liga/crear/{deporteID}', 'create');
-    Route::get('liga/editar/{liga}', 'edit')->middleware('EsOrganizador');
+    Route::get('liga/crear/{deporteID}', 'create')->middleware('EsOrganizador');
+    Route::get('liga/editar/{liga}', 'edit')->middleware('EsOrganizadorDeLiga');
     Route::get('liga/invitar/{liga}', 'invitar')->middleware('auth', 'verified');
     Route::get('liga/{liga}/resultado/{idPartido}', 'resultado')->middleware('ParticipaPartido');
     Route::get('liga/{liga}/crearEquipo', 'crearEquipo')->name('liga.crearEquipo')->middleware('auth', 'verified');
@@ -53,18 +54,15 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('reenviarCorreo', 'reenviarCorreo')->name('reenviarCorreo');
 });
 
-Route::fallback([ViewController::class, 'get404']);
+Route::controller(CompraController::class)->group(function () {
+    Route::get('/checkout', 'checkout')->name('compra.checkout');
+    Route::get('/paymentCallback/{producto_id}', 'paymentCallback')->name('paymentCallback');
+
+    Route::post('/processPayment', 'processPayment')->name('processPayment');
+});
 
 Route::get('/create-checkout-session', [StripeController::class, 'createCheckoutSession'])->name('checkout.session');
 
-Route::get('/success', function () {
-    
-    return view('success');
-})->name('success');
-
-Route::get('/cancel', function () {
-    return view('cancel');
-})->name('cancel');
 
 Route::get('/verify-email/{user}/{token}', function (App\Models\User $user, $token) {
     if ($user->verificar_token === $token) {

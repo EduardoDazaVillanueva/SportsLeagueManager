@@ -12,6 +12,100 @@
             <p>Teléfono: <strong>{{ $user['telefono'] }}</strong></p>
         </div>
 
+        @if (!$ligas->isEmpty())
+        <div class="ligas_perfil">
+            <h2 class="main_titulo">Participas</h2>
+            @foreach ($ligas as $liga)
+            <a href="/liga/{{$liga->id}}" class="section1_liga">
+                <article>
+
+                    <img class="liga_img-perfil" src="{{ asset('storage/imagenes/' . $liga['logo']) }}" alt="logo de la liga">
+
+                    <div class="liga_info">
+                        <h2 class="liga_nombre"> {{$liga["nombre"]}} </h2>
+
+                        @php
+                        $numeroJugadores = $jugadores->has($liga->id)
+                        ? $jugadores->get($liga->id)->count()
+                        : 0;
+                        @endphp
+
+                        <p class="liga_localidad"> Jugadores: <strong>{{ $numeroJugadores }}</strong> </p>
+
+                        <p class="liga_localidad"> {{$liga["fecha_inicio"]}} / {{$liga["fecha_final"]}} </p>
+                        <p class="liga_localidad">Localidad: <strong> {{$liga["localidad"]}} </strong></p>
+                        <p class="liga_sede">Sede: <strong> {{$liga["sede"]}} </strong></p>
+                    </div>
+                </article>
+            </a>
+            @endforeach
+
+            <div class="pagination-links">
+                <a href="{{ $ligas->previousPageUrl() }}" class="pagination-link">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+
+                <div class="pagination-numbers">
+                    @foreach ($ligas->getUrlRange(1, $ligas->lastPage()) as $page => $url)
+                    <a href="{{ $url }}" class="pagination-link @if ($ligas->currentPage() == $page) current-page @endif">{{ $page }}</a>
+                    @endforeach
+                </div>
+
+                <a href="{{ $ligas->nextPageUrl() }}" class="pagination-link">
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        @endif
+
+        @if (!$ligasPropias->isEmpty())
+        <h2 class="main_titulo">Organizas</h2>
+        <div class="ligas_perfil">
+            @foreach ($ligasPropias as $ligaPropia)
+            <a href="/liga/{{$ligaPropia->id}}" class="section1_liga">
+                <article>
+
+                    <img class="liga_img-perfil" src="{{ asset('storage/imagenes/' . $ligaPropia['logo']) }}" alt="logo de la liga">
+
+                    <div class="liga_info">
+                        <h2 class="liga_nombre"> {{$ligaPropia["nombre"]}} </h2>
+
+                        @php
+                        $numeroJugadores = $jugadores->has($ligaPropia->id)
+                        ? $jugadores->get($ligaPropia->id)->count()
+                        : 0;
+                        @endphp
+
+                        <p class="liga_localidad"> Jugadores: <strong>{{ $numeroJugadores }}</strong> </p>
+
+                        <p class="liga_localidad"> {{$ligaPropia["fecha_inicio"]}} / {{$ligaPropia["fecha_final"]}} </p>
+                        <p class="liga_localidad">Localidad: <strong> {{$ligaPropia["localidad"]}} </strong></p>
+                        <p class="liga_sede">Sede: <strong> {{$ligaPropia["sede"]}} </strong></p>
+                    </div>
+                </article>
+            </a>
+            @endforeach
+
+            <div class="pagination-links">
+                <a href="{{ $ligasPropias->previousPageUrl() }}" class="pagination-link">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+
+                <div class="pagination-numbers">
+                    @foreach ($ligasPropias->getUrlRange(1, $ligasPropias->lastPage()) as $page => $url)
+                    <a href="{{ $url }}" class="pagination-link @if ($ligasPropias->currentPage() == $page) current-page @endif">{{ $page }}</a>
+                    @endforeach
+                </div>
+
+                <a href="{{ $ligasPropias->nextPageUrl() }}" class="pagination-link">
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div>
+        @endif
+
+
     </main>
 
 

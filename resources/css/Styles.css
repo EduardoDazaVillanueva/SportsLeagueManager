@@ -1411,6 +1411,18 @@ tbody {
   -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
 }
 
+.ligas_perfil {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2rem;
+  padding: 2rem 5rem;
+}
+
+.liga_img-perfil {
+  max-width: 30%;
+}
+
 .main-preguntas {
   background-color: #eee;
   padding-bottom: 5rem;
@@ -1833,6 +1845,79 @@ tbody {
   color: #C6CF25;
 }
 
+.cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.card_suscripcion {
+  position: relative;
+  width: 300px;
+  height: 450px;
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4), 0px 7px 13px -3px rgba(0, 0, 0, 0.3), inset 0px -3px 0px rgba(0, 0, 0, 0.2);
+}
+
+.resaltar {
+  height: 550px;
+  box-shadow: 0px 0px 0px 5px rgba(4, 7, 56, 0.2);
+}
+
+.suscripcion_info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5rem;
+  color: #040738;
+}
+
+.suscripcion_nombre {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.suscripcion_precio {
+  font-size: 2.5rem;
+  color: #C6CF25;
+}
+
+.suscripcion_descripcion {
+  font-size: 1.5rem;
+  font-weight: 300;
+  text-align: center;
+}
+
+.suscripcion_btn {
+  position: absolute;
+  bottom: 25px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.5rem;
+  background-color: #fafafa;
+  border: 2px solid #040738;
+  color: #040738;
+  border-radius: 5px;
+  padding: 0.5rem 2rem;
+  transition: all 300ms;
+}
+
+.resaltar-btn {
+  background-color: #040738;
+  color: #fafafa;
+}
+
+.suscripcion_btn:hover {
+  scale: 1.1;
+  background-color: #040738;
+  color: #C6CF25;
+}
+
 @media (max-width: 1200px) {
   .main_section1 {
     justify-content: center;
@@ -2111,6 +2196,12 @@ tbody {
   .img_infoLiga {
     max-width: 100px;
     max-height: 100px;
+  }
+  .liga_img-perfil {
+    max-width: 50%;
+  }
+  .ligas_perfil {
+    padding: 2rem;
   }
 }
 @media (max-width: 430px) {

@@ -11,20 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jugador_juega_jornadas', function (Blueprint $table) {
+        Schema::create('usuario_compra_productos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jugador_id')
-                ->constrained('jugadores')
+            $table->foreignId('user_id')->constrained('users');
+            $table->dateTime('fecha_compra');
+            $table->foreignId('producto_id')
+                ->constrained('productos')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-
-            $table->foreignId('jornada_id')
-                ->constrained('jornadas')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-
-            $table->json('dia_posible');
-
             $table->timestamps();
         });
     }
@@ -34,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jugador_juega_jornadas');
+        Schema::dropIfExists('usuario_compra_productos');
     }
 };

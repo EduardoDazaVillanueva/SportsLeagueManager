@@ -66,3 +66,16 @@
     -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
     -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
 }
+
+.ligas_perfil{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2rem;
+
+    padding: 2rem 5rem;
+}
+
+.liga_img-perfil{
+    max-width: 30%;
+}
