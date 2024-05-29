@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .section-cards {
     display: flex;
     flex-direction: column;
@@ -11,6 +12,20 @@
     font-size: 4rem;
     text-transform: uppercase;
     margin-bottom: 2rem;
+=======
+.section-suscripcion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.titulo-suscripcion {
+    font-size: 4rem;
+    letter-spacing: 1px;
+    color: $colorPrincipal;
+    text-transform: uppercase;
+>>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
 }
 
 .cards {
@@ -25,11 +40,20 @@
     position: relative;
     width: 300px;
     height: 500px;
+<<<<<<< HEAD
     padding: 2rem;
     border-radius: 10px;
     background: $blanco;
     box-shadow: 0px 0px 0px 5px rgba(4, 7, 56, 0.2);
     transition: transform 0.3s, box-shadow 0.3s;
+=======
+
+    padding: 2rem;
+
+    border-radius: 5px;
+
+    box-shadow: 0px 0px 0px 5px rgba(4, 7, 56, 0.2);
+>>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
 }
 
 .resaltar {
@@ -45,16 +69,28 @@
 }
 
 .suscripcion_nombre {
+<<<<<<< HEAD
     font-size: 2.3rem;
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
 
+=======
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+>>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
     white-space: nowrap;
 }
 
 .suscripcion_precio {
+<<<<<<< HEAD
     font-size: 3rem;
+=======
+    font-size: 2.5rem;
+    font-weight: 500;
+>>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
     color: $colorSecundario;
     margin: 1rem 0;
 }
@@ -80,10 +116,17 @@
     transition: all 300ms;
 }
 
+<<<<<<< HEAD
 .suscripcion_btn:hover {
     background-color: $colorSecundario;
     color: $colorPrincipal;
     scale: 1.1;
+=======
+.resaltar-btn {
+    background-color: $colorSecundario;
+    color: $colorPrincipal;
+    border: 0px;
+>>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
 }
 
 .resaltar-btn {

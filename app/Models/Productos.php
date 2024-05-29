@@ -12,6 +12,7 @@ class Productos extends Model
     protected $fillable = [
         'nombre',
         'precio',
-        'descripcion'
+        'descripcion',
+        'liga_id'
     ];
 }

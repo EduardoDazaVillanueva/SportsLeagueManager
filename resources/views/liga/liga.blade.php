@@ -85,10 +85,13 @@
             <div class="liena"></div>
             <div class="{{$mostrarBotonInscribirse ? 'div-info-liga' : 'hidden'}}">
 
-                @if ($liga->deporte_id == 3 || $liga->deporte_id == 4)
-                <form action="{{ route('liga.inscribirse', ['liga' => $liga->id, 'userId' => $user->id]) }}" method="POST">
+                @if ($liga->precio != 0)
+                <form action="{{ route('compra.checkout') }}" method="GET">
                     @csrf
-                    <button type="submit" class="crear-boton btn-unirse">INSCRIBIRSE</button>
+                    <div class="suscripcion_info">
+                        <input type="hidden" name="producto_id" value="{{ $producto->id }}">
+                        <button type="submit" class="crear-boton btn-unirse">INSCRIBIRSE</button>
+                    </div>
                 </form>
                 @else
                 <form action="{{ route('liga.inscribirse', ['liga' => $liga->id, 'userId' => $user->id]) }}" method="POST">

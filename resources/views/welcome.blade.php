@@ -139,10 +139,15 @@
             </div>
         </section>
 
+<<<<<<< HEAD
         <section class="section blanco section-cards">
             <h2 class="section-cards_titulo">Suscripciones</h2>
+=======
+        <section class="section blanco section-suscripcion">
+            <h2 class="titulo-suscripcion">suscripciones</h2>
+>>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
             <div class="cards">
-                @foreach ($productos as $index => $producto)
+                @foreach ($productos->take(4) as $index => $producto)
                 <article class="card_suscripcion @if ($index == 2) resaltar @endif">
                     <form action="{{ route('compra.checkout') }}" method="GET">
                         @csrf

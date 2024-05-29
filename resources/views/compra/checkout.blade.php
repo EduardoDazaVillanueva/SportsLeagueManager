@@ -7,13 +7,14 @@
         <div class="container_tienda">
             <div class="tienda_container-izq">
                 <div class="tienda_info">
-                    <h4 class="tienda_nombre"> {{ $producto->nombre }}</h4>
+                    <h2 class="tienda_nombre"> {{ $producto->nombre }}</h2>
                     <p class="tienda_descripcion"> {{ $producto->descripcion }}</p>
                     <p class="tienda_precio"> {{ $producto->precio }}€</p>
                 </div>
             </div>
 
             <div class="tienda_container-der">
+<<<<<<< HEAD
                 <form id="payment-form" action="{{ route('processPayment') }}" method="POST">
                     @csrf
                     <input type="hidden" name="producto_id" value="{{ $producto->id }}">
@@ -34,6 +35,29 @@
                         <div id="generated-postal" class="card-input"></div>
                     </div>
                     <button type="submit" class="btn btn-primary">Pagar</button>
+=======
+                <h2 class="tienda_nombre">Información del pago</h2>
+                <form id="payment-form" action="{{ route('processPayment') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="producto_id" value="{{ $producto->id }}">
+                    <div class="form-group card-number">
+                        <label for="card-number" class="card-label">Número de Tarjeta</label>
+                        <div id="card-number" class="card-input"></div>
+                    </div>
+                    <div class="form-group card-expiry">
+                        <label for="card-expiry" class="card-label">Fecha de Vencimiento</label>
+                        <div id="card-expiry" class="card-input"></div>
+                    </div>
+                    <div class="form-group card-cvc">
+                        <label for="card-cvc" class="card-label">CVC</label>
+                        <div id="card-cvc" class="card-input"></div>
+                    </div>
+                    <div class="form-group generated-postal">
+                        <label for="card-postal" class="card-label">Código Postal</label>
+                        <div id="generated-postal" class="card-input"></div>
+                    </div>
+                    <button type="submit" class="btn-pagar">Pagar</button>
+>>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
                 </form>
             </div>
         </div>
