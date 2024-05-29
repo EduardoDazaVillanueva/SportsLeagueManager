@@ -112,10 +112,12 @@ button {
 
 .crear-input {
   width: 100%;
+  padding: 0.25rem;
 }
 
 .crear-txt {
   min-width: 100%;
+  padding: 0.25rem;
 }
 
 .crear-boton {
@@ -127,7 +129,7 @@ button {
   padding: 10px 0;
   border-radius: 10px;
   font-weight: bold;
-  color: #C6CF25;
+  color: #c6cf25;
   letter-spacing: 1px;
   background-color: #040738;
   box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
@@ -292,7 +294,7 @@ button {
 }
 
 .section2_button:hover {
-  color: #C6CF25;
+  color: #c6cf25;
 }
 
 .filtro_titulo {
@@ -737,7 +739,7 @@ i {
 
 .nav_list li:hover,
 .list_option:hover {
-  color: #C6CF25;
+  color: #c6cf25;
   scale: 1.1;
 }
 
@@ -773,7 +775,7 @@ i {
 }
 
 .desplegable:hover {
-  color: #C6CF25;
+  color: #c6cf25;
 }
 
 .desplegable:hover ul {
@@ -925,7 +927,7 @@ strong {
 
 .num {
   font-size: 4rem;
-  color: #C6CF25;
+  color: #c6cf25;
 }
 
 .container_numeros {
@@ -1111,7 +1113,7 @@ strong {
   right: 50%;
   width: 3px;
   height: 80%;
-  background-color: #C6CF25;
+  background-color: #c6cf25;
 }
 
 .partido_input {
@@ -1215,7 +1217,7 @@ tbody {
   -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
   background-color: #040738;
-  color: #C6CF25;
+  color: #c6cf25;
 }
 
 .tabla_img {
@@ -1263,7 +1265,7 @@ tbody {
   margin-left: -3.3rem;
   font-size: 2rem;
   letter-spacing: 1px;
-  color: #C6CF25;
+  color: #c6cf25;
   text-align: end;
   border-radius: 0.5rem;
   box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
@@ -1347,7 +1349,7 @@ tbody {
 
 .edit:hover,
 .share:hover {
-  color: #C6CF25;
+  color: #c6cf25;
 }
 
 .main-invitar {
@@ -1377,7 +1379,7 @@ tbody {
   margin-left: -3.3rem;
   font-size: 2rem;
   letter-spacing: 1px;
-  color: #C6CF25;
+  color: #c6cf25;
   border-radius: 0.5rem;
   box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
   -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
@@ -1386,7 +1388,7 @@ tbody {
 }
 
 .nombre_miPerfil {
-  color: #C6CF25;
+  color: #c6cf25;
   background-color: #040738;
   padding: 0.5rem;
   border-radius: 5px;
@@ -1457,7 +1459,7 @@ tbody {
 }
 
 .container-pregunta summary::marker {
-  color: #C6CF25;
+  color: #c6cf25;
 }
 
 .container-pregunta p {
@@ -1474,7 +1476,7 @@ tbody {
   justify-content: center;
   align-items: center;
   background-color: #040738;
-  color: #C6CF25;
+  color: #c6cf25;
   font-size: 3rem;
   border-radius: 10px;
   padding: 1rem 5rem;
@@ -1529,7 +1531,7 @@ tbody {
 
 .alerta_btn {
   color: #040738;
-  background-color: #C6CF25;
+  background-color: #c6cf25;
   text-transform: uppercase;
   font-weight: bold;
   padding: 0 3rem;
@@ -1654,7 +1656,7 @@ tbody {
   position: absolute;
   right: 50%;
   top: 20px;
-  background-color: #C6CF25;
+  background-color: #c6cf25;
   width: 4px;
   height: 100%;
 }
@@ -1720,7 +1722,7 @@ tbody {
 }
 
 .footer_list li:hover {
-  color: #C6CF25;
+  color: #c6cf25;
   scale: 1.1;
 }
 
@@ -1745,7 +1747,7 @@ tbody {
 }
 
 .rrss li:hover {
-  color: #C6CF25;
+  color: #c6cf25;
   scale: 1.1;
 }
 
@@ -1755,7 +1757,7 @@ tbody {
 
 .copy {
   font-size: 1.3rem;
-  color: #C6CF25;
+  color: #c6cf25;
 }
 
 .main-responsabilidad {
@@ -1842,7 +1844,21 @@ tbody {
 }
 
 .current-page {
-  color: #C6CF25;
+  color: #c6cf25;
+}
+
+.section-suscripcion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.titulo-suscripcion {
+  font-size: 4rem;
+  letter-spacing: 1px;
+  color: #040738;
+  text-transform: uppercase;
 }
 
 .cards {
@@ -1856,15 +1872,15 @@ tbody {
 .card_suscripcion {
   position: relative;
   width: 300px;
-  height: 450px;
+  height: 500px;
   padding: 2rem;
   border-radius: 5px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4), 0px 7px 13px -3px rgba(0, 0, 0, 0.3), inset 0px -3px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 0px 5px rgba(4, 7, 56, 0.2);
 }
 
 .resaltar {
   height: 550px;
-  box-shadow: 0px 0px 0px 5px rgba(4, 7, 56, 0.2);
+  box-shadow: 0px 0px 0px 5px rgb(198, 207, 37);
 }
 
 .suscripcion_info {
@@ -1876,15 +1892,17 @@ tbody {
 }
 
 .suscripcion_nombre {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
+  white-space: nowrap;
 }
 
 .suscripcion_precio {
   font-size: 2.5rem;
-  color: #C6CF25;
+  font-weight: 500;
+  color: #c6cf25;
 }
 
 .suscripcion_descripcion {
@@ -1908,14 +1926,137 @@ tbody {
 }
 
 .resaltar-btn {
-  background-color: #040738;
-  color: #fafafa;
+  background-color: #c6cf25;
+  color: #040738;
+  border: 0px;
 }
 
 .suscripcion_btn:hover {
   scale: 1.1;
   background-color: #040738;
-  color: #C6CF25;
+  color: #c6cf25;
+}
+
+.container_tienda {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: start;
+  gap: 5rem;
+  min-height: 50vh;
+  margin-bottom: 5rem;
+  padding: 2rem;
+}
+
+.tienda_container-izq {
+  flex-basis: calc(30% - 5rem);
+  padding: 3rem;
+  font-size: 2rem;
+  border-radius: 5px;
+  background-color: #fafafa;
+  box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+}
+
+.tienda_info {
+  text-align: center;
+  color: #040738;
+}
+
+.tienda_nombre {
+  font-size: 4rem;
+  color: #040738;
+  text-align: center;
+}
+
+.tienda_descripcion {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.tienda_precio {
+  color: #c6cf25;
+  font-size: 2.5rem;
+}
+
+.tienda_container-der {
+  flex-basis: calc(70% - 5rem);
+  padding: 3rem;
+  font-size: 2rem;
+  border-radius: 5px;
+  background-color: #fafafa;
+  box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  margin-right: 5rem;
+}
+
+#payment-form {
+  display: grid;
+  align-items: center;
+  gap: 3rem;
+  padding: 0 5rem;
+  grid-template-areas: "num num num" "expire cvc postal" ". btn .";
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+}
+
+.form-group {
+  font-size: 2.3rem;
+  color: #040738;
+}
+
+.card-input {
+  background-color: #eee;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 0px rgba(4, 7, 56, 0.2);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(4, 7, 56, 0.2);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(4, 7, 56, 0.2);
+}
+
+.card-number {
+  grid-area: num;
+}
+
+.card-expiry {
+  grid-area: expire;
+}
+
+.card-cvc {
+  grid-area: cvc;
+}
+
+.generated-postal {
+  grid-area: postal;
+}
+
+.btn-pagar {
+  grid-area: btn;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60%;
+  border-radius: 10px;
+  font-weight: bold;
+  color: #c6cf25;
+  letter-spacing: 1px;
+  background-color: #040738;
+  box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
+  -webkit-box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
+  -moz-box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
+  cursor: pointer;
+  transition: all 0.35s ease-in-out;
+}
+
+.btn-pagar:hover {
+  scale: 1.1;
+  box-shadow: 0px 15px 8px -10px rgb(4, 7, 56);
+  -webkit-box-shadow: 0px 15px 8px -10px rgb(4, 7, 56);
+  -moz-box-shadow: 0px 15px 8px -10px rgb(4, 7, 56);
 }
 
 @media (max-width: 1200px) {
@@ -2084,7 +2225,7 @@ tbody {
   }
   .nav_list li:hover,
   .list_option:hover {
-    color: #C6CF25;
+    color: #c6cf25;
     scale: 1;
   }
   .logo {
@@ -2119,7 +2260,7 @@ tbody {
   }
   .menu_movil {
     font-size: 2rem;
-    color: #C6CF25;
+    color: #c6cf25;
     cursor: pointer;
   }
   .menu_cerrar {
@@ -2130,7 +2271,7 @@ tbody {
   }
   .menu_cerrar i {
     font-size: 3rem;
-    color: #C6CF25;
+    color: #c6cf25;
     cursor: pointer;
   }
   .menu_lista {
@@ -2257,5 +2398,5 @@ main {
 }
 
 .resalto {
-  color: #C6CF25;
+  color: #c6cf25;
 }/*# sourceMappingURL=Styles.css.map */

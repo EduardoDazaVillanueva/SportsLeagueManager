@@ -14,6 +14,7 @@ use App\Models\PartidoParticipaJugadores;
 use App\Models\UsuarioInvitaUsuario;
 use App\Models\User;
 use App\Models\JugadorTieneEquipo;
+use App\Models\Productos;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -168,6 +169,18 @@ class LigasController extends Controller
         //Crear las jornadas
         $this->crearJornada($liga);
 
+        if ($liga->precio != 0) {
+            $producto = [
+                'nombre' => 'Inscripción ' . $liga->nombre,
+                'precio' => $liga->precio,
+                'descripcion' => 'Puedes participar en la liga ' . $liga->nombre . ', desde la fecha ' . $liga->fecha_inicio . ' hasta ' . $liga->fecha_final,
+                'liga_id' => $liga->id
+            ];
+
+            Productos::create($producto);
+        }
+
+
         return redirect("liga/deporte/{$deporteID}")->with('success', 'La liga ha sido creada con éxito.');
     }
 
@@ -259,6 +272,10 @@ class LigasController extends Controller
             }
         }
 
+        $producto = Productos::where('liga_id', $liga->id)->first();
+
+        
+
         // Devolver la vista con todos los datos
         return view('liga.liga', [
             'liga' => $liga,
@@ -270,6 +287,7 @@ class LigasController extends Controller
             'fechaJornada' => $fechaJornada,
             'mostrarDivRango' => $this->mostrarDivRango($fechaJornada),
             'mostrarBotonInscribirse' => $this->mostrarBotonInscribirse($liga->fecha_fin_inscripcion),
+            'producto' => $producto
         ]);
     }
 
@@ -932,7 +950,7 @@ class LigasController extends Controller
                     $idJugadorP1 = $pareja1[$j];
                     $idJugadorP2 = $pareja2[$j];
 
-                    
+
 
                     // Actualizar información de la pareja 1 (ganadora)
                     $jugadorLigaP1 = ParticipaEnLiga::where('liga_id', $liga->id)

@@ -7,7 +7,9 @@ use Stripe\Stripe;
 use Stripe\PaymentIntent;
 use App\Models\Productos;
 use App\Models\Deportes;
+use App\Models\Jugadores;
 use App\Models\Organizadores;
+use App\Models\ParticipaEnLiga;
 use App\Models\UsuarioCompraProducto;
 use Illuminate\Support\Facades\Auth;
 
@@ -76,11 +78,16 @@ class CompraController extends Controller
         $producto_id = $request->route('producto_id');
         $producto = Productos::findOrFail($producto_id);
         $user = Auth::user();
-
+        $liga_id = $producto->liga_id;
+        
         // Verificar si el usuario es un organizador y crear uno si no lo es
-
+        
         if (in_array($producto->id, [1, 2, 3, 4])) {
             Organizadores::firstOrCreate(['user_id' => $user->id]);
+        }else{
+            $jugador = Jugadores::firstOrCreate(['user_id' => $user->id]);
+            ParticipaEnLiga::firstOrCreate(['liga_id' => $liga_id,
+            'jugadores_id' => $jugador->id,]);
         }
 
         return view('welcome')->with([

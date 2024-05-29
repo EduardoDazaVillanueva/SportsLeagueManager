@@ -139,9 +139,10 @@
             </div>
         </section>
 
-        <section class="section blanco">
+        <section class="section blanco section-suscripcion">
+            <h2 class="titulo-suscripcion">suscripciones</h2>
             <div class="cards">
-                @foreach ($productos as $index => $producto)
+                @foreach ($productos->take(4) as $index => $producto)
                 <article class="card_suscripcion @if ($index == 2) resaltar @endif">
                     <form action="{{ route('compra.checkout') }}" method="GET">
                         @csrf
