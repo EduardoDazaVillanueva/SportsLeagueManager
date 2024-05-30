@@ -1847,30 +1847,32 @@ tbody {
   color: #c6cf25;
 }
 
-<<<<<<< HEAD
 .section-cards {
-=======
-.section-suscripcion {
->>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
 }
 
-<<<<<<< HEAD
 .section-cards_titulo {
   color: #040738;
   font-size: 4rem;
   text-transform: uppercase;
   margin-bottom: 2rem;
-=======
+}
+
+.section-suscripcion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
 .titulo-suscripcion {
   font-size: 4rem;
   letter-spacing: 1px;
   color: #040738;
   text-transform: uppercase;
->>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
 }
 
 .cards {
@@ -1886,15 +1888,10 @@ tbody {
   width: 300px;
   height: 500px;
   padding: 2rem;
-<<<<<<< HEAD
   border-radius: 10px;
   background: #fafafa;
   box-shadow: 0px 0px 0px 5px rgba(4, 7, 56, 0.2);
   transition: transform 0.3s, box-shadow 0.3s;
-=======
-  border-radius: 5px;
-  box-shadow: 0px 0px 0px 5px rgba(4, 7, 56, 0.2);
->>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
 }
 
 .resaltar {
@@ -1910,11 +1907,7 @@ tbody {
 }
 
 .suscripcion_nombre {
-<<<<<<< HEAD
   font-size: 2.3rem;
-=======
-  font-size: 2.5rem;
->>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
@@ -1922,15 +1915,9 @@ tbody {
 }
 
 .suscripcion_precio {
-<<<<<<< HEAD
   font-size: 3rem;
   color: #c6cf25;
   margin: 1rem 0;
-=======
-  font-size: 2.5rem;
-  font-weight: 500;
-  color: #c6cf25;
->>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
 }
 
 .suscripcion_descripcion {
@@ -1953,7 +1940,6 @@ tbody {
   transition: all 300ms;
 }
 
-<<<<<<< HEAD
 .suscripcion_btn:hover {
   background-color: #c6cf25;
   color: #040738;
@@ -1963,59 +1949,31 @@ tbody {
 .resaltar-btn {
   background-color: #c6cf25;
   color: #040738;
-=======
-.resaltar-btn {
-  background-color: #c6cf25;
-  color: #040738;
-  border: 0px;
-}
-
-.suscripcion_btn:hover {
-  scale: 1.1;
-  background-color: #040738;
-  color: #c6cf25;
->>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
 }
 
 .container_tienda {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-<<<<<<< HEAD
   align-items: stretch;
   gap: 5rem;
   padding: 2rem 5rem;
   font-size: 2rem;
   color: #040738;
-=======
-  align-items: start;
-  gap: 5rem;
-  min-height: 50vh;
-  margin-bottom: 5rem;
-  padding: 2rem;
->>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
 }
 
 .tienda_container-izq {
   flex-basis: calc(30% - 5rem);
-<<<<<<< HEAD
   background-color: #fafafa;
   border-radius: 5px;
   padding: 2rem;
   min-height: 50vh;
-=======
-  padding: 3rem;
-  font-size: 2rem;
-  border-radius: 5px;
-  background-color: #fafafa;
->>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
   box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
 }
 
 .tienda_info {
-<<<<<<< HEAD
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -2031,31 +1989,10 @@ tbody {
 .tienda_precio {
   font-size: 3rem;
   color: #c6cf25;
-=======
-  text-align: center;
-  color: #040738;
-}
-
-.tienda_nombre {
-  font-size: 4rem;
-  color: #040738;
-  text-align: center;
-}
-
-.tienda_descripcion {
-  width: 80%;
-  margin: 0 auto;
-}
-
-.tienda_precio {
-  color: #c6cf25;
-  font-size: 2.5rem;
->>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
 }
 
 .tienda_container-der {
   flex-basis: calc(70% - 5rem);
-<<<<<<< HEAD
   background-color: #fafafa;
   border-radius: 5px;
   padding: 2rem;
@@ -2063,83 +2000,6 @@ tbody {
   box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
-=======
-  padding: 3rem;
-  font-size: 2rem;
-  border-radius: 5px;
-  background-color: #fafafa;
-  box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
-  -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
-  -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
-  margin-right: 5rem;
-}
-
-#payment-form {
-  display: grid;
-  align-items: center;
-  gap: 3rem;
-  padding: 0 5rem;
-  grid-template-areas: "num num num" "expire cvc postal" ". btn .";
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 1fr;
-}
-
-.form-group {
-  font-size: 2.3rem;
-  color: #040738;
-}
-
-.card-input {
-  background-color: #eee;
-  padding: 1rem 1.5rem;
-  width: 100%;
-  border-radius: 5px;
-  box-shadow: 0px 0px 5px 0px rgba(4, 7, 56, 0.2);
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(4, 7, 56, 0.2);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(4, 7, 56, 0.2);
-}
-
-.card-number {
-  grid-area: num;
-}
-
-.card-expiry {
-  grid-area: expire;
-}
-
-.card-cvc {
-  grid-area: cvc;
-}
-
-.generated-postal {
-  grid-area: postal;
-}
-
-.btn-pagar {
-  grid-area: btn;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 60%;
-  border-radius: 10px;
-  font-weight: bold;
-  color: #c6cf25;
-  letter-spacing: 1px;
-  background-color: #040738;
-  box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
-  -webkit-box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
-  -moz-box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
-  cursor: pointer;
-  transition: all 0.35s ease-in-out;
-}
-
-.btn-pagar:hover {
-  scale: 1.1;
-  box-shadow: 0px 15px 8px -10px rgb(4, 7, 56);
-  -webkit-box-shadow: 0px 15px 8px -10px rgb(4, 7, 56);
-  -moz-box-shadow: 0px 15px 8px -10px rgb(4, 7, 56);
->>>>>>> 73b480085a92e71a696dc1815843c1c006286ea6
 }
 
 @media (max-width: 1200px) {
