@@ -14,27 +14,30 @@
             </div>
 
             <div class="tienda_container-der">
+                <h2 class="tienda_nombre">Información del pago</h2>
                 <form id="payment-form" action="{{ route('processPayment') }}" method="POST">
                     @csrf
                     <input type="hidden" name="producto_id" value="{{ $producto->id }}">
-                    <div class="form-group">
+                    <div class="form-group card-number">
                         <label for="card-number" class="card-label">Número de Tarjeta</label>
                         <div id="card-number" class="card-input"></div>
+                        <div class="card-errors" role="alert"></div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group card-expiry">
                         <label for="card-expiry" class="card-label">Fecha de Vencimiento</label>
                         <div id="card-expiry" class="card-input"></div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group card-cvc">
                         <label for="card-cvc" class="card-label">CVC</label>
                         <div id="card-cvc" class="card-input"></div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group generated-postal">
                         <label for="card-postal" class="card-label">Código Postal</label>
                         <div id="generated-postal" class="card-input"></div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Pagar</button>
+                    <button type="submit" id="stripeSubmitButton" class="btn-pagar">Pagar</button>
                 </form>
+                <div id="payment-errors" role="alert"></div>
             </div>
         </div>
     </div>
@@ -61,6 +64,11 @@
             form.addEventListener('submit', async (event) => {
                 event.preventDefault();
 
+                let submitButton = document.getElementById('stripeSubmitButton');
+                submitButton.innerHTML = `<div class="spinner">
+        <i class="fas fa-circle-notch spin"></i> Cargando...
+</div>`
+
                 const {
                     paymentMethod,
                     error
@@ -78,8 +86,9 @@
                 });
 
                 if (error) {
-                    const errorElement = document.getElementById('card-errors');
+                    const errorElement = document.getElementById('payment-errors');
                     errorElement.textContent = error.message;
+                    submitButton.innerText = 'Pagar'
                 } else {
                     const response = await fetch("{{ route('processPayment') }}", {
                         method: 'POST',
@@ -98,7 +107,7 @@
 
                     if (result.requires_action) {
                         stripe.handleCardAction(result.payment_intent_client_secret).then(
-                        async function(result) {
+                            async function(result) {
                                 if (result.error) {
                                     alert('El pago falló.');
                                 } else {
@@ -117,13 +126,16 @@
                                                     .value
                                             })
                                         });
+                                    submitButton.innerText = 'Pagar'
                                     const confirmResult = await confirmResponse.json();
                                     handleServerResponse(confirmResult);
                                 }
                             });
                     } else if (result.success) {
+                        submitButton.innerText = 'Pagar'
                         window.location.href = result.redirect_url;
                     } else {
+                        submitButton.innerText = 'Pagar'
                         alert('El pago falló.');
                     }
                 }

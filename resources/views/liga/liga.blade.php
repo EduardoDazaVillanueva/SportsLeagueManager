@@ -75,7 +75,6 @@
                     @endif
                     @if ($liga->precio > 0)
                     <p>La inscripción es de <strong> {{$liga->precio}}€ </strong></p>
-                    <p>Para abonarla hable con el creador de la liga<strong> {{$organizador->name}}</strong> en el número <strong>{{$organizador->telefono}}</strong></p>
                     @else
                     <p>La inscripción es <strong> Gratis </strong></p>
                     @endif
@@ -86,10 +85,9 @@
             <div class="{{$mostrarBotonInscribirse ? 'div-info-liga' : 'hidden'}}">
 
                 @if ($liga->precio != 0)
-                <form action="{{ route('compra.checkout') }}" method="GET">
+                <form action="{{ route('compra.checkout', ['producto' => $producto->id])}}" method="GET">
                     @csrf
                     <div class="suscripcion_info">
-                        <input type="hidden" name="producto_id" value="{{ $producto->id }}">
                         <button type="submit" class="crear-boton btn-unirse">INSCRIBIRSE</button>
                     </div>
                 </form>

@@ -2,6 +2,8 @@
 .alert{
     position: absolute;
     top: 200px;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     display: flex;
     flex-direction: column;
@@ -94,10 +96,6 @@
     display: flex;
     justify-content: center;
     align-items: center;    
-}
-
-.envioEmail{
-    top: 150px;
 }
 
 .alerta-email_titulo{

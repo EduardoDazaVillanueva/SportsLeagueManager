@@ -73,9 +73,17 @@
     align-items: stretch;
     gap: 2rem;
 
+    width: 70%;
+    margin: 0 auto;
+
     padding: 2rem 5rem;
 }
 
 .liga_img-perfil{
     max-width: 30%;
+}
+
+.liga_perfil{
+    width: 80%;
+    margin: 0 auto;
 }

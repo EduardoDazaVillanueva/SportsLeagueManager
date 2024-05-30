@@ -55,13 +55,11 @@ Route::controller(LoginController::class)->group(function () {
 });
 
 Route::controller(CompraController::class)->group(function () {
-    Route::get('/checkout', 'checkout')->name('compra.checkout');
-    Route::get('/paymentCallback/{producto_id}', 'paymentCallback')->name('paymentCallback');
+    Route::get('/checkout/{producto}', 'checkout')->name('compra.checkout')->middleware('auth', 'verified', 'YaComprado');
+    Route::get('/paymentCallback/{producto}', 'paymentCallback')->name('paymentCallback')->middleware('auth', 'verified');
 
-    Route::post('/processPayment', 'processPayment')->name('processPayment');
+    Route::post('/processPayment', 'processPayment')->name('processPayment')->middleware('auth', 'verified');
 });
-
-Route::get('/create-checkout-session', [StripeController::class, 'createCheckoutSession'])->name('checkout.session');
 
 
 Route::get('/verify-email/{user}/{token}', function (App\Models\User $user, $token) {

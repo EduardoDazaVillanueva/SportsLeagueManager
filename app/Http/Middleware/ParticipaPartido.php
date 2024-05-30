@@ -2,11 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Jornadas;
 use App\Models\Jugadores;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\PartidoParticipaJugadores;
+use App\Models\Partidos;
 
 class ParticipaPartido
 {
@@ -22,17 +24,20 @@ class ParticipaPartido
             ->select('jugadores.id')
             ->get();
 
-        foreach ($jugadoresDeEstePartido as $jugador){
+        $partido = Partidos::where('id', $request->route('idPartido'))->first();
+        $jornada = Jornadas::where('id', $partido->jornada_id)->first();
+
+        foreach ($jugadoresDeEstePartido as $jugador) {
 
             $user_id = Jugadores::where('id', $jugador->id)
-            ->select('user_id')->first();
+                ->select('user_id')
+                ->first();
 
-            if ($user_id->user_id == Auth()->id()) {
+            if ($user_id->user_id == Auth()->id() && $jornada->{'fecha-final'} <= now()) {
                 return $next($request);
             }
         }
-        
-        return redirect()->back()->with('error', 'No eres participante de este partido');
 
+        return redirect()->back()->with('error', 'No puedes añadir resultado a este partido');
     }
 }

@@ -10,8 +10,11 @@ use App\Models\Ligas;
 use App\Models\Organizadores;
 use App\Models\ParticipaEnLiga;
 use App\Models\Productos;
+use App\Models\UsuarioCompraProducto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use Carbon\Carbon;
 
 class ViewController extends Controller
 {
@@ -74,6 +77,25 @@ class ViewController extends Controller
         $ligasPropias = collect();
         $jugadoresPorLigaAgrupados = collect();
 
+        $suscripcion = UsuarioCompraProducto::where('user_id', $user->id)
+            ->whereIn('producto_id', [1, 2, 3, 4])
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        $diasRestantes = null;
+
+        if ($suscripcion) {
+            if ($suscripcion->producto_id == 1) {
+                $diasRestantes = $this->comprobarSuscripcion($suscripcion, 30);
+            } elseif ($suscripcion->producto_id == 2) {
+                $diasRestantes = $this->comprobarSuscripcion($suscripcion, 90);
+            } elseif ($suscripcion->producto_id == 3) {
+                $diasRestantes = $this->comprobarSuscripcion($suscripcion, 365);
+            } else {
+                $diasRestantes = -2;
+            }
+        }
+
         if ($jugador || $organizador) {
             if ($jugador) {
                 $ligas = ParticipaEnLiga::where('jugadores_id', $jugador->id)
@@ -115,7 +137,8 @@ class ViewController extends Controller
                 'user' => $user,
                 'ligas' => $ligas,
                 'ligasPropias' => $ligasPropias,
-                'jugadores' => $jugadoresPorLigaAgrupados
+                'jugadores' => $jugadoresPorLigaAgrupados,
+                'suscripcion' => $diasRestantes
             ]);
         } else {
             return view('user.perfil', [
@@ -123,7 +146,8 @@ class ViewController extends Controller
                 'user' => $user,
                 'ligas' => null,
                 'ligasPropias' => null,
-                'jugadoresPorLigaAgrupados' => null
+                'jugadoresPorLigaAgrupados' => null,
+                'suscripcion' => $diasRestantes
             ]);
         }
     }
@@ -135,5 +159,20 @@ class ViewController extends Controller
             'deportes' => Deportes::all(),
             'user' => Auth::user(),
         ]);
+    }
+
+    private function comprobarSuscripcion($suscripcion, $dias)
+    {
+        $fechaCreacion = Carbon::parse($suscripcion->created_at);
+        $fechaExpiracion = $fechaCreacion->addDays($dias);
+        $fechaActual = Carbon::now();
+
+        if ($fechaActual->greaterThanOrEqualTo($fechaExpiracion)) {
+            // La suscripción ha expirado
+            return -1;
+        } else {
+            // La suscripción aún es válida, devolver cuántos días quedan
+            return floor($fechaActual->diffInDays($fechaExpiracion));
+        }
     }
 }

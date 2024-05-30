@@ -24,14 +24,13 @@
             @else
             @foreach ($partidos as $partido)
             @php
-            $resultado = $partido->resultado; // Suponiendo que $partido->resultado es una cadena de texto
+            $resultado = $partido->resultado;
 
             // Convertir la cadena en un array
             $datos = array_map(function ($dato) {
             $dato = trim($dato, '[]"');
-            // Verificar si el número tiene más de un dígito y el primer dígito es "0"
+
             if (strlen($dato) > 1 && $dato[0] === '0') {
-            // Eliminar el "0" del principio
             return substr($dato, 1);
             }
             return $dato;
@@ -113,16 +112,20 @@
                         @endforeach
                     </div>
 
-                    @if ($participaUsuario && $partido->resultado == '')
-                    <div class="partido_resultado">
+
+                    @php
+                    $jornadaActual = App\Models\Jornadas::where('id', $partido->jornada_id)->first();
+                    @endphp
+
+                    @if ($participaUsuario && $partido->resultado == '' && $jornada->{'fecha-final'} <= now()) <div class="partido_resultado">
                         <form action="/liga/{{ $liga->id }}/resultado/{{ $idPartido }}">
                             <button type="submit" class="btnResultado">Añadir resultado</button>
                         </form>
-                    </div>
-                    @else
-                    <div class="partido_resultado">
-                    </div>
-                    @endif
+                </div>
+                @else
+                <div class="partido_resultado">
+                </div>
+                @endif
 
                 </div>
             </article>

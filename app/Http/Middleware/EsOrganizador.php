@@ -23,7 +23,7 @@ class EsOrganizador
         if($organizador){
             return $next($request);
         }else{
-            return redirect()->back()->with('error', 'No eres el organizador de esta liga');
+            return redirect()->back()->with('error', 'No eres organizador, debes pagar una suscripción');
         }
 
     }

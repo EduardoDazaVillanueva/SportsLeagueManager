@@ -139,19 +139,18 @@
             </div>
         </section>
 
-        <section class="section blanco section-suscripcion">
+        <section class="section blanco section-suscripcion" id="suscripcion">
             <h2 class="titulo-suscripcion">suscripciones</h2>
             <div class="cards">
                 @foreach ($productos->take(4) as $index => $producto)
                 <article class="card_suscripcion @if ($index == 2) resaltar @endif">
-                    <form action="{{ route('compra.checkout') }}" method="GET">
+                    <form action="{{ route('compra.checkout', ['producto' => $producto->id])}}" method="GET">
 
                         @csrf
                         <div class="suscripcion_info">
                             <h3 class="suscripcion_nombre">{{ $producto->nombre }}</h3>
                             <h3 class="suscripcion_precio">{{ $producto->precio }}€</h3>
                             <h3 class="suscripcion_descripcion">{{ $producto->descripcion }}</h3>
-                            <input type="hidden" name="producto_id" value="{{ $producto->id }}">
                             <button type="submit" class="suscripcion_btn @if ($index == 2) resaltar-btn @endif">Proceder al Pago</button>
                         </div>
                     </form>
@@ -166,6 +165,15 @@
             <div class="alerta envioEmail" id="alerta">
                 <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
                 <h2 class="alerta-email_titulo">{{ $success }}</h2>
+            </div>
+        </div>
+        @endif
+
+        @if (session('error'))
+        <div class="w-100">
+            <div class="alerta envioEmail" id="alerta">
+                <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
+                <h2 class="alerta-email_titulo">{{session('error')}}</h2>
             </div>
         </div>
         @endif

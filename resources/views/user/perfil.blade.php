@@ -12,32 +12,58 @@
             <p>Teléfono: <strong>{{ $user['telefono'] }}</strong></p>
         </div>
 
-        @if (!$ligas->isEmpty())
+        @if($suscripcion != -1 && $suscripcion != -2 && $suscripcion != null)
+        <div>
+            <h2>Tu suscripción termina en {{$suscripcion}} días</h2>
+        </div>
+        @endif
+
+        @if($suscripcion == -1)
+        <div>
+            <h2>Tu suscripción a caducado, te toca <a href="/#suscripcion">renovar</a></h2>
+        </div>
+        @endif
+
+        @if($suscripcion == null)
+        <div>
+            <h2>No te has suscrito todavia</h2>
+        </div>
+        @endif
+
+        @if($suscripcion == -2)
+        <div>
+            <h2>Tu suscrpción no caduca NUNCA</h2>
+        </div>
+        @endif
+
+        @if ($ligas != null && !$ligas->isEmpty())
         <div class="ligas_perfil">
             <h2 class="main_titulo">Participas</h2>
             @foreach ($ligas as $liga)
-            <a href="/liga/{{$liga->id}}" class="section1_liga">
-                <article>
+            <div class="liga_perfil">
+                <a href="/liga/{{$liga->id}}" class="section1_liga">
+                    <article>
 
-                    <img class="liga_img-perfil" src="{{ asset('storage/imagenes/' . $liga['logo']) }}" alt="logo de la liga">
+                        <img class="liga_img-perfil" src="{{ asset('storage/imagenes/' . $liga['logo']) }}" alt="logo de la liga">
 
-                    <div class="liga_info">
-                        <h2 class="liga_nombre"> {{$liga["nombre"]}} </h2>
+                        <div class="liga_info">
+                            <h2 class="liga_nombre"> {{$liga["nombre"]}} </h2>
 
-                        @php
-                        $numeroJugadores = $jugadores->has($liga->id)
-                        ? $jugadores->get($liga->id)->count()
-                        : 0;
-                        @endphp
+                            @php
+                            $numeroJugadores = $jugadores->has($liga->id)
+                            ? $jugadores->get($liga->id)->count()
+                            : 0;
+                            @endphp
 
-                        <p class="liga_localidad"> Jugadores: <strong>{{ $numeroJugadores }}</strong> </p>
+                            <p class="liga_localidad"> Jugadores: <strong>{{ $numeroJugadores }}</strong> </p>
 
-                        <p class="liga_localidad"> {{$liga["fecha_inicio"]}} / {{$liga["fecha_final"]}} </p>
-                        <p class="liga_localidad">Localidad: <strong> {{$liga["localidad"]}} </strong></p>
-                        <p class="liga_sede">Sede: <strong> {{$liga["sede"]}} </strong></p>
-                    </div>
-                </article>
-            </a>
+                            <p class="liga_localidad"> {{$liga["fecha_inicio"]}} / {{$liga["fecha_final"]}} </p>
+                            <p class="liga_localidad">Localidad: <strong> {{$liga["localidad"]}} </strong></p>
+                            <p class="liga_sede">Sede: <strong> {{$liga["sede"]}} </strong></p>
+                        </div>
+                    </article>
+                </a>
+            </div>
             @endforeach
 
             <div class="pagination-links">
@@ -58,7 +84,7 @@
         </div>
         @endif
 
-        @if (!$ligasPropias->isEmpty())
+        @if ($ligasPropias != null && !$ligasPropias->isEmpty())
         <h2 class="main_titulo">Organizas</h2>
         <div class="ligas_perfil">
             @foreach ($ligasPropias as $ligaPropia)

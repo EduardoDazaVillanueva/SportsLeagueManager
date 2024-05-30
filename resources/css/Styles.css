@@ -1418,11 +1418,18 @@ tbody {
   flex-direction: column;
   align-items: stretch;
   gap: 2rem;
+  width: 70%;
+  margin: 0 auto;
   padding: 2rem 5rem;
 }
 
 .liga_img-perfil {
   max-width: 30%;
+}
+
+.liga_perfil {
+  width: 80%;
+  margin: 0 auto;
 }
 
 .main-preguntas {
@@ -1471,6 +1478,8 @@ tbody {
 .alert {
   position: absolute;
   top: 200px;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1549,10 +1558,6 @@ tbody {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.envioEmail {
-  top: 150px;
 }
 
 .alerta-email_titulo {
@@ -1955,7 +1960,7 @@ tbody {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: stretch;
+  align-items: start;
   gap: 5rem;
   padding: 2rem 5rem;
   font-size: 2rem;
@@ -1964,6 +1969,8 @@ tbody {
 
 .tienda_container-izq {
   flex-basis: calc(30% - 5rem);
+  display: flex;
+  justify-content: space-around;
   background-color: #fafafa;
   border-radius: 5px;
   padding: 2rem;
@@ -1974,7 +1981,7 @@ tbody {
 }
 
 .tienda_info {
-  height: 100%;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -1984,6 +1991,12 @@ tbody {
 .tienda_nombre {
   font-size: 3rem;
   text-transform: uppercase;
+  text-align: center;
+}
+
+.tienda_descripcion {
+  width: 80%;
+  margin: 0 auto;
 }
 
 .tienda_precio {
@@ -1996,10 +2009,97 @@ tbody {
   background-color: #fafafa;
   border-radius: 5px;
   padding: 2rem;
-  height: 50vh;
+  min-height: 50vh;
   box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  margin-right: 5rem;
+}
+
+#payment-form {
+  display: grid;
+  align-items: center;
+  gap: 3rem;
+  padding: 0 5rem;
+  grid-template-areas: "num num num" "expire cvc postal" ". btn .";
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+}
+
+.form-group {
+  font-size: 2.3rem;
+  color: #040738;
+}
+
+.card-input {
+  background-color: #eee;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 0px rgba(4, 7, 56, 0.2);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(4, 7, 56, 0.2);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(4, 7, 56, 0.2);
+}
+
+.card-number {
+  grid-area: num;
+}
+
+.card-expiry {
+  grid-area: expire;
+}
+
+.card-cvc {
+  grid-area: cvc;
+}
+
+.generated-postal {
+  grid-area: postal;
+}
+
+.btn-pagar {
+  grid-area: btn;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60%;
+  border-radius: 10px;
+  font-weight: bold;
+  color: #c6cf25;
+  letter-spacing: 1px;
+  background-color: #040738;
+  box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
+  -webkit-box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
+  -moz-box-shadow: 0px 15px 8px -10px rgba(4, 7, 56, 0.5);
+  cursor: pointer;
+  transition: all 0.35s ease-in-out;
+}
+
+.btn-pagar:hover {
+  scale: 1.1;
+  box-shadow: 0px 15px 8px -10px rgb(4, 7, 56);
+  -webkit-box-shadow: 0px 15px 8px -10px rgb(4, 7, 56);
+  -moz-box-shadow: 0px 15px 8px -10px rgb(4, 7, 56);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 @media (max-width: 1200px) {
