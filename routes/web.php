@@ -5,11 +5,8 @@ use App\Http\Controllers\LigasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ViewController;
-use App\Http\Controllers\StripeController;
-use App\Mail\VerificarElEmail;
-use Illuminate\Support\Facades\Mail;
-use App\Http\Controllers\VerificationController;
-use App\Http\Middleware\ParticipaPartido;
+
+use App\Http\Controllers\PdfController;
 
 Route::controller(ViewController::class)->group(function () {
     Route::get('/', 'getWelcome')->name('welcome');
@@ -71,3 +68,6 @@ Route::get('/verify-email/{user}/{token}', function (App\Models\User $user, $tok
         return redirect('/login')->with('error', 'El enlace de verificación no es válido.');
     }
 });
+
+Route::get('/generate-send-pdf/{liga}', [PdfController::class, 'generateAndSendPdf']);
+

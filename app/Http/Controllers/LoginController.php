@@ -62,7 +62,7 @@ class LoginController extends Controller
                 $path = Storage::disk('public')->putFile('imagenes', $request->file('logo'));
                 $user['logo'] = basename($path);
             } else {
-                $user['logo'] = 'imagenes/perfil.webp';
+                $user['logo'] = 'perfil.webp';
             }
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Ligas;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,11 +62,22 @@ class YaComprado
                 return $next($request);
             }
         } else {
-            if ($comprado) {
-                return redirect()->back()->with('error', 'No puedes comprar este producto');
-            } else {
-                return $next($request);
+            $ligaId = $request->route('producto')->liga_id;
+
+            // Busca la liga por su ID
+            $liga = Ligas::find($ligaId);
+
+            if (!$liga) {
+                return redirect()->back()->with('error', 'No se encontró la liga asociada a este producto');
             }
+
+            $finalizado = $liga->fecha_final < now();
+
+            if ($comprado || $finalizado) {
+                return redirect()->back()->with('error', 'No puedes comprar este producto');
+            }
+
+            return $next($request);
         }
     }
 

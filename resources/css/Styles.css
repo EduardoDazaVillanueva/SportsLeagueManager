@@ -1220,12 +1220,6 @@ tbody {
   color: #c6cf25;
 }
 
-.tabla_img {
-  min-width: 70px;
-  max-width: 70px;
-  display: inline-block;
-}
-
 .main-infoLiga {
   display: flex;
   justify-content: center;
