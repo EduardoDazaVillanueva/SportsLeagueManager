@@ -145,6 +145,7 @@
                 @foreach ($productos->take(4) as $index => $producto)
                 <article class="card_suscripcion @if ($index == 2) resaltar @endif">
                     <form action="{{ route('compra.checkout') }}" method="GET">
+                    
                         @csrf
                         <div class="suscripcion_info">
                             <h3 class="suscripcion_nombre">{{ $producto->nombre }}</h3>
