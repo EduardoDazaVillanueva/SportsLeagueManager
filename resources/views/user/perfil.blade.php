@@ -13,26 +13,30 @@
         </div>
 
         @if($suscripcion != -1 && $suscripcion != -2 && $suscripcion != null)
-        <div>
-            <h2>Tu suscripción termina en {{$suscripcion}} días</h2>
+        <div class="div-info-perfil">
+            <h2 class="nombre_miPerfil">Suscripción</h2>
+            <p>Tu suscripción termina en <strong>{{$suscripcion}}</strong> días</p>
         </div>
         @endif
 
         @if($suscripcion == -1)
-        <div>
-            <h2>Tu suscripción a caducado, te toca <a href="/#suscripcion">renovar</a></h2>
+        <div class="div-info-perfil">
+            <h2 class="nombre_miPerfil">Suscripción</h2>
+            <p>Tu suscripción a caducado, te toca <strong><a href="/#suscripcion">renovar</a></strong></p>
         </div>
         @endif
 
         @if($suscripcion == null)
-        <div>
-            <h2>No te has suscrito todavia</h2>
+        <div class="div-info-perfil">
+            <h2 class="nombre_miPerfil">Suscripción</h2>
+            <p>No te has suscrito todavia <strong><a href="/#suscripcion">Suscribirte</a></strong></p>
         </div>
         @endif
 
         @if($suscripcion == -2)
-        <div>
-            <h2>Tu suscrpción no caduca NUNCA</h2>
+        <div class="div-info-perfil">
+            <h2 class="nombre_miPerfil">Suscripción</h2>
+            <p>Tu suscrpción no caduca <strong>NUNCA</strong></p>
         </div>
         @endif
 

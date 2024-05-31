@@ -1,26 +1,29 @@
 <x-layoutLiga :liga="$liga" :user="$user">
 
-    <form action="{{ route('liga.storeEquipo', ['liga' => $liga->id, 'userId' => $user->id]) }}" method="POST">
-        @csrf
+    <main class="main">
+        <h1 class="main_titulo">Crear Equipo</h1>
 
-        @php
-        $deporteId = $liga->deporte_id;
+        <form class="equipo-form" action="{{ route('liga.storeEquipo', ['liga' => $liga->id, 'userId' => $user->id]) }}" method="POST">
 
-        if($deporteId == 1){
-        $contador = 11;
-        }elseif($deporteId == 2){
-        $contador = 5;
-        }elseif($deporteId == 5){
-        $contador = 15;
-        }
-        @endphp
 
-        @for ($i = 0; $i < $contador; $i++) <label for="jugador{{$i + 1}}">Jugador {{$i +1}}</label>
-            <input type="text" name="jugador{{$i + 1}}" id="jugador{{$i + 1}}">
+            <div class="container-crear_equipo">
+                @csrf
 
-            @endfor
+                <div id="nombre-div">
+                    <label for="nombre" class="crear-label">Nombre del equipo*</label>
+                    <input type="text" name="nombre" id="nombre" class="crear-input" placeholder="Nombre del equipo">
+                    @error('nombre')
+                    <div class="error">
+                        <p>Nombre no válido</p>
+                    </div>
+                    @enderror
+                </div>
 
-            <button type="submit" class="crear-boton btn-unirse">CREAR</button>
-    </form>
+                <input type="hidden" name="creador" value="{{$user->id}}">
+
+                <button type="submit" class="crear-boton">Enviar</button>
+            </div>
+        </form>
+    </main>
 
 </x-layoutLiga>

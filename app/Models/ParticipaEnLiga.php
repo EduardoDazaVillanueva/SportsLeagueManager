@@ -12,6 +12,7 @@ class ParticipaEnLiga extends Model
     protected $fillable = [
         'liga_id', 
         'jugadores_id',
+        'equipo_id',
         'num_partidos',
         'num_partidos_ganados',
         'num_partidos_perdidos',

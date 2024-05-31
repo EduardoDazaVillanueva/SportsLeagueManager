@@ -128,7 +128,7 @@ class LoginController extends Controller
 
             return redirect('/');
         } else {
-            return redirect()->back()->withErrors('message', 'Auth failed bad credentials');
+            return redirect()->back()->withErrors('error', 'Auth failed bad credentials');
         }
     }
 

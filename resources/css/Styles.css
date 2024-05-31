@@ -1394,7 +1394,7 @@ tbody {
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
-  gap: 3rem;
+  gap: 1rem;
   color: #040738;
   font-size: 1.3rem;
   margin: 0.7rem;
@@ -2094,6 +2094,102 @@ tbody {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.container-crear_equipo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem 1.8rem;
+  margin-bottom: 5rem;
+  border-radius: 15px;
+  background-color: #fff;
+  font-size: 1.4rem;
+  color: #040738;
+  letter-spacing: 1px;
+  box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+}
+
+.equipo-form {
+  margin: 2.5rem;
+}
+
+.codigo_div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 3rem;
+  font-size: 4rem;
+  color: #040738;
+  padding: 0.5rem 2rem;
+  background-color: #fafafa;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+}
+
+.codigo_div i {
+  font-size: 3rem;
+  color: #040738;
+  transition: all 250ms;
+}
+
+.codigo_div i:hover {
+  scale: 1.1;
+  color: #c6cf25;
+}
+
+#copySuccess {
+  display: none;
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 1rem 2rem;
+  background-color: #040738;
+  color: #c6cf25;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  animation: copy 1.01s linear;
+}
+
+@keyframes copy {
+  0% {
+    scale: 0;
+  }
+  20% {
+    scale: 1;
+  }
+  80% {
+    scale: 1;
+  }
+  100% {
+    scale: 0;
+  }
+}
+.desc_codigo {
+  font-size: 2rem;
+  color: #040738;
+}
+
+.main-invitar_equipo {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 4rem;
+  margin: 5rem 0;
+  height: 40vh;
 }
 
 @media (max-width: 1200px) {

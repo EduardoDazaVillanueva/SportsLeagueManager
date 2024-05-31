@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('jugadores_has_equipos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jugadores_id')->constrained();
             $table->foreignId('equipo_id')->constrained();
-            $table->foreignId('liga_id')->constrained();
+
+            $table->unsignedBigInteger('jugador_id');
+            
+            $table->foreign('jugador_id')->references('id')->on('jugadores');
             
             $table->timestamps();
         });

@@ -101,7 +101,7 @@ class ViewController extends Controller
                 $ligas = ParticipaEnLiga::where('jugadores_id', $jugador->id)
                     ->join('ligas', 'participa_en_ligas.liga_id', '=', 'ligas.id')
                     ->select('ligas.*')
-                    ->paginate(5);
+                    ->paginate(4);
 
                 $ligaIds = $ligas->pluck('id');
 
@@ -117,7 +117,7 @@ class ViewController extends Controller
             }
 
             if ($organizador) {
-                $ligasPropias = Ligas::where('organizadores_id', $organizador->id)->paginate(5);
+                $ligasPropias = Ligas::where('organizadores_id', $organizador->id)->paginate(4);
 
                 $ligaIds = $ligasPropias->pluck('id');
 

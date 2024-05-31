@@ -14,7 +14,12 @@ return new class extends Migration
         Schema::create('equipos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('codigo_unirse');
+            $table->foreignId('liga_id')->constrained()->onDelete('cascade');
+
+            $table->unsignedBigInteger('creador');
             
+            $table->foreign('creador')->references('id')->on('users');
             $table->timestamps();
         });
     }

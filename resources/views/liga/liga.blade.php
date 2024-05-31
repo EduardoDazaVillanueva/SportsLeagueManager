@@ -80,10 +80,10 @@
                     @endif
                 </div>
             </div>
-            @if ($organizador->id != $user->id && $esJugador == 0)
+            @if ($organizador->id != $user->id && $esJugador == 0 && ($liga->deporte_id == 3 || $liga->deporte_id == 4))
+
             <div class="liena"></div>
             <div class="{{$mostrarBotonInscribirse ? 'div-info-liga' : 'hidden'}}">
-
                 @if ($liga->precio != 0)
                 <form action="{{ route('compra.checkout', ['producto' => $producto->id])}}" method="GET">
                     @csrf
@@ -97,8 +97,32 @@
                     <button type="submit" class="crear-boton btn-unirse">INSCRIBIRSE</button>
                 </form>
                 @endif
+            </div>
+
+            @elseif($organizador->id != $user->id && $esJugador == 0)
+
+            <div class="liena"></div>
+            <div class="{{$mostrarBotonInscribirse ? 'div-info-liga' : 'hidden'}}">
+
+                <form action="{{ route('liga.crearEquipo', ['liga' => $liga->id]) }}" method="GET">
+                    @csrf
+                    <button type="submit" class="crear-boton btn-unirse">Crear Equipo</button>
+                </form>
+
+                <form action="{{ route('liga.unirseEquipo', ['liga' => $liga->id]) }}" method="GET">
+                    @csrf
+                    <button type="submit" class="crear-boton btn-unirse">Unirse</button>
+                </form>
 
             </div>
+
+            @endif
+
+            @if ($propietarioEquipo)
+            <form action="{{ route('liga.invitarEquipo', ['liga' => $liga->id]) }}" method="GET">
+                @csrf
+                <button type="submit" class="crear-boton btn-unirse">Invitar gente a tu equipo</button>
+            </form>
             @endif
         </div>
 
@@ -137,6 +161,15 @@
             <div class="alerta envioEmail" id="alerta">
                 <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
                 <h2 class="alerta-email_titulo">{{session('error')}}</h2>
+            </div>
+        </div>
+        @endif
+
+        @if (session('success'))
+        <div class="w-100">
+            <div class="alerta envioEmail" id="alerta">
+                <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
+                <h2 class="alerta-email_titulo">{{session('success')}}</h2>
             </div>
         </div>
         @endif

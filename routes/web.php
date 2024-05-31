@@ -29,6 +29,9 @@ Route::controller(LigasController::class)->group(function () {
     Route::get('liga/invitar/{liga}', 'invitar')->middleware('auth', 'verified');
     Route::get('liga/{liga}/resultado/{idPartido}', 'resultado')->middleware('ParticipaPartido');
     Route::get('liga/{liga}/crearEquipo', 'crearEquipo')->name('liga.crearEquipo')->middleware('auth', 'verified');
+    Route::get('liga/{liga}/invitarEquipo', 'invitarEquipo')->name('liga.invitarEquipo')->middleware('auth', 'verified');
+    Route::get('liga/{liga}/unirseEquipo', 'unirseEquipo')->name('liga.unirseEquipo')->middleware('auth', 'verified');
+
 
     Route::post('liga', 'store')->name('crearLiga')->middleware('auth', 'verified');
     Route::post('/liga/{liga}/inscribirse/{userId}', 'inscribirse')->name('liga.inscribirse')->middleware('auth', 'verified');
@@ -36,6 +39,7 @@ Route::controller(LigasController::class)->group(function () {
     Route::post('/liga/{liga}/addResultado/{partido}', 'addResultado')->name('liga.addResultado')->middleware('auth', 'verified');
     Route::post('enviarInvitacion/{liga}', 'enviarInvitacion')->name('liga.enviarInvitacion');
     Route::post('/liga/{liga}/storeEquipo/{userId}', 'storeEquipo')->name('liga.storeEquipo')->middleware('auth', 'verified');
+    Route::post('/liga/{liga}/ConfrimarCodigoEquipo', 'ConfrimarCodigoEquipo')->name('liga.ConfrimarCodigoEquipo')->middleware('auth', 'verified');
 
     Route::put('ligas/{liga}', 'update')->name('ligas.update');
 });

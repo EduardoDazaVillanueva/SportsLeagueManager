@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Equipos;
 use App\Models\Ligas;
 use App\Models\Organizadores;
 use App\Models\ParticipaEnLiga;
@@ -13,7 +14,7 @@ use App\Models\Partidos;
 use App\Models\PartidoParticipaJugadores;
 use App\Models\UsuarioInvitaUsuario;
 use App\Models\User;
-use App\Models\JugadorTieneEquipo;
+use App\Models\JugadoresHasEquipo;
 use App\Models\Productos;
 
 use Illuminate\Support\Facades\DB;
@@ -100,7 +101,7 @@ class LigasController extends Controller
 
         // Validar la entrada del usuario con una regla de validación personalizada
         $validatedData = $request->validate([
-            'nombre' => ['required', 'string', 'max:255'],
+            'nombre' => ['required', 'string', 'max:255', Rule::unique('ligas', 'nombre')],
             'fecha_final' => ['required', 'date'],
             'localidad' => ['required', 'string', 'max:255'],
             'sede' => ['required', 'string', 'max:255'],
@@ -274,7 +275,11 @@ class LigasController extends Controller
 
         $producto = Productos::where('liga_id', $liga->id)->first();
 
-        
+        $propietarioEquipo = false;
+
+        $propietarioEquipo = Equipos::where('creador', Auth()->id())
+            ->where('liga_id', $liga->id)->first();
+
 
         // Devolver la vista con todos los datos
         return view('liga.liga', [
@@ -287,7 +292,8 @@ class LigasController extends Controller
             'fechaJornada' => $fechaJornada,
             'mostrarDivRango' => $this->mostrarDivRango($fechaJornada),
             'mostrarBotonInscribirse' => $this->mostrarBotonInscribirse($liga->fecha_fin_inscripcion),
-            'producto' => $producto
+            'producto' => $producto,
+            'propietarioEquipo' => $propietarioEquipo
         ]);
     }
 
@@ -654,21 +660,12 @@ class LigasController extends Controller
     public function inscribirse(string $ligaId, string $userId)
     {
         try {
+            $liga = Ligas::findOrFail($ligaId);
 
-            $deporte = Ligas::where('id', $ligaId)
-                ->select('deporte_id');
+            // Verificar si el jugador ya existe
+            $jugador = Jugadores::firstOrCreate(['user_id' => $userId]);
 
-            if ($deporte = 3 || $deporte = 4) {
-                // Verificar si el jugador ya existe
-                $jugador = Jugadores::where('user_id', $userId)->first();
-
-                if (!$jugador) {
-                    // Si no existe, crea un nuevo jugador
-                    $jugador = Jugadores::create([
-                        'user_id' => $userId
-                    ]);
-                }
-
+            if ($liga->deporte_id == 3 || $liga->deporte_id == 4) {
                 // Añadir al jugador en la tabla participa_en_liga
                 ParticipaEnLiga::create([
                     'liga_id' => $ligaId,
@@ -677,22 +674,25 @@ class LigasController extends Controller
 
                 return redirect()->back()->with('success', 'Jugador inscrito en la liga con éxito.');
             } else {
-                $jugador = Jugadores::where('user_id', $userId)
-                    ->select('id');
+                // Verificar si el usuario es creador de algún equipo en esta liga
+                $equipo = Equipos::where('creador', $userId)->where('liga_id', $ligaId)->first();
 
-                $equipo = JugadorTieneEquipo::where('jugadores_id', $jugador)
-                    ->where('liga_id', $ligaId)
-                    ->select('equipo_id');
+                if (!$equipo) {
+                    return redirect()->back()->withErrors(['error' => 'No se encontró un equipo creado por el usuario en esta liga.']);
+                }
 
                 ParticipaEnLiga::create([
                     'liga_id' => $ligaId,
-                    'equipo_id' => $equipo,
+                    'equipo_id' => $equipo->id,
                 ]);
+
+                return redirect()->back()->with('success', 'Equipo inscrito en la liga con éxito.');
             }
         } catch (Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Ocurrió un error al inscribir al jugador: ' . $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => 'Ocurrió un error al inscribir: ' . $e->getMessage()]);
         }
     }
+
 
     /**
      * Almacenar el jugador que juega la jornada y que dia quiere jugarla
@@ -1240,8 +1240,6 @@ class LigasController extends Controller
         }
     }
 
-
-
     /**
      * Enviar el email del resultado
      */
@@ -1294,17 +1292,59 @@ class LigasController extends Controller
 
     public function StoreEquipo(Request $request, Ligas $liga)
     {
-        //No funciona
         $validatedData = $request->validate([
-            'jugador1_nombre' => ['required', 'string', 'max:255'],
-            'numPistas' => ['required', 'integer', 'min:0'],
-            'pnts_ganar' => ['required', 'integer', 'min:0'],
-            'pnts_perder' => ['required', 'integer', 'min:0'],
-            'pnts_empate' => ['required', 'integer', 'min:0'],
-            'pnts_juego' => ['required', 'integer', 'min:0'],
-            'txt_responsabilidad' => ['required', 'string', 'max:1000'],
-            'logo' => ['required', 'file', 'mimes:jpg,png,gif,jpeg'],
+            'nombre' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('equipos', 'nombre')->where(function ($query) use ($liga) {
+                    return $query->where('liga_id', $liga->id);
+                }),
+            ],
+            'creador' => [
+                'required',
+            ],
         ]);
+
+        $equipo = new Equipos();
+        $equipo->nombre = $validatedData['nombre'];
+        $equipo->liga_id = $liga->id;
+        $equipo->creador = $validatedData['creador'];
+        $equipo->codigo_unirse = bin2hex(random_bytes(16));
+        $equipo->save();
+
+        $this->inscribirse($equipo->liga_id, Auth()->id());
+
+        return redirect()->route('liga.show', ['liga' => $liga->id])->with('success', 'Equipo creado exitosamente.');
+    }
+
+    public function ConfrimarCodigoEquipo(Request $request, Ligas $liga)
+    {
+        $validatedData = $request->validate([
+            'codigo' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+        ]);
+
+        $codigo = $validatedData['codigo'];
+        $unirse = Equipos::where('codigo_unirse', $codigo)->first();
+
+        if ($unirse) {
+            // Crear o encontrar el jugador basado en el user_id
+            $jugador = Jugadores::firstOrCreate(['user_id' => Auth::id()]);
+
+            // Crear la relación entre el jugador y el equipo
+            JugadoresHasEquipo::create([
+                'jugador_id' => $jugador->id,
+                'equipo_id' => $unirse->id
+            ]);
+
+            return redirect()->route('liga.show', ['liga' => $liga->id])->with('success', 'Te has unido al equipo.');
+        }
+
+        return redirect()->route('liga.show', ['liga' => $liga->id])->with('error', 'No has podido unirte al equipo.');
     }
 
     public function crearEquipo(Ligas $liga)
@@ -1313,6 +1353,27 @@ class LigasController extends Controller
             'liga' => $liga,
             'deportes' => Deportes::all(),
             'user' => Auth::user()
+        ]);
+    }
+
+    public function invitarEquipo(Ligas $liga)
+    {
+        $equipo = Equipos::where('creador', Auth()->id())->where('liga_id', $liga->id)->first();
+
+        return view('liga.invitarEquipo', [
+            'liga' => $liga,
+            'deportes' => Deportes::all(),
+            'user' => Auth::user(),
+            'equipo' => $equipo
+        ]);
+    }
+
+    public function unirseEquipo(Ligas $liga)
+    {
+        return view('liga.unirseEquipo', [
+            'liga' => $liga,
+            'deportes' => Deportes::all(),
+            'user' => Auth::user(),
         ]);
     }
 }
