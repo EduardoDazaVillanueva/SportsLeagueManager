@@ -24,7 +24,8 @@ class PdfController extends Controller
             ->select(
                 'participa_en_ligas.*',
                 'users.name as user_name',
-                'users.id as user_id'
+                'users.id as user_id',
+                'users.email as email'
             )
             ->orderBy('participa_en_ligas.puntos', 'desc')
             ->get();
@@ -43,7 +44,7 @@ class PdfController extends Controller
         $html2pdf->output($filePath, 'F');
 
         // Enviar el PDF por correo electrónico
-        $this->sendPdfByEmail($filePath);
+        $this->sendPdfByEmail($filePath, $jugadores);
 
         // Eliminar el archivo temporal después de enviarlo
         unlink($filePath);
@@ -51,18 +52,20 @@ class PdfController extends Controller
         return redirect('/');
     }
 
-    private function sendPdfByEmail($filePath)
+    private function sendPdfByEmail($filePath, $jugadores)
     {
-        $recipient = 'eduardodazavillanueva@gmail.com';
-
-        Mail::send([], [], function ($message) use ($filePath, $recipient) {
-            $message->to($recipient)
-                ->subject('Aquí está tu PDF')
-                ->attach($filePath, [
-                    'as' => 'documento.pdf',
-                    'mime' => 'application/pdf',
-                ])
-                ->html('<p>Adjunto encontrarás el PDF que solicitaste.</p>');
-        });
+        foreach ($jugadores as $jugador) {
+            $recipient = $jugador->email;
+    
+            Mail::send([], [], function ($message) use ($filePath, $recipient) {
+                $message->to($recipient)
+                    ->subject('Aquí está tu PDF')
+                    ->attach($filePath, [
+                        'as' => 'documento.pdf',
+                        'mime' => 'application/pdf',
+                    ])
+                    ->html('<p>Adjunto encontrarás el PDF que solicitaste.</p>');
+            });
+        }
     }
 }

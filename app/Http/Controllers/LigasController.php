@@ -209,14 +209,34 @@ class LigasController extends Controller
         // Verificar si el usuario es un jugador
         $jugador = Jugadores::where('user_id', $userId)->first();
 
-        $esJugador = false;
+        $esJugador = 0;
+
+        $propietarioEquipo = false;
+
+        $propietarioEquipo = Equipos::where('creador', Auth()->id())
+            ->where('liga_id', $liga->id)->first();
 
         if ($jugador) {
             // Verificar si el jugador está en la liga
             $esJugador = ParticipaEnLiga::where('liga_id', $liga->id)
                 ->where('jugadores_id', $jugador->id)
                 ->exists();
+
+                if($esJugador){
+                    $esJugador = 1;
+                }
+
+            if ($liga->deporte_id != 3 && $liga->deporte_id != 4) {
+                $perteneceEquipo = JugadoresHasEquipo::where('jugador_id', $jugador->id)->first();
+                
+                if($perteneceEquipo || $propietarioEquipo){
+                    $esJugador = 1;
+                }else{
+                    $esJugador = 0;
+                }
+            }
         }
+
 
         //Seleccionar todos los jugadores, para despues hacer un count()
         $jugadores = ParticipaEnLiga::where('liga_id', $liga->id)
@@ -275,11 +295,8 @@ class LigasController extends Controller
 
         $producto = Productos::where('liga_id', $liga->id)->first();
 
-        $propietarioEquipo = false;
-
-        $propietarioEquipo = Equipos::where('creador', Auth()->id())
-            ->where('liga_id', $liga->id)->first();
-
+        $ligaTerminada = $liga->fecha_fin > now();
+        $finInscripcion = $liga->fecha_fin_inscripcion > now();
 
         // Devolver la vista con todos los datos
         return view('liga.liga', [
@@ -293,7 +310,9 @@ class LigasController extends Controller
             'mostrarDivRango' => $this->mostrarDivRango($fechaJornada),
             'mostrarBotonInscribirse' => $this->mostrarBotonInscribirse($liga->fecha_fin_inscripcion),
             'producto' => $producto,
-            'propietarioEquipo' => $propietarioEquipo
+            'propietarioEquipo' => $propietarioEquipo,
+            'ligaTerminada' => $ligaTerminada,
+            'finInscripcion' => $finInscripcion
         ]);
     }
 
@@ -324,7 +343,7 @@ class LigasController extends Controller
     {
         $fechaJornada = Carbon::create($fechaJornada);
         $dateDiff = abs($fechaJornada->diffInDays(Carbon::now()));
-        return $dateDiff < 5 && $dateDiff > 1;
+        return $dateDiff < 6 && $dateDiff > 3;
     }
 
     /**
@@ -484,17 +503,34 @@ class LigasController extends Controller
      */
     public function ligaClasificacion(Ligas $liga)
     {
+        $perteneceEquipo = null;
         //Obtener todos los jugadores que participan en la liga, ordenados por puntos
-        $jugadores = ParticipaEnLiga::where('liga_id', $liga->id)
-            ->join('jugadores', 'participa_en_ligas.jugadores_id', '=', 'jugadores.id')
-            ->join('users', 'jugadores.user_id', '=', 'users.id')
-            ->select(
-                'participa_en_ligas.*',
-                'users.name as user_name',
-                'users.id as user_id'
-            )
-            ->orderBy('participa_en_ligas.puntos', 'desc')
-            ->get();
+        if ($liga->deporte_id == 3 || $liga->deporte_id == 4) {
+            $jugadores = ParticipaEnLiga::where('liga_id', $liga->id)
+                ->join('jugadores', 'participa_en_ligas.jugadores_id', '=', 'jugadores.id')
+                ->join('users', 'jugadores.user_id', '=', 'users.id')
+                ->select(
+                    'participa_en_ligas.*',
+                    'users.name as user_name',
+                    'users.id as user_id'
+                )
+                ->orderBy('participa_en_ligas.puntos', 'desc')
+                ->get();
+        } else {
+            $jugadores = ParticipaEnLiga::where('participa_en_ligas.liga_id', $liga->id)
+                ->join('equipos', 'participa_en_ligas.equipo_id', '=', 'equipos.id')
+                ->select(
+                    'participa_en_ligas.*',
+                    'equipos.nombre as user_name',
+                    'equipos.id as equipos_id'
+                )
+                ->orderBy('participa_en_ligas.puntos', 'desc')
+                ->get();
+
+            $idJugador = Jugadores::where('user_id', Auth()->id())->first();
+
+            $perteneceEquipo = JugadoresHasEquipo::where('jugador_id', $idJugador)->first();
+        }
 
         return view(
             'liga.ligaClasificacion',
@@ -502,6 +538,7 @@ class LigasController extends Controller
                 'liga' => $liga,
                 'user' => Auth::user(),
                 'jugadores' => $jugadores,
+                'perteneceEquipo' => $perteneceEquipo
             ]
         );
     }
@@ -511,26 +548,43 @@ class LigasController extends Controller
      */
     public function ligaJugadores(Ligas $liga)
     {
-        //Obtener todos los jugadores que participan en la liga
-        $jugadores = ParticipaEnLiga::where('liga_id', $liga->id)
-            ->join('jugadores', 'participa_en_ligas.jugadores_id', '=', 'jugadores.id')
-            ->join('users', 'jugadores.user_id', '=', 'users.id')
-            ->select(
-                'participa_en_ligas.*',
-                'users.name as user_name',
-                'users.id as user_id'
-            )
-            ->get();
+        $perteneceEquipo = null;
+        // Obtener todos los jugadores que participan en la liga
+        if ($liga->deporte_id == 3 || $liga->deporte_id == 4) {
+            $jugadores = ParticipaEnLiga::where('participa_en_ligas.liga_id', $liga->id)
+                ->join('jugadores', 'participa_en_ligas.jugadores_id', '=', 'jugadores.id')
+                ->join('users', 'jugadores.user_id', '=', 'users.id')
+                ->select(
+                    'participa_en_ligas.*',
+                    'users.name as user_name',
+                    'users.id as user_id'
+                )
+                ->get();
+        } else {
+            $jugadores = ParticipaEnLiga::where('participa_en_ligas.liga_id', $liga->id)
+                ->join('equipos', 'participa_en_ligas.equipo_id', '=', 'equipos.id')
+                ->select(
+                    'participa_en_ligas.*',
+                    'equipos.nombre as user_name'
+                )
+                ->get();
+
+            $idJugador = Jugadores::where('user_id', Auth()->id())->first();
+
+            $perteneceEquipo = JugadoresHasEquipo::where('jugador_id', $idJugador)->first();
+        }
 
         return view(
             'liga.ligaJugadores',
             [
                 'liga' => $liga,
                 'user' => Auth::user(),
-                'jugadores' => $jugadores
+                'jugadores' => $jugadores,
+                'perteneceEquipo' => $perteneceEquipo
             ]
         );
     }
+
 
     /**
      * Enviar a la vista de los partidos de una liga

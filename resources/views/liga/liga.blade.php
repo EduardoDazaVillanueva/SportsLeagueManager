@@ -80,6 +80,9 @@
                     @endif
                 </div>
             </div>
+
+            @if($finInscripcion)
+
             @if ($organizador->id != $user->id && $esJugador == 0 && ($liga->deporte_id == 3 || $liga->deporte_id == 4))
 
             <div class="liena"></div>
@@ -114,9 +117,9 @@
                     <button type="submit" class="crear-boton btn-unirse">Unirse</button>
                 </form>
 
+                @endif
             </div>
 
-            @endif
 
             @if ($propietarioEquipo)
             <form action="{{ route('liga.invitarEquipo', ['liga' => $liga->id]) }}" method="GET">
@@ -124,10 +127,20 @@
                 <button type="submit" class="crear-boton btn-unirse">Invitar gente a tu equipo</button>
             </form>
             @endif
+
         </div>
 
-        @if (!$juegaJornada && $organizador->id != $user->id && $esJugador == 1)
-        <div class=" {{$mostrarDivRango ? 'alerta' : 'hidden'}}" id="alerta">
+        @endif
+
+        <!-- Si la liga ha terminado y eres el organizador, envia un pdf a todos los jugadores -->
+        @if ($ligaTerminada && $organizador->id == $user->id)
+        <form class="enviarPDF" action="{{ route('enviarPDF', ['liga' => $liga->id]) }}" method="GET">
+            @csrf
+            <button type="submit" class="crear-boton btn-unirse">Enviar resultado</button>
+        </form>
+        @endif
+
+        @if (!$juegaJornada && $organizador->id != $user->id && $esJugador == 1 && $liga->fecha_fin_inscripcion < now()) <div class=" {{$mostrarDivRango ? 'alerta' : 'hidden'}}" id="alerta">
             <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
             <h2 class="alerta_titulo">Apuntate a la próxima jornada ({{$fechaJornada}})</h2>
 
@@ -153,26 +166,26 @@
                     <button type="submit" class="alerta_btn" id="alerta_btn">Enviar</button>
                 </div>
             </form>
-        </div>
-        @endif
-
-        @if (session('error'))
-        <div class="w-100">
-            <div class="alerta envioEmail" id="alerta">
-                <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
-                <h2 class="alerta-email_titulo">{{session('error')}}</h2>
             </div>
-        </div>
-        @endif
+            @endif
 
-        @if (session('success'))
-        <div class="w-100">
-            <div class="alerta envioEmail" id="alerta">
-                <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
-                <h2 class="alerta-email_titulo">{{session('success')}}</h2>
+            @if (session('error'))
+            <div class="w-100">
+                <div class="alerta envioEmail" id="alerta">
+                    <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
+                    <h2 class="alerta-email_titulo">{{session('error')}}</h2>
+                </div>
             </div>
-        </div>
-        @endif
+            @endif
+
+            @if (session('success'))
+            <div class="w-100">
+                <div class="alerta envioEmail" id="alerta">
+                    <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
+                    <h2 class="alerta-email_titulo">{{session('success')}}</h2>
+                </div>
+            </div>
+            @endif
     </main>
 
 </x-layoutLiga>

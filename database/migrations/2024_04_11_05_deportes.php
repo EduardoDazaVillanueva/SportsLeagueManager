@@ -24,8 +24,7 @@ return new class extends Migration
             ['nombre' => 'Fútbol'],
             ['nombre' => 'Baloncesto'],
             ['nombre' => 'Tenis'],
-            ['nombre' => 'Pádel'],
-            ['nombre' => 'Rugby']
+            ['nombre' => 'Pádel']
         ];
 
         Deportes::insert($deportes);

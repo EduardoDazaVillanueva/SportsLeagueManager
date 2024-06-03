@@ -73,5 +73,5 @@ Route::get('/verify-email/{user}/{token}', function (App\Models\User $user, $tok
     }
 });
 
-Route::get('/generate-send-pdf/{liga}', [PdfController::class, 'generateAndSendPdf']);
+Route::get('/generate-send-pdf/{liga}', [PdfController::class, 'generateAndSendPdf'])->name("enviarPDF");
 

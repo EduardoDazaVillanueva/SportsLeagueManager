@@ -1354,6 +1354,10 @@ tbody {
   margin-bottom: 14rem;
 }
 
+.enviarPDF {
+  padding-bottom: 5rem;
+}
+
 .container-titulo_perfil {
   position: relative;
   display: flex;
