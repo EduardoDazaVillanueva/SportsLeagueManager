@@ -1,7 +1,7 @@
 <x-layout :deportes="$deportes" :user="$user">
     <main class="main-invitar">
         <h1 class="login_titulo">Unirse al equipo</h1>
-        <form class="form" action="{{route('liga.ConfrimarCodigoEquipo', ['liga' => $liga->id])}}" method="POST">
+        <form class="form" action="{{route('liga.ConfirmarCodigoEquipo', ['liga' => $liga->id])}}" method="POST">
             @csrf
             <div class="flex-column">
                 <label class="titulo-input">Código de invitación </label>

@@ -1371,7 +1371,7 @@ class LigasController extends Controller
         return redirect()->route('liga.show', ['liga' => $liga->id])->with('success', 'Equipo creado exitosamente.');
     }
 
-    public function ConfrimarCodigoEquipo(Request $request, Ligas $liga)
+    public function ConfirmarCodigoEquipo(Request $request, Ligas $liga)
     {
         $validatedData = $request->validate([
             'codigo' => [

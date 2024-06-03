@@ -175,4 +175,11 @@ class ViewController extends Controller
             return floor($fechaActual->diffInDays($fechaExpiracion));
         }
     }
+
+    public function getAjustes(){
+        return view('sorpresa.ajustes', [
+            'deportes' => Deportes::all(),
+            'user' => Auth::user(),
+        ]);
+    }
 }

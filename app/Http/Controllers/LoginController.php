@@ -228,6 +228,6 @@ class LoginController extends Controller
         // Actualizar solo los campos que han sido validados y enviados
         $user->update($cleanedData);
 
-        return redirect()->route('welcome')->with('success', 'La liga ha sido actualizada con éxito.');
+        return redirect("perfil/$user->id")->with('success', 'La liga ha sido actualizada con éxito.');
     }
 }

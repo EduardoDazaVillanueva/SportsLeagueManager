@@ -13,6 +13,8 @@
             <p>Teléfono: <strong>{{ $user['telefono'] }}</strong></p>
         </div>
 
+        @if ($user->id == Auth()->id())
+
         @if($suscripcion != -1 && $suscripcion != -2 && $suscripcion != null)
         <div class="div-info-perfil">
             <h2 class="nombre_miPerfil">Suscripción</h2>
@@ -39,6 +41,8 @@
             <h2 class="nombre_miPerfil">Suscripción</h2>
             <p>Tu suscrpción no caduca <strong>NUNCA</strong></p>
         </div>
+        @endif
+
         @endif
 
         @if ($ligas != null && !$ligas->isEmpty())

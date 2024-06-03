@@ -15,7 +15,8 @@ Route::controller(ViewController::class)->group(function () {
     Route::get('perfil/{user}', 'getPerfil')->name('perfil');
     Route::get('/resposabilidad', 'getResponsabilidad');
     Route::get('/sobreNosotros', 'getSobreNosotros');
-    Route::fallback('get404');    
+    Route::get('/ajustes', 'getAjustes');  
+    Route::fallback('get404');
 });
 
 Route::controller(LigasController::class)->group(function () {
@@ -39,7 +40,7 @@ Route::controller(LigasController::class)->group(function () {
     Route::post('/liga/{liga}/addResultado/{partido}', 'addResultado')->name('liga.addResultado')->middleware('auth', 'verified');
     Route::post('enviarInvitacion/{liga}', 'enviarInvitacion')->name('liga.enviarInvitacion');
     Route::post('/liga/{liga}/storeEquipo/{userId}', 'storeEquipo')->name('liga.storeEquipo')->middleware('auth', 'verified');
-    Route::post('/liga/{liga}/ConfrimarCodigoEquipo', 'ConfrimarCodigoEquipo')->name('liga.ConfrimarCodigoEquipo')->middleware('auth', 'verified');
+    Route::post('/liga/{liga}/ConfirmarCodigoEquipo', 'ConfirmarCodigoEquipo')->name('liga.ConfirmarCodigoEquipo')->middleware('auth', 'verified');
 
     Route::put('ligas/{liga}', 'update')->name('ligas.update')->middleware('EsOrganizadorDeLiga');
 });
@@ -48,6 +49,7 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('login', 'getLogin')->middleware('guest')->name('login');
     Route::get('registro', 'register')->name('registro')->middleware('guest');
     Route::get('editar/{user}', 'edit')->middleware('auth', 'verified', 'EresTu');
+
 
     Route::post('validar-register', 'store')->name('validar-register');
     Route::post('login',  'login')->name('login');
