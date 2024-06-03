@@ -916,13 +916,13 @@ strong {
   align-items: center;
   flex-direction: column;
   gap: 1rem;
-  background-image: url("../../public/img/mapaFondo.svg");
+  background-image: url("../../public/img/numeros.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  min-height: 410px;
+  min-height: 450px;
 }
 
 .num {
