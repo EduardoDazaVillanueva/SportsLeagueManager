@@ -361,7 +361,6 @@ class LigasController extends Controller
      */
     public function edit(Ligas $liga)
     {
-
         return view('liga.edit', [
             'liga' => $liga,
             'deportes' => Deportes::all(),

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EresTu;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -20,7 +21,8 @@ return Application::configure(basePath: dirname(__DIR__))
             "EsOrganizador" => EsOrganizador::class,
             "EsOrganizadorDeLiga" => EsOrganizadorDeLiga::class,
             "ParticipaPartido" => ParticipaPartido::class,
-            "YaComprado" => YaComprado::class
+            "YaComprado" => YaComprado::class,
+            "EresTu" => EresTu::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

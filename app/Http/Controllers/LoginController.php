@@ -180,4 +180,54 @@ class LoginController extends Controller
 
         return redirect('/login')->withErrors(['email' => 'Correo electrónico no registrado.']);
     }
+
+    public function edit(User $user)
+    {
+        return view('user.edit', [
+            'deportes' => Deportes::all(),
+            'user' => $user
+        ]);
+    }
+
+    public function update(Request $request, User $user)
+    {
+        // Validar solo los campos que están presentes en la solicitud
+        $validatedData = $request->validate([
+            'name' => [
+                'sometimes',
+                'string',
+                'max:255',
+                Rule::unique('users', 'name')
+            ],
+            'logo' => [
+                'sometimes',
+                'image',
+                'mimes:jpeg,jpg,png,gif'
+            ],
+            'telefono' => [
+                'sometimes',
+                'regex:/^\+?[1-9]\d{1,14}$/'
+            ]
+        ]);
+
+        if ($request->hasFile('logo')) {
+            try {
+                $path = Storage::disk('public')->putFile('imagenes', $request->file('logo'));
+                // Incluir el nombre del archivo en validatedData
+                $validatedData['logo'] = basename($path);
+            } catch (Exception $e) {
+                return redirect()->back()->withErrors(['error' => 'Error al almacenar el archivo: ' . $e->getMessage()]);
+            }
+        }
+
+        // Remover campos nulos o vacíos del arreglo validado
+        $cleanedData = array_filter($validatedData, function ($value) {
+            return !is_null($value) && $value !== '';
+        });
+
+        // Actualizar solo los campos que han sido validados y enviados
+        $user->update($cleanedData);
+
+        return redirect()->route('welcome')->with('success', 'La liga ha sido actualizada con éxito.');
+    }
 }

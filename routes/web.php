@@ -41,18 +41,21 @@ Route::controller(LigasController::class)->group(function () {
     Route::post('/liga/{liga}/storeEquipo/{userId}', 'storeEquipo')->name('liga.storeEquipo')->middleware('auth', 'verified');
     Route::post('/liga/{liga}/ConfrimarCodigoEquipo', 'ConfrimarCodigoEquipo')->name('liga.ConfrimarCodigoEquipo')->middleware('auth', 'verified');
 
-    Route::put('ligas/{liga}', 'update')->name('ligas.update');
+    Route::put('ligas/{liga}', 'update')->name('ligas.update')->middleware('EsOrganizadorDeLiga');
 });
 
 Route::controller(LoginController::class)->group(function () {
     Route::get('login', 'getLogin')->middleware('guest')->name('login');
     Route::get('registro', 'register')->name('registro')->middleware('guest');
+    Route::get('editar/{user}', 'edit')->middleware('auth', 'verified', 'EresTu');
 
     Route::post('validar-register', 'store')->name('validar-register');
     Route::post('login',  'login')->name('login');
     Route::post('logout', 'logout')->name('logout')->middleware('auth')->withoutMiddleware('guest');
     Route::post('getUser', 'getUser')->name('getUser');
     Route::post('reenviarCorreo', 'reenviarCorreo')->name('reenviarCorreo');
+
+    Route::put('editar/{user}', 'update')->name('user.update')->middleware('auth', 'verified', 'EresTu');
 });
 
 Route::controller(CompraController::class)->group(function () {

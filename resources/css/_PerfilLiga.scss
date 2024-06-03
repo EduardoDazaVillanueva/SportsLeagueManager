@@ -87,3 +87,29 @@
     width: 80%;
     margin: 0 auto;
 }
+
+.edit-user{
+    position: absolute;
+    top: 16px;
+    right: 120px;
+    
+    background-color: $colorClaro;
+    
+    padding: 1rem;
+    border-radius: 50%;
+    
+    font-size: 2rem;
+    color: $colorPrincipal;
+    
+    cursor: pointer;
+    
+    box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
+    -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
+    
+    transition: color 200ms;
+}
+
+.edit-user:hover{
+    color: $colorSecundario;
+}

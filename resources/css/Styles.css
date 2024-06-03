@@ -1430,6 +1430,26 @@ tbody {
   margin: 0 auto;
 }
 
+.edit-user {
+  position: absolute;
+  top: 16px;
+  right: 120px;
+  background-color: #eee;
+  padding: 1rem;
+  border-radius: 50%;
+  font-size: 2rem;
+  color: #040738;
+  cursor: pointer;
+  box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
+  -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
+  transition: color 200ms;
+}
+
+.edit-user:hover {
+  color: #c6cf25;
+}
+
 .main-preguntas {
   background-color: #eee;
   padding-bottom: 5rem;
@@ -1814,6 +1834,34 @@ tbody {
   box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+}
+
+.container-edit_user {
+  display: grid;
+  grid-template-areas: "nombreUser telefono" "logoUser logoUser" "btn btn";
+  gap: 2rem;
+  padding: 2rem 1.8rem;
+  margin-bottom: 5rem;
+  border-radius: 15px;
+  background-color: #fff;
+  font-size: 1.4rem;
+  color: #040738;
+  letter-spacing: 1px;
+  box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
+}
+
+#telefono-div_user {
+  grid-area: telefono;
+}
+
+#nombre-div_user {
+  grid-area: nombreUser;
+}
+
+#logo-div_user {
+  grid-area: logoUser;
 }
 
 .pagination-links {
