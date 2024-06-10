@@ -16,8 +16,10 @@
                     <ul class="section_list">
 
                         <li class="section_option">
-                            <strong>Personalización:</strong><span> Eres tú quien decide las reglas de tu liga. Puedes establecer
-                                los puntos, las clasificaciones y otros parámetros según tus necesidades específicas.</span>
+                            <strong>Personalización:</strong><span> Eres tú quien decide las reglas de tu liga. Puedes
+                                establecer
+                                los puntos, las clasificaciones y otros parámetros según tus necesidades
+                                específicas.</span>
                         </li>
 
                         <li class="section_option">
@@ -34,7 +36,8 @@
                 <ul class="section_list hidden-section">
 
                     <li class="section_option">
-                        <strong>Personalización:</strong><span> Eres tú quien decide las reglas de tu liga. Puedes establecer
+                        <strong>Personalización:</strong><span> Eres tú quien decide las reglas de tu liga. Puedes
+                            establecer
                             los puntos, las clasificaciones y otros parámetros según tus necesidades específicas.</span>
                     </li>
 
@@ -47,18 +50,36 @@
             </div>
 
             <div class="section_right">
-                <img class="section_img-right" src="{{asset('img/liga1.png')}}" alt="">
+                <img class="section_img-right" src="{{ asset('img/liga1.png') }}" alt="">
             </div>
 
         </section>
 
         <section class="section blanco section_numeros">
-            
+            <h2 class="section_titulo mapa_titulo">SportsLeagueManager</h2>
+            <div class="container_numeros">
+
+                <div class="numeros_info">
+                    <h3 class="num">+200</h3>
+                    <p>Ligas</p>
+                </div>
+
+                <div class="numeros_info">
+                    <h3 class="num">+1.000</h3>
+                    <p>Equipos</p>
+                </div>
+
+                <div class="numeros_info">
+                    <h3 class="num">+10.000</h3>
+                    <p>Partidos realizados</p>
+                </div>
+
+            </div>
         </section>
 
         <section class="section gris">
             <div class="section_right">
-                <img class="section_img-left" src="{{asset('img/liga.webp')}}" alt="">
+                <img class="section_img-left" src="{{ asset('img/liga.webp') }}" alt="">
             </div>
 
             <div class="section_left">
@@ -77,13 +98,15 @@
 
                     <ul class="section_list">
                         <li class="section_option">
-                            <strong>Crea tu liga:</strong> Regístrate en SportsLeagueManager y crea tu propia liga. Define
+                            <strong>Crea tu liga:</strong> Regístrate en SportsLeagueManager y crea tu propia liga.
+                            Define
                             las reglas, elige
                             el deporte y personaliza los detalles.
                         </li>
 
                         <li class="section_option">
-                            <strong>Invita a participantes:</strong> Invita a tus amigos, compañeros de equipo o cualquier
+                            <strong>Invita a participantes:</strong> Invita a tus amigos, compañeros de equipo o
+                            cualquier
                             persona interesada
                             a unirse a tu liga. Pueden registrarse y participar de manera activa.
                         </li>
@@ -125,39 +148,41 @@
             <h2 class="titulo-suscripcion">suscripciones</h2>
             <div class="cards">
                 @foreach ($productos->take(4) as $index => $producto)
-                <article class="card_suscripcion @if ($index == 2) resaltar @endif">
-                    <form action="{{ route('compra.checkout', ['producto' => $producto->id])}}" method="GET">
+                    <article class="card_suscripcion @if ($index == 2) resaltar @endif">
+                        <form action="{{ route('compra.checkout', ['producto' => $producto->id]) }}" method="GET">
 
-                        @csrf
-                        <div class="suscripcion_info">
-                            <h3 class="suscripcion_nombre">{{ $producto->nombre }}</h3>
-                            <h3 class="suscripcion_precio">{{ $producto->precio }}€</h3>
-                            <h3 class="suscripcion_descripcion">{{ $producto->descripcion }}</h3>
-                            <button type="submit" class="suscripcion_btn @if ($index == 2) resaltar-btn @endif">Proceder al Pago</button>
-                        </div>
-                    </form>
-                </article>
+                            @csrf
+                            <div class="suscripcion_info">
+                                <h3 class="suscripcion_nombre">{{ $producto->nombre }}</h3>
+                                <h3 class="suscripcion_precio">{{ $producto->precio }}€</h3>
+                                <h3 class="suscripcion_descripcion">{{ $producto->descripcion }}</h3>
+                                <button type="submit"
+                                    class="suscripcion_btn @if ($index == 2) resaltar-btn @endif">Proceder
+                                    al Pago</button>
+                            </div>
+                        </form>
+                    </article>
                 @endforeach
 
             </div>
         </section>
 
         @if (!empty($success))
-        <div class="w-100">
-            <div class="alerta envioEmail" id="alerta">
-                <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
-                <h2 class="alerta-email_titulo">{{ $success }}</h2>
+            <div class="w-100">
+                <div class="alerta envioEmail" id="alerta">
+                    <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
+                    <h2 class="alerta-email_titulo">{{ $success }}</h2>
+                </div>
             </div>
-        </div>
         @endif
 
         @if (session('error'))
-        <div class="w-100">
-            <div class="alerta envioEmail" id="alerta">
-                <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
-                <h2 class="alerta-email_titulo">{{session('error')}}</h2>
+            <div class="w-100">
+                <div class="alerta envioEmail" id="alerta">
+                    <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
+                    <h2 class="alerta-email_titulo">{{ session('error') }}</h2>
+                </div>
             </div>
-        </div>
         @endif
 
     </main>

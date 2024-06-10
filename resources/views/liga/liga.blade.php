@@ -102,7 +102,7 @@
                 @endif
             </div>
 
-            @elseif($organizador->id != $user->id && $esJugador == 0)
+            @elseif($organizador->id != $user->id && $esJugador == 0 )
 
             <div class="liena"></div>
             <div class="{{$mostrarBotonInscribirse ? 'div-info-liga' : 'hidden'}}">
