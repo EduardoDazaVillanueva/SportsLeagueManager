@@ -132,14 +132,6 @@
 
         @endif
 
-        <!-- Si la liga ha terminado y eres el organizador, envia un pdf a todos los jugadores -->
-        @if ($ligaTerminada && $organizador->id == $user->id)
-        <form class="enviarPDF" action="{{ route('enviarPDF', ['liga' => $liga->id]) }}" method="GET">
-            @csrf
-            <button type="submit" class="crear-boton btn-unirse">Enviar resultado</button>
-        </form>
-        @endif
-
         @if (!$juegaJornada && $organizador->id != $user->id && $esJugador == 1 && $liga->fecha_fin_inscripcion < now()) <div class=" {{$mostrarDivRango ? 'alerta' : 'hidden'}}" id="alerta">
             <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>
             <h2 class="alerta_titulo">Apuntate a la próxima jornada ({{$fechaJornada}})</h2>

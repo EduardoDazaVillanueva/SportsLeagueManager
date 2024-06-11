@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ViewController;
 
-use App\Http\Controllers\PdfController;
-
 Route::controller(ViewController::class)->group(function () {
     Route::get('/', 'getWelcome')->name('welcome');
     Route::get('faq', 'getFAQ')->name('faq');
@@ -78,5 +76,4 @@ Route::get('/verify-email/{user}/{token}', function (App\Models\User $user, $tok
     }
 });
 
-Route::get('/generate-send-pdf/{liga}', [PdfController::class, 'generateAndSendPdf'])->name("enviarPDF");
 
