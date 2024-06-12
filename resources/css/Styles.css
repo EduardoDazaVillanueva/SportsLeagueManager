@@ -693,7 +693,8 @@ i {
     opacity: 100%;
   }
 }
-.nav {
+.nav,
+.nav-liga {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -715,7 +716,8 @@ i {
   color: #040738;
 }
 
-.nav_list {
+.nav_list,
+.nav_list-liga {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -726,6 +728,7 @@ i {
 }
 
 .nav_list li,
+.nav_list-liga li,
 .list_option {
   color: #fafafa;
   font-weight: 600;
@@ -738,6 +741,7 @@ i {
 }
 
 .nav_list li:hover,
+.nav_list-liga li:hover,
 .list_option:hover {
   color: #c6cf25;
   scale: 1.1;
@@ -792,8 +796,6 @@ i {
   justify-content: end;
   align-items: center;
   gap: 0.4rem;
-  min-width: 300px;
-  max-width: 300px;
 }
 
 .foto-nav {
@@ -813,7 +815,6 @@ i {
 }
 
 .inicio-sesion-login {
-  min-width: 300px;
   text-align: end;
 }
 
@@ -1320,14 +1321,21 @@ tbody {
   gap: 3rem;
 }
 
+.opciones-liga_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+
 .share,
 .edit {
-  position: absolute;
-  top: -20px;
-  right: -40px;
   background-color: #eee;
   padding: 1rem;
-  border-radius: 50%;
+  border-radius: 5px;
   font-size: 2rem;
   color: #040738;
   cursor: pointer;
@@ -1932,11 +1940,13 @@ tbody {
   color: #c6cf25;
 }
 
-.section-cards {
+.cards {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 3rem;
 }
 
 .section-cards_titulo {
@@ -1958,14 +1968,6 @@ tbody {
   letter-spacing: 1px;
   color: #040738;
   text-transform: uppercase;
-}
-
-.cards {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 3rem;
 }
 
 .card_suscripcion {
@@ -2042,7 +2044,7 @@ tbody {
   justify-content: space-around;
   align-items: start;
   gap: 5rem;
-  padding: 2rem 5rem;
+  padding: 2rem;
   font-size: 2rem;
   color: #040738;
 }
@@ -2054,14 +2056,12 @@ tbody {
   background-color: #fafafa;
   border-radius: 5px;
   padding: 2rem;
-  min-height: 50vh;
   box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -webkit-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
   -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
 }
 
 .tienda_info {
-  height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -2278,6 +2278,16 @@ tbody {
   height: 40vh;
 }
 
+@media (max-width: 1280px) {
+  .container_foto-nav-liga {
+    min-width: 200px;
+    max-width: 200px;
+  }
+  .logo-liga {
+    min-width: 200px;
+    max-width: 200px;
+  }
+}
 @media (max-width: 1200px) {
   .main_section1 {
     justify-content: center;
@@ -2297,12 +2307,28 @@ tbody {
     font-size: 3rem;
   }
 }
+@media (max-width: 1100px) {
+  .tienda_container-der {
+    margin: 0;
+  }
+  #payment-form {
+    grid-template-areas: "num num" "expire cvc" "postal postal" "btn btn";
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 @media (max-width: 1035px) {
   .logo {
     max-width: 200px;
   }
-  .inicio-sesion {
-    min-width: 200px;
+  .container_foto-nav-liga {
+    min-width: 100px;
+    max-width: 100px;
+  }
+  .nav_list-liga {
+    gap: 1rem;
+  }
+  .nav-liga {
+    font-size: 1.5rem;
   }
 }
 @media (max-width: 945px) {
@@ -2320,6 +2346,9 @@ tbody {
   .nav {
     gap: 1rem;
     font-size: 1.5rem;
+  }
+  .foto-nav-liga {
+    max-width: 50%;
   }
 }
 @media (max-width: 890px) {
@@ -2385,6 +2414,18 @@ tbody {
     -moz-box-shadow: 0px 0px 10px 0px rgba(4, 7, 56, 0.2);
     cursor: pointer;
   }
+  .container_tienda {
+    display: block;
+  }
+  .tienda_container-izq {
+    margin-bottom: 3rem;
+  }
+}
+@media (max-width: 800px) {
+  .logo-liga {
+    min-width: 150px;
+    max-width: 150px;
+  }
 }
 @media (max-width: 750px) {
   .container-crear {
@@ -2406,6 +2447,12 @@ tbody {
     padding: 1rem 1rem;
   }
   .sin-partidos {
+    font-size: 2rem;
+  }
+  .alerta {
+    width: 80%;
+  }
+  .alerta-email_titulo {
     font-size: 2rem;
   }
   .nav {
@@ -2496,6 +2543,15 @@ tbody {
   .menu_lista {
     order: 3;
   }
+  .logo-movil {
+    order: 1;
+  }
+  .nav_list-movil {
+    order: 3;
+  }
+  .container_foto-nav-movil {
+    order: 2;
+  }
 }
 @media (max-width: 650px) {
   .container-pregunta summary {
@@ -2525,6 +2581,18 @@ tbody {
   }
   .form {
     width: 300px;
+  }
+  #payment-form {
+    grid-template-areas: "num" "expire" "cvc" "postal" "btn";
+    gap: 1rem;
+    grid-template-columns: auto;
+    padding: 0;
+  }
+  .tienda_nombre {
+    font-size: 2rem;
+  }
+  .form-group {
+    font-size: 1.5rem;
   }
 }
 @media (max-width: 500px) {
@@ -2584,6 +2652,22 @@ tbody {
 @media (max-width: 350px) {
   .form {
     width: 250px;
+  }
+  .card_suscripcion {
+    width: 200px;
+    height: 450px;
+  }
+  .suscripcion_nombre {
+    font-size: 1.5rem;
+  }
+  .suscripcion_precio {
+    font-size: 2rem;
+  }
+  .suscripcion_descripcion {
+    font-size: 1.2rem;
+  }
+  .suscripcion_btn {
+    padding: 1rem;
   }
 }
 @media (max-width: 300px) {

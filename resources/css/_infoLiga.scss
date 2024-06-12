@@ -119,16 +119,24 @@
     gap: 3rem;
 }
 
+.opciones-liga_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 3rem;
+
+    margin-bottom: 2rem;
+}
+
 .share,
 .edit{
-    position: absolute;
-    top: -20px;
-    right: -40px;
     
     background-color: $colorClaro;
     
     padding: 1rem;
-    border-radius: 50%;
+    border-radius: 5px;
     
     font-size: 2rem;
     color: $colorPrincipal;

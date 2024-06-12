@@ -1,3 +1,15 @@
+@media (max-width: 1280px) {
+    .container_foto-nav-liga {
+        min-width: 200px;
+        max-width: 200px;
+    }
+
+    .logo-liga {
+        min-width: 200px;
+        max-width: 200px;
+    }
+}
+
 @media (max-width: 1200px) {
     .main_section1 {
         justify-content: center;
@@ -22,13 +34,37 @@
     }
 }
 
+@media (max-width: 1100px) {
+    .tienda_container-der {
+        margin: 0;
+    }
+
+    #payment-form {
+        grid-template-areas: 'num num'
+            'expire cvc'
+            'postal postal'
+            'btn btn';
+
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 1035px) {
     .logo {
         max-width: 200px;
     }
 
-    .inicio-sesion {
-        min-width: 200px;
+    .container_foto-nav-liga {
+        min-width: 100px;
+        max-width: 100px;
+    }
+
+    .nav_list-liga {
+        gap: 1rem;
+    }
+
+    .nav-liga {
+        font-size: 1.5rem;
     }
 }
 
@@ -50,6 +86,10 @@
     .nav {
         gap: 1rem;
         font-size: 1.5rem;
+    }
+
+    .foto-nav-liga {
+        max-width: 50%;
     }
 }
 
@@ -140,7 +180,24 @@
 
         cursor: pointer;
     }
+
+    .container_tienda {
+        display: block;
+    }
+
+    .tienda_container-izq {
+        margin-bottom: 3rem;
+    }
 }
+
+@media (max-width: 800px) {
+
+    .logo-liga {
+        min-width: 150px;
+        max-width: 150px;
+    }
+}
+
 
 @media (max-width: 750px) {
 
@@ -179,6 +236,14 @@
     }
 
     .sin-partidos {
+        font-size: 2rem;
+    }
+
+    .alerta {
+        width: 80%;
+    }
+
+    .alerta-email_titulo {
         font-size: 2rem;
     }
 
@@ -299,6 +364,19 @@
     .menu_lista {
         order: 3;
     }
+
+    .logo-movil {
+        order: 1;
+    }
+
+    .nav_list-movil {
+        order: 3;
+    }
+
+    .container_foto-nav-movil {
+        order: 2;
+    }
+
 }
 
 @media (max-width: 650px) {
@@ -336,6 +414,27 @@
 
     .form {
         width: 300px;
+    }
+
+    #payment-form {
+        grid-template-areas: 'num'
+            'expire'
+            'cvc'
+            'postal'
+            'btn';
+
+            gap: 1rem;
+        grid-template-columns: auto;
+
+        padding: 0;
+    }
+
+    .tienda_nombre{
+        font-size: 2rem;
+    }
+
+    .form-group{
+        font-size: 1.5rem;
     }
 }
 
@@ -377,12 +476,12 @@
         max-height: 100px;
     }
 
-    .liga_img-perfil{
+    .liga_img-perfil {
         max-width: 50%;
     }
 
-    .ligas_perfil{    
-        padding: 2rem ;
+    .ligas_perfil {
+        padding: 2rem;
     }
 }
 
@@ -405,31 +504,52 @@
 
     .container-crear {
         grid-template-areas:
-        "nombre" 
-        "fecha_inicio"
-        "fecha_final" 
-        "fecha_fin_inscripcion"
-        "logo"
-        "localidad"
-        "sede" 
-        "dia_jornada"
-        "dia_jornada"
-        "numPistas" 
-        "primera_hora" 
-        "ultima_hora "
-        "pnts_ganar" 
-        "pnts_perder"
-        "pnts_empate" 
-        "pnts_juego"
-        "inscripcion"
-        "txt_responsabilidad "
-        "btn";
+            "nombre"
+            "fecha_inicio"
+            "fecha_final"
+            "fecha_fin_inscripcion"
+            "logo"
+            "localidad"
+            "sede"
+            "dia_jornada"
+            "dia_jornada"
+            "numPistas"
+            "primera_hora"
+            "ultima_hora "
+            "pnts_ganar"
+            "pnts_perder"
+            "pnts_empate"
+            "pnts_juego"
+            "inscripcion"
+            "txt_responsabilidad "
+            "btn";
     }
 }
 
 @media (max-width: 350px) {
     .form {
         width: 250px;
+    }
+
+    .card_suscripcion {
+        width: 200px;
+        height: 450px;
+    }
+
+    .suscripcion_nombre {
+        font-size: 1.5rem;
+    }
+
+    .suscripcion_precio {
+        font-size: 2rem;
+    }
+
+    .suscripcion_descripcion {
+        font-size: 1.2rem;
+    }
+
+    .suscripcion_btn {
+        padding: 1rem;
     }
 }
 

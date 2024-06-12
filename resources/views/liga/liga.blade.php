@@ -6,14 +6,16 @@
             <h1 class="titulo_infoLiga">{{$liga->nombre}}</h1>
         </div>
 
-        <div class="container-infoLiga">
+        @if ($organizador->id == $user->id)
+        <div class="opciones-liga_container">
+            <a href="/liga/editar/{{$liga->id}}" class="edit">Editar <i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="/liga/invitar/{{$liga->id}}" class="share">Compartir<i class="fa-solid fa-share-nodes"></i></a>
+        </div>
+        @else
+        <a href="/liga/invitar/{{$liga->id}}" class="share"><i class="fa-solid fa-share-nodes"></i></a>
+        @endif
 
-            @if ($organizador->id == $user->id)
-            <a href="/liga/editar/{{$liga->id}}"><i class="fa-solid fa-pen-to-square edit"></i></a>
-            <a href="/liga/invitar/{{$liga->id}}"><i class="fa-solid fa-share-nodes share"></i></a>
-            @else
-            <a href="/liga/invitar/{{$liga->id}}"><i class="fa-solid fa-share-nodes share"></i></a>
-            @endif
+        <div class="container-infoLiga">
 
             <div class="div-info-liga">
                 <p>Localidad: <strong>{{$liga->localidad}}</strong></p>

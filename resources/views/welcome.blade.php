@@ -145,7 +145,7 @@
         </section>
 
         <section class="section blanco section-suscripcion" id="suscripcion">
-            <h2 class="titulo-suscripcion">suscripciones</h2>
+            <h2 class="section_titulo">suscripciones</h2>
             <div class="cards">
                 @foreach ($productos->take(4) as $index => $producto)
                     <article class="card_suscripcion @if ($index == 2) resaltar @endif">
