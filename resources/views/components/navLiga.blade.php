@@ -15,7 +15,7 @@
 
     <div class="container_foto-nav container_foto-nav-liga">
 
-        <img class="foto-nav foto-nav-liga" src="{{ asset('storage/imagenes/' . auth()->user()->logo) }}" alt="">
+        <img class="foto-nav foto-nav-liga" src="{{ asset('storage/imagenes/' . auth()->user()->logo) }}" alt="Imagen de perfil del usuario">
 
         <li class="desplegable"><span class="nombre-user">{{ auth()->user()->name }}</span>
             <ul class="nav_list mover">
@@ -49,7 +49,7 @@
 
     <div class="container_foto-nav container_foto-nav-movil">
 
-        <img class="foto-nav" src="{{ asset('storage/imagenes/' . auth()->user()->logo) }}" alt="">
+        <img class="foto-nav" src="{{ asset('storage/imagenes/' . auth()->user()->logo) }}" alt="Imagen de perfil del usuario">
 
         <li class="desplegable"><span class="nombre-user">{{ auth()->user()->name }}</span>
             <ul class="nav_list mover">

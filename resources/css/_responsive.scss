@@ -551,6 +551,11 @@
     .suscripcion_btn {
         padding: 1rem;
     }
+
+    .opciones-liga_container{
+        flex-direction: column;
+        gap: .2rem;
+    }
 }
 
 @media (max-width: 300px) {

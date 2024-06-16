@@ -222,16 +222,20 @@ class LigasController extends Controller
                 ->where('jugadores_id', $jugador->id)
                 ->exists();
 
-                if($esJugador){
-                    $esJugador = 1;
-                }
+            if ($esJugador) {
+                $esJugador = 1;
+            }
 
             if ($liga->deporte_id != 3 && $liga->deporte_id != 4) {
-                $perteneceEquipo = JugadoresHasEquipo::where('jugador_id', $jugador->id)->first();
-                
-                if($perteneceEquipo || $propietarioEquipo){
+                $perteneceEquipo = JugadoresHasEquipo::join('equipos', 'jugadores_has_equipos.equipo_id', '=', 'equipos.id')
+                    ->where('jugadores_has_equipos.jugador_id', $jugador->id)
+                    ->where('equipos.liga_id', $liga->id)
+                    ->select('jugadores_has_equipos.*')
+                    ->first();
+
+                if ($perteneceEquipo || $propietarioEquipo) {
                     $esJugador = 1;
-                }else{
+                } else {
                     $esJugador = 0;
                 }
             }

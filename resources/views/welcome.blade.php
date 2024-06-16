@@ -50,7 +50,7 @@
             </div>
 
             <div class="section_right">
-                <img class="section_img-right" src="{{ asset('img/liga1.png') }}" alt="">
+                <img class="section_img-right" src="{{ asset('img/liga1.png') }}" alt="Imagen de información de la web">
             </div>
 
         </section>
@@ -79,7 +79,7 @@
 
         <section class="section gris">
             <div class="section_right">
-                <img class="section_img-left" src="{{ asset('img/liga.webp') }}" alt="">
+                <img class="section_img-left" src="{{ asset('img/liga.webp') }}" alt="Imagen de información de la liga">
             </div>
 
             <div class="section_left">

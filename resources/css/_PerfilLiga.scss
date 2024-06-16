@@ -48,6 +48,7 @@
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 1rem;
 
     color: $colorPrincipal;
@@ -79,6 +80,10 @@
     padding: 2rem 5rem;
 }
 
+.unirse{
+    margin-bottom: 2rem;
+}
+
 .liga_img-perfil{
     max-width: 30%;
 }
@@ -89,27 +94,23 @@
 }
 
 .edit-user{
-    position: absolute;
-    top: 16px;
-    right: 120px;
-    
-    background-color: $colorClaro;
-    
-    padding: 1rem;
-    border-radius: 50%;
-    
     font-size: 2rem;
     color: $colorPrincipal;
     
     cursor: pointer;
     
-    box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
-    -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
-    -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
-    
     transition: color 200ms;
 }
 
-.edit-user:hover{
+.edit-txt{
+    color: $colorPrincipal;
+    font-size: 2rem;  
+    padding-right: 1rem; 
+
+    transition: color 200ms;
+}
+
+.edit-btn:hover .edit-txt,
+.edit-btn:hover .edit-user{
     color: $colorSecundario;
 }

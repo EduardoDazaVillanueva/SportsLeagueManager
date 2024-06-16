@@ -2,10 +2,12 @@
     <main class="main-infoLiga">
 
         <div class="container-titulo_perfil">
-            <img src="{{ asset('storage/imagenes/' . $user['logo']) }}" alt="" class="img_perfil">
+            <img src="{{ asset('storage/imagenes/' . $user['logo']) }}" alt="Imagen de perfil del usuario" class="img_perfil">
             <h1 class="titulo_miPerfil">{{ $user['name'] }}</h1>
-            <a href="/editar/{{$user->id}}"><i class="fa-solid fa-pen-to-square edit-user"></i></a>
         </div>
+        @if ($user->id == Auth()->id())
+        <a href="/editar/{{$user->id}}" class="edit-btn"><span class="edit-txt">Editar</span><i class="fa-solid fa-pen-to-square edit-user"></i></a>
+        @endif
 
         <div class="div-info-perfil">
             <h2 class="nombre_miPerfil">Datos personales</h2>

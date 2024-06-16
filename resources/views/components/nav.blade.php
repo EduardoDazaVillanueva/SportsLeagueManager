@@ -23,7 +23,7 @@
     @auth
         <div class="container_foto-nav">
 
-            <img class="foto-nav" src="{{ asset('storage/imagenes/' . auth()->user()->logo) }}" alt="">
+            <img class="foto-nav" src="{{ asset('storage/imagenes/' . auth()->user()->logo) }}" alt="Imagen de perfil del usuario">
 
             <li class="desplegable"><span class="nombre-user">{{ auth()->user()->name }}</span>
                 <ul class="nav_list mover">
@@ -67,7 +67,7 @@
     @auth
         <div class="container_foto-nav">
 
-            <img class="foto-nav" src="{{ asset('storage/imagenes/' . auth()->user()->logo) }}" alt="">
+            <img class="foto-nav" src="{{ asset('storage/imagenes/' . auth()->user()->logo) }}" alt="Imagen de perfil del usuario">
 
             <li class="desplegable"><span class="nombre-user">{{ auth()->user()->name }}</span>
                 <ul class="nav_list mover">

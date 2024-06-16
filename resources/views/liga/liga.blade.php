@@ -2,17 +2,17 @@
     <main class="main-infoLiga">
 
         <div class="container-titulo_infoLiga">
-            <img src="{{asset('storage/imagenes/' . $liga->logo)}}" alt="" class="img_infoLiga">
+            <img src="{{asset('storage/imagenes/' . $liga->logo)}}" alt="Imagen de perfil de la liga" class="img_infoLiga">
             <h1 class="titulo_infoLiga">{{$liga->nombre}}</h1>
         </div>
 
         @if ($organizador->id == $user->id)
         <div class="opciones-liga_container">
-            <a href="/liga/editar/{{$liga->id}}" class="edit">Editar <i class="fa-solid fa-pen-to-square"></i></a>
-            <a href="/liga/invitar/{{$liga->id}}" class="share">Compartir<i class="fa-solid fa-share-nodes"></i></a>
+            <a href="/liga/editar/{{$liga->id}}" class="edit"><span class="edit-txt">Editar</span> <i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="/liga/invitar/{{$liga->id}}" class="share"><span class="edit-txt">Compartir</span><i class="fa-solid fa-share-nodes"></i></a>
         </div>
         @else
-        <a href="/liga/invitar/{{$liga->id}}" class="share"><i class="fa-solid fa-share-nodes"></i></a>
+        <a href="/liga/invitar/{{$liga->id}}" class="share"><span class="edit-txt">Compartir</span><i class="fa-solid fa-share-nodes"></i></a>
         @endif
 
         <div class="container-infoLiga">
@@ -83,8 +83,6 @@
                 </div>
             </div>
 
-            @if($finInscripcion)
-
             @if ($organizador->id != $user->id && $esJugador == 0 && ($liga->deporte_id == 3 || $liga->deporte_id == 4))
 
             <div class="liena"></div>
@@ -124,15 +122,13 @@
 
 
             @if ($propietarioEquipo)
-            <form action="{{ route('liga.invitarEquipo', ['liga' => $liga->id]) }}" method="GET">
+            <form action="{{ route('liga.invitarEquipo', ['liga' => $liga->id]) }}" method="GET" class="unirse">
                 @csrf
                 <button type="submit" class="crear-boton btn-unirse">Invitar gente a tu equipo</button>
             </form>
             @endif
 
         </div>
-
-        @endif
 
         @if (!$juegaJornada && $organizador->id != $user->id && $esJugador == 1 && $liga->fecha_fin_inscripcion < now()) <div class=" {{$mostrarDivRango ? 'alerta' : 'hidden'}}" id="alerta">
             <i class="fa-solid fa-xmark alerta_salir" onclick="cerrar()"></i>

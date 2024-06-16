@@ -1226,6 +1226,7 @@ tbody {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  min-height: 80vh;
 }
 
 .container-titulo_infoLiga {
@@ -1336,22 +1337,19 @@ tbody {
   background-color: #eee;
   padding: 1rem;
   border-radius: 5px;
+  margin-bottom: 2rem;
   font-size: 2rem;
   color: #040738;
   cursor: pointer;
   box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
   -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
   -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
-  transition: color 200ms;
+  transition: scale 200ms;
 }
 
-.edit {
-  right: 30px;
-}
-
-.edit:hover,
-.share:hover {
-  color: #c6cf25;
+.share:hover,
+.edit:hover {
+  scale: 1.1;
 }
 
 .main-invitar {
@@ -1406,6 +1404,7 @@ tbody {
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 1rem;
   color: #040738;
   font-size: 1.3rem;
@@ -1429,6 +1428,10 @@ tbody {
   padding: 2rem 5rem;
 }
 
+.unirse {
+  margin-bottom: 2rem;
+}
+
 .liga_img-perfil {
   max-width: 30%;
 }
@@ -1439,22 +1442,21 @@ tbody {
 }
 
 .edit-user {
-  position: absolute;
-  top: 16px;
-  right: 120px;
-  background-color: #eee;
-  padding: 1rem;
-  border-radius: 50%;
   font-size: 2rem;
   color: #040738;
   cursor: pointer;
-  box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.24);
-  -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
-  -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
   transition: color 200ms;
 }
 
-.edit-user:hover {
+.edit-txt {
+  color: #040738;
+  font-size: 2rem;
+  padding-right: 1rem;
+  transition: color 200ms;
+}
+
+.edit-btn:hover .edit-txt,
+.edit-btn:hover .edit-user {
   color: #c6cf25;
 }
 
@@ -2668,6 +2670,10 @@ tbody {
   }
   .suscripcion_btn {
     padding: 1rem;
+  }
+  .opciones-liga_container {
+    flex-direction: column;
+    gap: 0.2rem;
   }
 }
 @media (max-width: 300px) {

@@ -3,6 +3,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    min-height: 80vh;
 }
 
 .container-titulo_infoLiga {
@@ -132,11 +134,11 @@
 
 .share,
 .edit{
-    
     background-color: $colorClaro;
     
     padding: 1rem;
     border-radius: 5px;
+    margin-bottom: 2rem;
     
     font-size: 2rem;
     color: $colorPrincipal;
@@ -147,16 +149,12 @@
     -webkit-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
     -moz-box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.24);
     
-    transition: color 200ms;
+    transition: scale 200ms;
 }
 
-.edit {
-    right: 30px;
-}
-
-.edit:hover,
-.share:hover{
-    color: $colorSecundario;
+.share:hover,
+.edit:hover{
+    scale: 1.1;
 }
 
 .main-invitar {
